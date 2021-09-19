@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
+  <div class="">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Grupo 3</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,18 +9,18 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" routerLink="/tareas">Tareas</a>
+            <a class="nav-link " aria-current="page" routerLink="/tareas" routerLinkActive="active">Tareas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" routerLink="/tareas-privadas">Tareas-privadas</a>
+            <a class="nav-link " aria-current="page" routerLink="/tareas-privadas" routerLinkActive="active">Tareas-privadas</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" routerLink="/registrar">Registrarme</a>
+            <a class="nav-link " aria-current="page" routerLink="/registrar" routerLinkActive="active">Registrarme</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" routerLink="/ingresar">Ingresar</a>
+            <a class="nav-link " aria-current="page" routerLink="/ingresar" routerLinkActive="active">Ingresar</a>
           </li>
         </ul>
       </div>
@@ -28,4 +28,7 @@
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="container p-5">
+  <router-outlet></router-outlet>
+</div>
+

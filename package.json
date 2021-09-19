@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
+    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "postinstall": "cd src/client/frontend && npm install && ng build --prod"
   },
   "keywords": [],

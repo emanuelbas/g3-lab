@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar',
@@ -13,7 +14,9 @@ export class RegistrarComponent implements OnInit {
     email : '',
     password : ''
   }
-  constructor(private authService : AuthService) { }
+  constructor(
+    private authService : AuthService,
+    private router: Router) { }
 
   
 
@@ -23,6 +26,8 @@ export class RegistrarComponent implements OnInit {
   registrar(){
     this.authService.registrar(this.usuario).subscribe(res => {
       console.log(res);
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/tareas-privadas']);
     },
     err => {
       console.log(err);

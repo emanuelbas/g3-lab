@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "comentario": "cd src/client/frontend && npm install && ng build --prod"
+    "postinstall": "cd src/client/frontend && npm install && ng build --prod"
   },
   "keywords": [],
   "author": "",

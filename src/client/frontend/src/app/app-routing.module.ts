@@ -7,6 +7,8 @@ import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-pri
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
   {
@@ -20,7 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'tareas-privadas',
-    component: TareasPrivadasComponent
+    component: TareasPrivadasComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'ingresar',

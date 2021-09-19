@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private URL = 'grupo3-mean.herokuapp.com/api'
+  private URL = '/api'
 
   constructor(private http:HttpClient) { }
 

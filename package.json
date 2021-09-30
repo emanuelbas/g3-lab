@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "ng": "cd src/client/frontend && ng serve",
     "start": "node src/index.js",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "postinstall": "cd src/client/frontend && npm install && ng build --prod"

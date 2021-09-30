@@ -1,6 +1,6 @@
 # init-express-mongo-cloud
 
-Probando express con mongoose y una BD Cloud de Mongo
+Probando express con mongoose y una BD Cloud de Mongo, Angular y Heroku
 
 # Pre-requisitos
 
@@ -14,15 +14,3 @@ Probando express con mongoose y una BD Cloud de Mongo
 # Uso
 
 Correr el comando "npm run dev"
-
-# Pruebas
-
-Por POST
-
-http://localhost:3000/api/registro
-http://localhost:3000/api/ingresar
-
-{
-    "email"    : "ejemplo@gmail.com",
-    "password" : "1234"
-}

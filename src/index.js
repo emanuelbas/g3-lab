@@ -23,7 +23,4 @@ app.listen(PORT, () => {
   console.log(`Mixing it up on port ${PORT}`)
 })
 
-//app.listen(3000);
-//console.log('Server on port', 3000);
-
 

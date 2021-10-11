@@ -12,14 +12,10 @@ export class AuthService {
   constructor(private http:HttpClient, private router: Router) { }
 
   registrar(usuario : any){
-    console.log("Se va a tirar un registrar");
-    
     return this.http.post<any>(this.URL + '/registrar', usuario)
   }
 
-  ingresar(usuario : any){
-    console.log("Se va a probar loguear con un usuario");
-    
+  ingresar(usuario : any){   
     return this.http.post<any>(this.URL + '/ingresar', usuario)
   }
 
@@ -29,6 +25,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('rol');
     this.router.navigate(['/tasks']);
   }
 

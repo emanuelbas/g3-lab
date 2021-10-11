@@ -71,7 +71,8 @@ router.post('/ingresar', async (req, res) => {
     if (user.password !== password) return res.status(401).send('Password incorrecta');
 
     const token = jwt.sign({ _id: user._id }, 'secretKey');
-    return res.status(200).json({ token });
+    const rol = user.rol;
+    return res.status(200).json({ token, rol });
 })
 // S1R01 - F
 

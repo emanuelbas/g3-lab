@@ -12,6 +12,9 @@ import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-pri
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
+import { E404PaginaNoEncontradaComponent } from './components/ventanas-error/e404-pagina-no-encontrada/e404-pagina-no-encontrada.component';
+import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio-en-mantenimiento/sitio-en-mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     RegistrarComponent,
     IngresarComponent,
     TareasComponent,
-    TareasPrivadasComponent
+    TareasPrivadasComponent,
+    E403AccesoNoPermitidoComponent,
+    E404PaginaNoEncontradaComponent,
+    SitioEnMantenimientoComponent
   ],
   imports: [
     BrowserModule,

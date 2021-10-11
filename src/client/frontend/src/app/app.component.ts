@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'frontend';
-
+  rol = localStorage.getItem('rol');
   //Tuve que ponerlo en public
   //https://stackoverflow.com/questions/43141576/property-x-is-private-and-only-accessible-within-class-xyzcomponent
   constructor(public authService: AuthService) {}

@@ -6,6 +6,8 @@ import { TareasComponent } from './components/tareas/tareas.component';
 import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-privadas.component';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
+import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
+
 
 import { AuthGuard } from './auth.guard';
 
@@ -32,6 +34,10 @@ const routes: Routes = [
   {
     path: 'registrar',
     component: RegistrarComponent
+  },
+  {
+    path: '403',
+    component: E403AccesoNoPermitidoComponent
   }
   
 ];

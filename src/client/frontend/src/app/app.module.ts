@@ -9,6 +9,8 @@ import { RegistrarComponent } from './components/registrar/registrar.component';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-privadas.component';
+import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component';
+import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -25,7 +27,10 @@ import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio
     TareasPrivadasComponent,
     E403AccesoNoPermitidoComponent,
     E404PaginaNoEncontradaComponent,
-    SitioEnMantenimientoComponent
+    SitioEnMantenimientoComponent,
+    TareasPrivadasComponent,
+    AltaMedicoDerivanteComponent,
+    MedicoDerivanteComponent
   ],
   imports: [
     BrowserModule,

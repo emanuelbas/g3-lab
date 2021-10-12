@@ -3,6 +3,7 @@ const router = Router();
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+//const MedicoDerivante = require('../models/MedicoDerivante');
 
 router.post('/registrar', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -15,7 +16,33 @@ router.post('/registrar', async (req, res) => {
 
 })
 
+// S1R03 - I
+/* router.post('/alta-medico-derivante', async (req, res) => {
 
+
+
+    let user = await User.findOne({email})
+
+    if (!user) {
+        return res.status(401).send("El correo no existe");
+    }
+    if (user.password !== password) return res.status(401).send('Password incorrecta');
+
+    const token = jwt.sign({_id: user._id}, 'secretKey');
+    return res.status(200).json({token});    
+})
+
+
+router.post('/alta-medico-derivante', async (req, res) => {
+    const {name, surname, email, phone} = req.body;
+
+    const newMedicoDerivante = new MedicoDerivante({name, surname, email, phone});
+    await newMedicoDerivante.save();
+
+    res.status(200).json("OK")
+
+}) */
+// S1R03 - F
 
 // S1R01 - I
 router.post('/registrar-admin', async (req, res) => {
@@ -71,7 +98,8 @@ router.post('/ingresar', async (req, res) => {
     if (user.password !== password) return res.status(401).send('Password incorrecta');
 
     const token = jwt.sign({ _id: user._id }, 'secretKey');
-    return res.status(200).json({ token });
+    const rol = user.rol;
+    return res.status(200).json({ token, rol });
 })
 // S1R01 - F
 

@@ -12,6 +12,7 @@ import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-pri
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AltaEmpleadoComponent } from './components/alta-empleado/alta-empleado.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     RegistrarComponent,
     IngresarComponent,
     TareasComponent,
-    TareasPrivadasComponent
+    TareasPrivadasComponent,
+    AltaEmpleadoComponent
   ],
   imports: [
     BrowserModule,

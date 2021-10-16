@@ -18,6 +18,7 @@ import { AltaEmpleadoComponent } from './components/alta-empleado/alta-empleado.
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
 import { E404PaginaNoEncontradaComponent } from './components/ventanas-error/e404-pagina-no-encontrada/e404-pagina-no-encontrada.component';
 import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio-en-mantenimiento/sitio-en-mantenimiento.component';
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio
     SitioEnMantenimientoComponent,
     TareasPrivadasComponent,
     AltaMedicoDerivanteComponent,
-    MedicoDerivanteComponent
+    MedicoDerivanteComponent,
+    PaginaPrincipalComponent
 
   ],
   imports: [

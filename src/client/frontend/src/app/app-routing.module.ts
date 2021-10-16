@@ -9,8 +9,10 @@ import { RegistrarComponent } from './components/registrar/registrar.component';
 
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component'
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component'
 
 import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 
 const routes: Routes = [
@@ -26,7 +28,7 @@ const routes: Routes = [
   {
     path: 'alta-medico-derivante',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'tareas-privadas',
@@ -44,6 +46,10 @@ const routes: Routes = [
   {
     path: '403',
     component: E403AccesoNoPermitidoComponent
+  },
+  {
+    path: 'home',
+    component: PaginaPrincipalComponent
   }
   
 ];

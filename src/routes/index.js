@@ -16,6 +16,22 @@ router.post('/registrar', async (req, res) => {
 
 })
 
+
+// S1R02 - I
+router.post('/registrar-empleado', async (req, res) => {
+    const { email, password, rol } = req.body;
+    //una ves que tenga los datos, crear empleado
+    console.log(email, password)
+    //crear usuario
+    //relacionar empleado
+    const nuevoUsuario = new User({ email, password, rol });
+    await nuevoUsuario.save();
+
+    //const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
+    res.status(200).json({ token })
+
+})
+
 // S1R03 - I
 /* router.post('/alta-medico-derivante', async (req, res) => {
 

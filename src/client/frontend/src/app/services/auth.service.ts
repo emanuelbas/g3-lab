@@ -33,4 +33,33 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  loggedAsAdmin(): Boolean {
+    if (localStorage.getItem('rol')) {
+      return localStorage.getItem('rol') == 'Admin' ? true : false;
+    }
+    return false
+  }
+
+  loggedAsConfigurador(): Boolean {
+    if (localStorage.getItem('rol')) {
+      return localStorage.getItem('rol') == 'Configurador' ? true : false;
+    }
+    return false
+  }
+
+  loggedAsEmpleado(): Boolean {
+    if (localStorage.getItem('rol')) {
+      return localStorage.getItem('rol') == 'Empleado' ? true : false;
+    }
+    return false
+  }
+
+  loggedAsPaciente(): Boolean {
+    if (localStorage.getItem('rol')) {
+      return localStorage.getItem('rol') == 'Paciente' ? true : false;
+    }
+    return false
+  }
+
 }

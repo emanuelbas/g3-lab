@@ -15,12 +15,15 @@ import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-p
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { EmpleadoGuard } from './guards/empleado.guard';
+import { ConfiguradorGuard } from './guards/configurador.guard';
+import { PacienteGuard } from './guards/paciente.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tareas',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
@@ -30,17 +33,17 @@ const routes: Routes = [
   {
     path: 'medicos-derivantes',
     component: MedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
     path: 'alta-medico-derivante',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
-    path: 'editar-medicos-derivantes/:id',
+    path: 'editar-medico-derivante/:id',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
     path: 'tareas-privadas',

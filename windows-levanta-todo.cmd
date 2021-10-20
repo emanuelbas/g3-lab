@@ -13,7 +13,7 @@ echo Levantando Express y Angular en localhost:4200
 echo .
 echo Si rompe, correr estos comandos manualmente y verificar la consola:
 echo "npm run dev"
-echo "cd src/client/frontend && ng serve --proxy-config proxy.config.json"
+echo "cd src/client/frontend && ng serve --proxy-config proxy.config.json --open"
 echo .
 echo .
 echo Recuerda que no pueden haber varios abiertos a la vez

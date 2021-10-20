@@ -8,6 +8,8 @@ import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
+import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
+
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component'
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component'
 
@@ -26,9 +28,19 @@ const routes: Routes = [
     component: TareasComponent
   },
   {
+    path: 'medicos-derivantes',
+    component: MedicoDerivanteComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'alta-medico-derivante',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'editar-medicos-derivantes/:id',
+    component: AltaMedicoDerivanteComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'tareas-privadas',

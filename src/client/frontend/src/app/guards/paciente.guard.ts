@@ -4,12 +4,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
-
+export class PacienteGuard implements CanActivate {
 
   constructor(
     private authService : AuthService,
@@ -21,13 +19,12 @@ export class AdminGuard implements CanActivate {
       this.router.navigate(['/403']);
       return false;
     }
-    if (!(localStorage.getItem('rol') == 'Admin')){
+    if (!(localStorage.getItem('rol') == 'Paciente')){
       this.router.navigate(['/403']);
       return false;
     }
     
     return true;
   }
-  
   
 }

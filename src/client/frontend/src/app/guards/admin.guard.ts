@@ -25,9 +25,8 @@ export class AdminGuard implements CanActivate {
       this.router.navigate(['/403']);
       return false;
     }
-    
     return true;
   }
-  
-  
+
+
 }

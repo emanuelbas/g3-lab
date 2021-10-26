@@ -13,6 +13,9 @@
           <li class="nav-item" *ngIf="authService.loggedAsAdmin()">
             <a class="nav-link " aria-current="page" routerLink="/alta-medico-derivante" routerLinkActive="active">Ejemplo-Boton-Admin</a>
           </li>
+          <li class="nav-item" *ngIf="authService.loggedAsAdmin()">
+            <a class="nav-link " aria-current="page" routerLink="/alta-empleado" routerLinkActive="active">Gestionar Empleados</a>
+          </li>
 
           <!-- Botones de CONFIGURADOR -->
           <li class="nav-item" *ngIf="authService.loggedAsConfigurador()">
@@ -21,14 +24,14 @@
 
           <!-- Botones de EMPLEADO -->
           <li class="nav-item" *ngIf="authService.loggedAsEmpleado()">
-            <a class="nav-link " aria-current="page" routerLink="/alta-medico-derivante" routerLinkActive="active">Ejemplo-Boton-Empleado</a>
+            <a class="nav-link " aria-current="page" routerLink="" routerLinkActive="active">Empleado</a>
           </li>
 
           <!-- Botones de PACIENTE -->
           <li class="nav-item" *ngIf="authService.loggedAsPaciente()">
             <a class="nav-link " aria-current="page" routerLink="/alta-medico-derivante" routerLinkActive="active">Ejemplo-Boton-Paciente</a>
           </li>
-          
+
 
         </ul>
 
@@ -51,7 +54,7 @@
           </ng-template>
         </ul>
 
-        
+
       </div>
     </div>
   </div>

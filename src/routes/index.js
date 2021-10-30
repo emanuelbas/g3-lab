@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const MedicoDerivante = require('../models/MedicoDerivante');
 const User = require('../models/User');
-
+const Estudio = require('../models/Estudio');
 
 router.post('/registrar', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -202,9 +202,45 @@ router.get('/tareas-privadas', verifyToken, (re, res) => {
             date: '2021-09-12T08:20:00.043+00:00'
         },
     ]);
-
-
 });
+
+// R22 - I
+//verifyToken
+router.post('/alta-estudio', async (req, res) => {
+ 
+    // obtener datos
+    // const { id_empleado, 
+    //     id_medico_derivante, 
+    //     id_tipo_de_estudio, 
+    //     id_diagnostico_presuntivo, 
+    //     detalle_diagnostico, 
+    //     id_historial_de_estudio } = req.body;
+
+    const { id_empleado, detalle_diagnostico } = req.body;
+
+    let nuevoEstudio
+    User.countDocuments({_id: id_empleado}, async (err, count) => { 
+        
+        console.log("COUNT = " + count)
+        if(!err){
+            await User.findById(id_empleado)
+            .then(async (empleado) => {
+                nuevoEstudio = new Estudio({detalleDelDiagnostico : detalle_diagnostico, empleado : empleado });
+                console.log(nuevoEstudio)
+                if (nuevoEstudio) {
+                    await nuevoEstudio.save({res:"salio bien"});
+                }
+            })
+        }
+    }); 
+
+    // responder
+    return res.status(200).json({});
+    //return res.status(200).json({Estudio : nuevoEstudio._id});
+}
+
+);
+// R22 - F
 
 router.get('/perfil', verifyToken, (req, res) => {
     res.send(req.userId);

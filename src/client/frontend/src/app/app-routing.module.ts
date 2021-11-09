@@ -13,7 +13,9 @@ import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403
 import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
 
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component'
-import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component'
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
+import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
+
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -72,6 +74,11 @@ const routes: Routes = [
     path: 'alta-empleado',
     component: AltaEmpleadoComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'listar-estudios',
+    component: ListarEstudiosComponent,
+    canActivate: [AuthGuard]
   }
 
 ];

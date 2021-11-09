@@ -43,6 +43,7 @@ export class MedicoDerivanteComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getMedicosDerivantes()
+    console.log(this.items)
   }
 
 

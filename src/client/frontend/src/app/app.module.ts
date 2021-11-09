@@ -23,6 +23,9 @@ import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 import { EditarEmpleadoComponent } from './components/empleado/editar-empleado/editar-empleado.component';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
+import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
+import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
+import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { EmpleadoComponent } from './components/empleado/empleado.component';
     MedicoDerivanteComponent,
     PaginaPrincipalComponent,
     EditarEmpleadoComponent,
-    EmpleadoComponent
+    EmpleadoComponent,
+    ListarEstudiosComponent,
+    DetallesDeEstudioComponent,
+    AltaEstudioComponent
 
   ],
   imports: [

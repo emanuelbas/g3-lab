@@ -1,38 +1,117 @@
 <h4> <small></small> Crear Empleado <small></small></h4>
-<form autocomplete="off">
-  <div>
-    <div class="form-group row">
-      <label>
-        Nombre
-      </label>
-      <div class="col-8">
-        <input class="form-control" name="nombre" type="">
+<form autocomplete="off" (ngSubmit)="onSubmit(formEmpleado)" #formEmpleado="ngForm"  >
 
-      </div>
-    </div>
-    <div class="form-group row">
-      <label> Apellido</label>
-      <div class="col-8">
-        <input class="form-control" name="apellido" type="">
+  <div class="form-group row" *ngIf="editMode">
+    <label class="col-2 col-form-label">ID</label>
+    <div class="col-8">
 
-      </div>
-
-    </div>
-    <div class="form-group row">
-      <label> telefono</label>
-      <div class="col-8">
-        <input class="form-control" name="telefono" type="">
-
-      </div>
-
-    </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">&nbsp;</label>
-      <div class="input-group col-md-8">
-        <button type="submit" class="btn btn-outline-primary btn-block">
-          Guardar
-        </button>
-      </div>
+      <input class="form-control"
+            #_id="ngModel"
+            [ngModel]="user._id"
+            disabled
+            [class.is-invalid]="_id.invalid && _id.touched"
+            name="id"
+            type="text"
+            >
     </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nombre</label>
+    <div class="col-8">
+
+      <input class="form-control"
+             #name="ngModel"
+             [ngModel]="user.name"
+             [class.is-invalid]="name.invalid && name.touched"
+             name="name"
+             type="text"
+             placeholder="Nombre"
+             required
+             minlength="2"
+             >
+      <small
+        *ngIf="(name.invalid && name.touched)"
+        class="form-text text-danger">
+          El nombre es obligatorio
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Apellido</label>
+    <div class="col-8">
+
+      <input class="form-control"
+             #surname="ngModel"
+             [ngModel]="user.surname"
+             [class.is-invalid]="surname.invalid && surname.touched"
+             name="surname"
+             type="text"
+             placeholder="Apellido"
+             required
+             >
+      <small
+        *ngIf="name.invalid && name.touched"
+        class="form-text text-danger">
+          Apellido es obligatorio y debe tener al menos 5 letras
+      </small>
+    </div>
+  </div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Correo</label>
+  <div class="col-8">
+
+    <input class="form-control"
+           #email="ngModel"
+           [ngModel]="user.email"
+           [class.is-invalid]="email.invalid && email.touched"
+           name="email"
+           type="email"
+           placeholder="Correo electrónico"
+           pattern="[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+           required
+           >
+    <small
+      *ngIf="name.invalid && name.touched"
+      class="form-text text-danger">
+        Email es obligatorio
+    </small>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">Teléfono</label>
+  <div class="col-8">
+
+    <input class="form-control"
+           #phone='ngModel'
+           [ngModel]="user.phone"
+           [class.is-invalid]="phone.invalid && phone.touched"
+           name="phone"
+           type="number"
+           placeholder="Teléfono"
+           required
+           >
+    <small
+      *ngIf="name.invalid && name.touched"
+      class="form-text text-danger">
+        Telefono es obligatorio
+    </small>
+  </div>
+</div>
+
+
+<div class="form-group row">
+  <div class="input-group col-md-10 mt-2 d-flex justify-content-end">
+    <button class="btn btn-danger  col-3 mr-2" (click)="backNavigate()">
+      Cancelar
+    </button>
+    <button type="submit" class="btn btn-outline-primary  col-3 mt-0">
+      Guardar
+    </button>
+
+  </div>
+</div>
 </form>

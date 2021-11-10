@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const MedicoDerivante = require('../models/MedicoDerivante');
 const User = require('../models/User');
+const Empleado = require('../models/Empleado')
 
 
 router.post('/registrar', async (req, res) => {
@@ -19,17 +20,16 @@ router.post('/registrar', async (req, res) => {
 
 
 // S1R02 - I
-router.post('/registrar-empleado', async (req, res) => {
-    const { email, password, rol } = req.body;
+   
+router.post('/alta-empleado', async (req, res) => {
+    const {name, surname, email, phone, _id} = req.body;
     //una ves que tenga los datos, crear empleado
-    console.log(email, password)
+    
     //crear usuario
     //relacionar empleado
-    const nuevoUsuario = new User({ email, password, rol });
-    await nuevoUsuario.save();
-
-    //const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
-    res.status(200).json({ token })
+    const nuevoEmpleado = new Empleado({ name, surname, email, phone, _id});
+    await nuevoEmpleado.save().then(()=>res.status(200).send({status:"OK"}))
+    
 
 })
 

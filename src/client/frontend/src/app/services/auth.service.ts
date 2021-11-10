@@ -15,7 +15,8 @@ export class AuthService {
     return this.http.post<any>(this.URL + '/registrar', usuario)
   }
 
-  ingresar(usuario : any){   
+
+  ingresar(usuario : any){
     return this.http.post<any>(this.URL + '/ingresar', usuario)
   }
 

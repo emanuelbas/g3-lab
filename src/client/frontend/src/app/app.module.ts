@@ -16,7 +16,7 @@ import { MedicoDerivanteComponent } from './components/medico-derivante/medico-d
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-//import { AltaEmpleadoComponent } from './components/alta-empleado/alta-empleado.component';
+import { AltaEmpleadoComponent } from './components/empleado/alta-empleado/alta-empleado.component';
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
 import { E404PaginaNoEncontradaComponent } from './components/ventanas-error/e404-pagina-no-encontrada/e404-pagina-no-encontrada.component';
 import { SitioEnMantenimientoComponent } from './components/ventanas-error/sitio-en-mantenimiento/sitio-en-mantenimiento.component';
@@ -31,7 +31,7 @@ import { EmpleadoComponent } from './components/empleado/empleado.component';
     IngresarComponent,
     TareasComponent,
     TareasPrivadasComponent,
-   // AltaEmpleadoComponent,
+    AltaEmpleadoComponent,
     E403AccesoNoPermitidoComponent,
     E404PaginaNoEncontradaComponent,
     SitioEnMantenimientoComponent,

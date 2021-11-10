@@ -7,6 +7,7 @@ import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-pri
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 import {AltaEmpleadoComponent} from './components/empleado/alta-empleado/alta-empleado.component';
+import { EmpleadoComponent } from './components/empleado/empleado.component';//duda
 
 
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'medicos-derivantes',
     component: MedicoDerivanteComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'empleado',
+    component: EmpleadoComponent,
     canActivate: [AuthGuard]
   },
   {

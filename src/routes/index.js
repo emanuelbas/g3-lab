@@ -6,6 +6,7 @@ const MedicoDerivante = require('../models/MedicoDerivante');
 const User = require('../models/User');
 const Empleado = require('../models/Empleado')
 
+const Estudio = require('../models/Estudio');
 
 router.post('/registrar', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -202,9 +203,78 @@ router.get('/tareas-privadas', verifyToken, (re, res) => {
             date: '2021-09-12T08:20:00.043+00:00'
         },
     ]);
-
-
 });
+
+// R22 - I
+//verifyToken
+router.post('/alta-estudio', async (req, res) => {
+ 
+    // obtener datos
+    // const { id_empleado, 
+    //     id_medico_derivante, 
+    //     id_tipo_de_estudio, 
+    //     id_diagnostico_presuntivo, 
+    //     detalle_diagnostico, 
+    //     id_historial_de_estudio } = req.body;
+
+    const { id_empleado, detalle_diagnostico } = req.body;
+    let nuevoEstudio
+
+    //convertir
+    await User.findById(id_empleado)
+            .then(async (empleado) => {
+                empleado._id // Si no existe empleado, explota y va por catch
+                nuevoEstudio = new Estudio({detalleDelDiagnostico : detalle_diagnostico, empleado : empleado });
+                await nuevoEstudio.save();
+                return res.status(200).json(nuevoEstudio);
+            })
+            .catch((err) => {
+                return res.status(401).send("El empleado no existe");
+            });
+}
+
+);
+
+// Mock de lista de estudios
+
+router.get('/lista-de-estudios', (req, res) => {
+    res.json([
+        {
+            _id: 1,
+            nombre_paciente: 'jose alberti',
+            nombre_medico_derivante: 'pepito',
+            nombre_tipo_estudio: 'un tipo',
+            diagnostico_presuntivo: 'dasasdasd',
+            detalle_diagnostico: 'un detalle de diagnostico',
+            estado_actual: 'estado',
+            historial: 'aca necesito un array',
+        },
+        {
+            _id: 2,
+            nombre_paciente: 'jose alberti',
+            nombre_medico_derivante: 'pepito',
+            nombre_tipo_estudio: 'un tipo',
+            diagnostico_presuntivo: 'dasasdasd',
+            detalle_diagnostico: 'un detalle de diagnostico',
+            estado_actual: 'estado',
+            historial: 'aca necesito un array',
+        },
+        {
+            _id: 3,
+            nombre_paciente: 'jose alberti',
+            nombre_medico_derivante: 'pepito',
+            nombre_tipo_estudio: 'un tipo',
+            diagnostico_presuntivo: 'dasasdasd',
+            detalle_diagnostico: 'un detalle de diagnostico',
+            estado_actual: 'estado',
+            historial: 'aca necesito un array',
+        },
+        
+    ]);
+})
+
+
+// R22 - F
 
 router.get('/perfil', verifyToken, (req, res) => {
     res.send(req.userId);

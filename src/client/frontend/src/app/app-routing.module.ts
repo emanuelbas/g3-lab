@@ -14,16 +14,21 @@ import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403
 import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
 
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component'
-import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component'
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
+import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
+
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { EmpleadoGuard } from './guards/empleado.guard';
+import { ConfiguradorGuard } from './guards/configurador.guard';
+import { PacienteGuard } from './guards/paciente.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tareas',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
@@ -33,7 +38,7 @@ const routes: Routes = [
   {
     path: 'medicos-derivantes',
     component: MedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
     path: 'empleado',
@@ -43,12 +48,12 @@ const routes: Routes = [
   {
     path: 'alta-medico-derivante',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
-    path: 'editar-medicos-derivantes/:id',
+    path: 'editar-medico-derivante/:id',
     component: AltaMedicoDerivanteComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
     path: 'tareas-privadas',
@@ -75,6 +80,11 @@ const routes: Routes = [
     path: 'alta-empleado',
     component: AltaEmpleadoComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'listar-estudios',
+    component: ListarEstudiosComponent,
+    canActivate: [AuthGuard]
   }
 
 ];

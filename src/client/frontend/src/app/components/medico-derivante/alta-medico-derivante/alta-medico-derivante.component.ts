@@ -13,7 +13,7 @@ export class AltaMedicoDerivanteComponent implements OnInit {
 
 
   editMode= false;
-  //TODO : When entry by edit mode, get data of Medico Derivante and save in user
+
   user:any = {
     name:'',
     surname:'',

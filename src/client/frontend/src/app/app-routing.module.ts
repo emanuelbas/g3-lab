@@ -16,6 +16,7 @@ import { MedicoDerivanteComponent } from './components/medico-derivante/medico-d
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component'
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
+import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 
 
 import { AuthGuard } from './auth.guard';
@@ -85,6 +86,11 @@ const routes: Routes = [
     path: 'listar-estudios',
     component: ListarEstudiosComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'detalles-estudio/:id',
+    component: DetallesDeEstudioComponent,
+    canActivate: []
   }
 
 ];

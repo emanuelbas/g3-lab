@@ -4,9 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const MedicoDerivante = require('../models/MedicoDerivante');
 const User = require('../models/User');
-const Empleado = require('../models/Empleado')
-
 const Estudio = require('../models/Estudio');
+const Paciente = require('../models/Paciente');
 
 router.post('/registrar', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -21,16 +20,17 @@ router.post('/registrar', async (req, res) => {
 
 
 // S1R02 - I
-   
-router.post('/alta-empleado', async (req, res) => {
-    const {name, surname, email, phone, _id} = req.body;
+router.post('/registrar-empleado', async (req, res) => {
+    const { email, password, rol } = req.body;
     //una ves que tenga los datos, crear empleado
-    
+    console.log(email, password)
     //crear usuario
     //relacionar empleado
-    const nuevoEmpleado = new Empleado({ name, surname, email, phone, _id});
-    await nuevoEmpleado.save().then(()=>res.status(200).send({status:"OK"}))
-    
+    const nuevoUsuario = new User({ email, password, rol });
+    await nuevoUsuario.save();
+
+    //const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
+    res.status(200).json({ token })
 
 })
 
@@ -271,6 +271,34 @@ router.get('/lista-de-estudios', (req, res) => {
         },
         
     ]);
+})
+
+// router.get('/obtener-medico-por-id', async (req, res) => {
+//     const {id} = req.headers
+//     let medicoDerivantes = await MedicoDerivante.find({'_id': id})
+//     res.status(200).json(medicoDerivantes)
+  
+//   })
+
+
+router.get('/obtener-estudio', async (req, res) => {
+
+    // _id en postman se manda como body/raw/JSON
+    // en los servicios de angular this.http.get(this.URL + '/detalles-estudio', estudio_id)
+    const {_id} = req.headers;
+    Estudio.findOne({'_id': '617db79d75f12273736e878a'})
+    .populate({
+        path:'paciente',
+        populate: {path:'paciente'}
+    })
+    .then((estudio) => {
+        console.log(estudio)
+        res.status(200).json(
+            estudio
+        );
+    })
+    .catch((err)=>{console.log(err)})
+
 })
 
 

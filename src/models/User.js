@@ -7,11 +7,11 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'ObraSocial'
     },
-    Empleado: {
+    empleado: {
         type: Schema.Types.ObjectId,
         ref: 'Empleado'
     },
-    Paciente: {
+    paciente: {
         type: Schema.Types.ObjectId,
         ref: 'Paciente'
     },

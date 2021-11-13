@@ -5,6 +5,10 @@ const estudioSchema = new Schema({
     empleado: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    paciente: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
     // ctrl k y ctrl u, control c
     // Empleado: {

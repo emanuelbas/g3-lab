@@ -22,6 +22,33 @@ router.post('/registrar', async (req, res) => {
 })
 
 
+
+
+// GETTERS
+
+router.get('/obtener-medico-derivante', async (req, res) => {
+    let medicosDerivantes = await MedicoDerivante.find({'status': true})
+    res.status(200).json(medicosDerivantes)
+})
+router.get('/obtener-empleados', async (req, res) => {
+    let empleados = await Empleado.find({'rol': 'Empleado'})
+    res.status(200).json(empleados)
+})
+router.get('/obtener-pacientes', async (req, res) => {
+    let pacientes = await User.find({'rol': 'Paciente'})
+    res.status(200).json(pacientes)
+})
+router.get('/obtener-tipos-de-estudio', async (req, res) => {
+    let tipos = await TipoDeEstudio.find()
+    res.status(200).json(tipos)
+})
+router.get('/obtener-diagnosticos-presuntivos', async (req, res) => {
+    let diagnosticos = await DiagnosticoPresuntivo.find()
+    res.status(200).json(diagnosticos)
+})
+// GETTERS //
+
+
 // S1R02 - I
 router.post('/registrar-empleado', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -38,12 +65,6 @@ router.post('/registrar-empleado', async (req, res) => {
 })
 
 // S1R03 - I
-router.get('/obtener-medico-derivante', async (req, res) => {
-    let medicosDerivantes = await MedicoDerivante.find({'status': true})
-
-    res.status(200).json(medicosDerivantes)
-
-})
 
 router.get('/obtener-medico-por-id', async (req, res) => {
   const {id} = req.headers

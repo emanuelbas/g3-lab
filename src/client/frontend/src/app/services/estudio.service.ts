@@ -19,21 +19,21 @@ export class EstudioService {
   }
 
   getEmpleados(){
-
+    return this.http.get<any>(this.URL + '/obtener-empleados')
   }
 
   getPacientes(){
-
+    return this.http.get<any>(this.URL + '/obtener-pacientes')
   }
   getMedicos(){
-
+    return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   }
 
   getTiposDeEstudio(){
-
+    return this.http.get<any>(this.URL + '/obtener-tipos-de-estudio')
   }
   getDiagnosticos(){
-    
+    return this.http.get<any>(this.URL + '/obtener-diagnosticos-presuntivos')
   }
 
   // getMedicoDerivante(){

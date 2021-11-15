@@ -1,6 +1,6 @@
 export class Empleado {
 
-    constructor(public id?:string, public nombre?:string) {
+    constructor(public _id?:string, public nombre?:string) {
 
     }
 }

@@ -31,7 +31,7 @@ router.get('/obtener-medico-derivante', async (req, res) => {
     res.status(200).json(medicosDerivantes)
 })
 router.get('/obtener-empleados', async (req, res) => {
-    let empleados = await Empleado.find({'rol': 'Empleado'})
+    let empleados = await User.find({'rol': 'Empleado'})
     res.status(200).json(empleados)
 })
 router.get('/obtener-pacientes', async (req, res) => {
@@ -240,24 +240,26 @@ router.post('/alta-estudio', async (req, res) => {
     //     id_diagnostico_presuntivo, 
     //     detalle_diagnostico, 
     //     id_historial_de_estudio } = req.body;
+    console.log("Entre a express, voy a imprimir el req.body")
 
-    const { ID_EMP, ID_PAC, ID_MED, ID_TIP_EST, ID_DIA_PRESU, DETALLE} = req.body;
+    console.log(req.body)
+    let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE} = req.body;
     let nuevoEstudio
   
     //Estos ID deberían entrar por req
-    // ID_EMP            = '613ff8d10b3b007855b65373'
-    // ID_PAC            = '619014e2e1950ff9a5607adb'
-    // ID_MED            = '616cb0403b41f033cbf7cfa5'
-    // ID_TIP_EST        = "6192464445af8808379e359a"
-    // ID_DIA_PRESU      = "6192516ac64271a8da78dfd5"
+    // EMPLEADO            = '6189c3d15c81902c73092d3c'
+    // PACIENTE            = '619014e2e1950ff9a5607adb'
+    // MEDICO            = '616cb0403b41f033cbf7cfa5'
+    // TIPO        = "6192464445af8808379e359a"
+    // DIAGNOSTICO      = "6192516ac64271a8da78dfd5"
     // DETALLE           = "El paciente tiene acidez al comer ensaladas"
 
     // Preparo promesas
-    const empleado    = User.findById(ID_EMP)
-    const paciente    = User.findById(ID_PAC)
-    const medico      = MedicoDerivante.findById(ID_MED)
-    const tipoEstudio = TipoDeEstudio.findById(ID_TIP_EST)
-    const dPresuntivo = DiagnosticoPresuntivo.findById(ID_DIA_PRESU)
+    const empleado    = User.findById(EMPLEADO)
+    const paciente    = User.findById(PACIENTE)
+    const medico      = MedicoDerivante.findById(MEDICO)
+    const tipoEstudio = TipoDeEstudio.findById(TIPO)
+    const dPresuntivo = DiagnosticoPresuntivo.findById(DIAGNOSTICO)
 
     // Ejecuto todas a la vez
     Promise.all([empleado, medico, tipoEstudio, dPresuntivo, paciente])

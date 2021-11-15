@@ -36,6 +36,11 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/obtener-diagnosticos-presuntivos')
   }
 
+  createEstudio(estudio: any){
+    console.log(estudio)
+    return this.http.post<any>(this.URL + '/alta-estudio', estudio)
+  }
+
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

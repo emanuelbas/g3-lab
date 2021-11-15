@@ -10,72 +10,98 @@ import { Empleado } from './Empleado'
   styleUrls: ['./alta-estudio.component.css']
 })
 export class AltaEstudioComponent implements OnInit {
-  estudio:any = {
-    ID_EMP:'',
-    ID_PAC:'',
-    ID_MED:'',
-    ID_TIP_EST:'',
-    ID_DIA_PRESU:'',
-    DETALLE:''
+  estudio: any = {
+    ID_EMP: '',
+    ID_PAC: '',
+    ID_MED: '',
+    ID_TIP_EST: '',
+    ID_DIA_PRESU: '',
+    DETALLE: ''
   }
-  seleccionado = (new Empleado("",""));
-  empleado = (new Empleado("",""))
+  seleccionado = (new Empleado("", ""));
+  empleado = (new Empleado("", ""))
 
-  pacienteSeleccionado = (new Empleado("",""));
-  paciente = (new Empleado("",""))
+  pacienteSeleccionado = (new Empleado("", ""));
+  paciente = (new Empleado("", ""))
 
-  medicoSeleccionado = (new Empleado("",""));
-  medico = (new Empleado("",""))
+  medicoSeleccionado = (new Empleado("", ""));
+  medico = (new Empleado("", ""))
 
-  tipoSeleccionado = (new Empleado("",""));
-  tipo = (new Empleado("",""))
+  tipoSeleccionado = (new Empleado("", ""));
+  tipo = (new Empleado("", ""))
 
-  diagnosticoSeleccionado = (new Empleado("",""));
-  diagnostico = (new Empleado("",""))
+  diagnosticoSeleccionado = (new Empleado("", ""));
+  diagnostico = (new Empleado("", ""))
 
   empleados: Empleado[] = []
   pacientes: Empleado[] = []
-  medicos  : Empleado[] = []
-  tipos    : Empleado[] = []
-  diagnosticos  : Empleado[] = []
+  medicos: Empleado[] = []
+  tipos: Empleado[] = []
+  diagnosticos: Empleado[] = []
 
-  constructor(    private estudioService: EstudioService,
+  constructor(private estudioService: EstudioService,
     private router: Router,
     private route: ActivatedRoute) { }
 
+  getTipos = () => {
+    this.estudioService.getTiposDeEstudio()
+      .subscribe((resp) => { this.tipos = resp })
+  }
 
-  
-  onSubmit( formEstudio: NgForm ){
-    console.log(formEstudio.value)
-    console.log(formEstudio.value.EMPLEADO)
-    console.log(formEstudio.value.PACIENTE)
-    console.log(formEstudio.value.MEDICO)
+  getDiagnosticos = () => {
+    this.estudioService.getDiagnosticos()
+      .subscribe((resp) => { this.diagnosticos = resp })
+  }
+
+  getEmpleados = () => {
+    this.estudioService.getEmpleados()
+      .subscribe((empleados) => {
+
+        for (var i = 0; i < empleados.length; i++) {
+          this.empleados.push(new Empleado(empleados[i]._id, empleados[i].email))
+        }
+
+      })
+  }
+
+  getPacientes = () => {
+    this.estudioService.getPacientes()
+      .subscribe((pacientes) => {
+
+        for (var i = 0; i < pacientes.length; i++) {
+          this.pacientes.push(new Empleado(pacientes[i]._id, pacientes[i].email))
+        }
+
+      })
+  }
+
+  getMedicos = () => {
+    this.estudioService.getMedicos()
+      .subscribe((medicos) => {
+
+        for (var i = 0; i < medicos.length; i++) {
+          this.medicos.push(new Empleado(medicos[i]._id, medicos[i].email))
+        }
+
+      })
+  }
+
+
+
+  onSubmit(formEstudio: NgForm) {
+    //console.log(formEstudio.value)
+    this.estudioService.createEstudio(formEstudio.value).subscribe(()=>this.backNavigate())
   }
   backNavigate = () => {
     this.router.navigate(['/']);
   }
   ngOnInit(): void {
-    this.empleados.push(new Empleado("1","Pepe"))
-    this.empleados.push(new Empleado("2","Juan"))
-    this.empleados.push(new Empleado("3","Luis"))
-
-    this.pacientes.push(new Empleado("1","Lucia"))
-    this.pacientes.push(new Empleado("2","Lautaro"))
-    this.pacientes.push(new Empleado("3","Rodrigo"))
-
-    this.medicos.push(new Empleado("1","Dr. Andres"))
-    this.medicos.push(new Empleado("2","Dra. Laura"))
-    this.medicos.push(new Empleado("3","Dra. Mercedes"))
-
-    this.tipos.push(new Empleado("1","Exoma"))
-    this.tipos.push(new Empleado("2","Mitocondria"))
-    this.tipos.push(new Empleado("3","Genoma"))
-
-    this.diagnosticos.push(new Empleado("1","Pie de atleta"))
-    this.diagnosticos.push(new Empleado("2","Prostatitis"))
-    this.diagnosticos.push(new Empleado("3","Síndrome de Wolfram"))
-
+    this.getTipos()
+    this.getDiagnosticos()
+    this.getEmpleados()
+    this.getPacientes()
+    this.getMedicos()
   }
-  
+
 
 }

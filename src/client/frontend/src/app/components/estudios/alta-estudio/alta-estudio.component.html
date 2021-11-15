@@ -6,7 +6,7 @@
         <label class="col-2 col-form-label">Empleado</label>
         <div class="col-8">
             <select name="EMPLEADO" [(ngModel)]="seleccionado">
-            <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
+            <option [value]="empleado._id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
             </select>
         </div>  
     </div>
@@ -15,7 +15,7 @@
         <label class="col-2 col-form-label">Paciente</label>
         <div class="col-8">
             <select name="PACIENTE" [(ngModel)]="pacienteSeleccionado">
-            <option [value]="paciente.id" *ngFor="let paciente of pacientes">{{paciente.nombre}}</option>
+            <option [value]="paciente._id" *ngFor="let paciente of pacientes">{{paciente.nombre}}</option>
             </select>
         </div>  
     </div>
@@ -24,7 +24,7 @@
         <label class="col-2 col-form-label">Médico Derivante</label>
         <div class="col-8">
             <select name="MEDICO" [(ngModel)]="medicoSeleccionado">
-            <option [value]="medico.id" *ngFor="let medico of medicos">{{medico.nombre}}</option>
+            <option [value]="medico._id" *ngFor="let medico of medicos">{{medico.nombre}}</option>
             </select>
         </div>  
     </div>
@@ -33,7 +33,7 @@
         <label class="col-2 col-form-label">Tipo de Estudio</label>
         <div class="col-8">
             <select name="TIPO" [(ngModel)]="tipoSeleccionado">
-            <option [value]="tipo.id" *ngFor="let tipo of tipos">{{tipo.nombre}}</option>
+            <option [value]="tipo._id" *ngFor="let tipo of tipos">{{tipo.nombre}}</option>
             </select>
         </div>  
     </div>
@@ -42,7 +42,7 @@
         <label class="col-2 col-form-label">Diagnostico Presuntivo</label>
         <div class="col-8">
             <select name="DIAGNOSTICO" [(ngModel)]="diagnosticoSeleccionado">
-            <option [value]="diagnostico.id" *ngFor="let diagnostico of diagnosticos">{{diagnostico.nombre}}</option>
+            <option [value]="diagnostico._id" *ngFor="let diagnostico of diagnosticos">{{diagnostico.nombre}}</option>
             </select>
         </div>  
     </div>

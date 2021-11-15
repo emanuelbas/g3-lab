@@ -9,32 +9,33 @@
                             <h5 class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">Estado actual</span></div>
                     </div>
                     <h4 class="m-b-20">Información general del estudio</h4>
+                    <p class="text-muted">{{estudio.detalleDelDiagnostico}}</p>
                     <p class="text-muted">En este texto se podría ir incluyendo detalles relvantes junto con URLS que permitan recuperar datos de los estados anteriores</p>
                     
                     <ul class="list-inline task-dates m-b-0 mt-5">
                         <li>
                             <h5 class="m-b-5">Fecha de Creación</h5>
-                            <p>01 December 2017 <small class="text-muted">1:00 PM</small></p>
+                            <p>{{estudio.createdAt}} <small class="text-muted">1:00 PM</small></p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Medico Derivante</h5>
-                            <p>Juan Perez</p>
+                            <p>{{estudio.medicoDerivante.email}}</p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Paciente</h5>
-                            <p>Miguel Sanchez</p>
+                            <p>{{estudio.paciente.email}}</p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Tipo de Estudio</h5>
-                            <p><span class="badge badge-primary">Tipo de estudio</span></p>
+                            <p><span class="badge badge-primary">{{estudio.tipoDeEstudio.nombre}}</span></p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Diagnóstico Presuntivo</h5>
-                            <p><span class="badge badge-secondary">Diagnostico Presuntivo</span></p>
+                            <p><span class="badge badge-secondary">{{estudio.diagnosticoPresuntivo.nombre}}</span></p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Detalles del Diagnóstico Presuntivo</h5>
-                            <p>acá va un texto largo como este lles relvantes junto con URLS que permitan recuperar datos de los</p>
+                            <p>{{estudio.detalleDelDiagnostico}}</p>
                         </li>
 
                     </ul>

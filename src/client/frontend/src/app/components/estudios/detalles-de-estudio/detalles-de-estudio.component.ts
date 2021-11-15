@@ -27,16 +27,21 @@ export class DetallesDeEstudioComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  id = '2'
+
   getEstudioById = (id: string) => {
     this.estudioService.getEstudioById(id)
-      .subscribe((resp) => {this.estudio = resp} )
+      .subscribe((resp) => {this.estudio = resp;console.log(this.estudio)} )
   }
 
 
   ngOnInit(): void {
-    this.getEstudioById('2')
-
+    
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if(params.get('id')){
+        let id:string = params.get('id') ? params.get('id')! : ''
+        this.getEstudioById(id)
+      }
+    });
   }
 
 }

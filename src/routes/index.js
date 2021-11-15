@@ -373,11 +373,12 @@ router.get('/obtener-estudio', async (req, res) => {
     // _id en postman se manda como body/raw/JSON
     // en los servicios de angular this.http.get(this.URL + '/detalles-estudio', estudio_id)
     const {_id} = req.headers;
-    Estudio.findOne({'_id': '617db79d75f12273736e878a'})
-    .populate({
-        path:'paciente',
-        populate: {path:'paciente'}
-    })
+    Estudio.findOne({'_id': _id})
+    .populate("paciente")
+    .populate('empleado')
+    .populate('medicoDerivante')
+    .populate('tipoDeEstudio')
+    .populate('diagnosticoPresuntivo')
     .then((estudio) => {
         console.log(estudio)
         res.status(200).json(

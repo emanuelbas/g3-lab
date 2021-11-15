@@ -27,9 +27,18 @@ export class AltaEstudioComponent implements OnInit {
   medicoSeleccionado = (new Empleado("",""));
   medico = (new Empleado("",""))
 
+  tipoSeleccionado = (new Empleado("",""));
+  tipo = (new Empleado("",""))
+
+  diagnosticoSeleccionado = (new Empleado("",""));
+  diagnostico = (new Empleado("",""))
+
   empleados: Empleado[] = []
   pacientes: Empleado[] = []
   medicos  : Empleado[] = []
+  tipos    : Empleado[] = []
+  diagnosticos  : Empleado[] = []
+
   constructor(    private estudioService: EstudioService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -57,6 +66,16 @@ export class AltaEstudioComponent implements OnInit {
     this.medicos.push(new Empleado("1","Dr. Andres"))
     this.medicos.push(new Empleado("2","Dra. Laura"))
     this.medicos.push(new Empleado("3","Dra. Mercedes"))
+
+    this.tipos.push(new Empleado("1","Exoma"))
+    this.tipos.push(new Empleado("2","Mitocondria"))
+    this.tipos.push(new Empleado("3","Genoma"))
+
+    this.diagnosticos.push(new Empleado("1","Pie de atleta"))
+    this.diagnosticos.push(new Empleado("2","Prostatitis"))
+    this.diagnosticos.push(new Empleado("3","Síndrome de Wolfram"))
+
   }
+  
 
 }

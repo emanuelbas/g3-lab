@@ -22,11 +22,17 @@ export class EstudioService {
 
   }
 
+  getPacientes(){
+
+  }
   getMedicos(){
 
   }
 
   getTiposDeEstudio(){
+
+  }
+  getDiagnosticos(){
     
   }
 

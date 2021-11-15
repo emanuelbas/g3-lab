@@ -2,30 +2,6 @@
 <hr>
 <form autocomplete="off" (ngSubmit)="onSubmit(formMedicoDerivante)" #formMedicoDerivante="ngForm" class="col-md-12">
 
-
-    <!-- EMPLEADO PACIENTE MEDICO TIPO_EST DIAGNOSTICO DETALLE  -->
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Detalle</label>
-      <div class="col-8">
-
-        <input class="form-control"
-               #DETALLE="ngModel"
-               [ngModel]="estudio.DETALLE"
-               [class.is-invalid]="DETALLE.invalid && DETALLE.touched"
-               name="DETALLE"
-               type="text"
-               placeholder="Detalle del diagnóstico presuntivo"
-               required
-               minlength="2"
-               >
-        <small
-          *ngIf="(DETALLE.invalid && DETALLE.touched)"
-          class="form-text text-danger">
-            El nombre es obligatorio
-        </small>
-      </div>
-    </div>
-
     <div class="form-group row">
         <label class="col-2 col-form-label">Empleado</label>
         <div class="col-8">
@@ -52,6 +28,47 @@
             </select>
         </div>  
     </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Tipo de Estudio</label>
+        <div class="col-8">
+            <select name="TIPO" [(ngModel)]="tipoSeleccionado">
+            <option [value]="tipo.id" *ngFor="let tipo of tipos">{{tipo.nombre}}</option>
+            </select>
+        </div>  
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Diagnostico Presuntivo</label>
+        <div class="col-8">
+            <select name="DIAGNOSTICO" [(ngModel)]="diagnosticoSeleccionado">
+            <option [value]="diagnostico.id" *ngFor="let diagnostico of diagnosticos">{{diagnostico.nombre}}</option>
+            </select>
+        </div>  
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Detalle</label>
+        <div class="col-8">
+  
+          <input class="form-control"
+                 #DETALLE="ngModel"
+                 [ngModel]="estudio.DETALLE"
+                 [class.is-invalid]="DETALLE.invalid && DETALLE.touched"
+                 name="DETALLE"
+                 type="text"
+                 placeholder="Detalle del diagnóstico presuntivo"
+                 required
+                 minlength="2"
+                 >
+          <small
+            *ngIf="(DETALLE.invalid && DETALLE.touched)"
+            class="form-text text-danger">
+              El nombre es obligatorio
+          </small>
+        </div>
+      </div>
+
 
   <div class="form-group row">
     <div class="input-group col-md-10 mt-2 d-flex justify-content-end">

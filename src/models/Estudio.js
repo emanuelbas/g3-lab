@@ -9,20 +9,20 @@ const estudioSchema = new Schema({
     paciente: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+//    ctrl k y ctrl u, control c
+    medicoDerivante: {
+        type: Schema.Types.ObjectId,
+        ref: 'MedicoDerivante'
+    },
+    tipoDeEstudio: {
+        type: Schema.Types.ObjectId,
+        ref: 'TipoDeEstudio'
+    },
+    diagnosticoPresuntivo: {
+        type: Schema.Types.ObjectId,
+        ref: 'DiagnosticoPresuntivo'
     }
-    // ctrl k y ctrl u, control c
-    // Empleado: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Empleado'
-    // },
-    // Paciente: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Paciente'
-    // },
-    // Paciente: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Paciente'
-    // }
     // CAMPO ID ESTADO ACTUAL
 }, {
     timestamps: true

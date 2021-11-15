@@ -13,7 +13,7 @@ const userSchema = new Schema({
     },
     paciente: {
         type: Schema.Types.ObjectId,
-        ref: 'Paciente'
+        ref: 'paciente'
     },
     rol: String //Puede ser: Admin, Empleado, Configurador, Paciente
 }, {

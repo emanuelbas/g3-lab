@@ -6,6 +6,9 @@ const MedicoDerivante = require('../models/MedicoDerivante');
 const User = require('../models/User');
 const Estudio = require('../models/Estudio');
 const Paciente = require('../models/Paciente');
+const TipoDeEstudio = require('../models/TipoDeEstudio');
+const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
+const Empleado = require('../models/Empleado');
 
 router.post('/registrar', async (req, res) => {
     const { email, password, rol } = req.body;
@@ -221,16 +224,60 @@ router.post('/alta-estudio', async (req, res) => {
     let nuevoEstudio
 
     //convertir
-    await User.findById(id_empleado)
-            .then(async (empleado) => {
-                empleado._id // Si no existe empleado, explota y va por catch
-                nuevoEstudio = new Estudio({detalleDelDiagnostico : detalle_diagnostico, empleado : empleado });
-                await nuevoEstudio.save();
+    // await User.findById(id_empleado)
+    //         .then(async (empleado) => {
+    //             empleado._id // Si no existe empleado, explota y va por catch
+    //             nuevoEstudio = new Estudio({detalleDelDiagnostico : detalle_diagnostico, empleado : empleado });
+    //             await nuevoEstudio.save();
+    //             return res.status(200).json(nuevoEstudio);
+    //         })
+    //         .catch((err) => {
+    //             return res.status(401).send("El empleado no existe");
+    //         });
+
+    
+
+    //Estos ID deberían entrar por req
+    ID_EMP            = '613ff8d10b3b007855b65373'
+    ID_PAC            = '619014e2e1950ff9a5607adb'
+    ID_MED            = '616cb0403b41f033cbf7cfa5'
+    ID_TIP_EST        = "6192464445af8808379e359a"
+    ID_DIA_PRESU      = "6192516ac64271a8da78dfd5"
+    DETALLE           = "El paciente tiene acidez al comer ensaladas"
+
+    // Preparo promesas
+    const empleado    = User.findById(ID_EMP)
+    const paciente    = User.findById(ID_PAC)
+    const medico      = MedicoDerivante.findById(ID_MED)
+    const tipoEstudio = TipoDeEstudio.findById(ID_TIP_EST)
+    const dPresuntivo = DiagnosticoPresuntivo.findById(ID_DIA_PRESU)
+
+    // Ejecuto todas a la vez
+    Promise.all([empleado, medico, tipoEstudio, dPresuntivo, paciente])
+            .then(async arr => {
+                nempleado    = arr[0]
+                nmedico      = arr[1]
+                ntipoEstudio = arr[2]
+                ndPresuntivo = arr[3]
+                npaciente    = arr[4]
+
+                nuevoEstudio = new Estudio({
+                    empleado:nempleado,
+                    detalleDelDiagnostico : DETALLE,
+                    medicoDerivante:nmedico,
+                    paciente:npaciente,
+                    tipoDeEstudio:ntipoEstudio,
+                    diagnosticoPresuntivo: ndPresuntivo
+                });
+
+                await nuevoEstudio.save()
                 return res.status(200).json(nuevoEstudio);
             })
-            .catch((err) => {
+            .catch(err =>{ 
+                console.log(err)
                 return res.status(401).send("El empleado no existe");
-            });
+            })
+    // Tnedria que dar de alta un registro de historial (con el empleado) y del nuevo estudio (con paciente, med, tipo, diag, detalle)
 }
 
 );
@@ -280,6 +327,28 @@ router.get('/lista-de-estudios', (req, res) => {
   
 //   })
 
+// Carga diagnosticos
+router.post('/carga-diagnosticos-presuntivos', async (req, res) => {
+    //Recibe una lista de patologias separadas por enter y las carga en Mongo
+    //const { patologias } = req.body;
+
+    patologias = 
+`hardodear
+las patologias
+aqui`
+
+    patologias = patologias.split("\n");
+
+    DiagnosticoPresuntivo.collection.drop();
+    for (var i = 0; i < patologias.length; i++) {
+        let diagnosticoNuevo = new DiagnosticoPresuntivo({ "nombre" : patologias[i] });
+        console.log(diagnosticoNuevo)
+        await diagnosticoNuevo.save();
+    }
+    return true
+})
+
+// Carga diagnosticos
 
 router.get('/obtener-estudio', async (req, res) => {
 

@@ -17,6 +17,7 @@ import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
+import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
 
 
 import { AuthGuard } from './auth.guard';
@@ -90,6 +91,11 @@ const routes: Routes = [
   {
     path: 'detalles-estudio/:id',
     component: DetallesDeEstudioComponent,
+    canActivate: []
+  },
+  {
+    path: 'alta-estudio',
+    component: AltaEstudioComponent,
     canActivate: []
   }
 

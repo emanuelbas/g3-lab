@@ -18,6 +18,18 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/obtener-estudio', { headers: cpHeaders})
   }
 
+  getEmpleados(){
+
+  }
+
+  getMedicos(){
+
+  }
+
+  getTiposDeEstudio(){
+    
+  }
+
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

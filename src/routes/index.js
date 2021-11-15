@@ -220,30 +220,16 @@ router.post('/alta-estudio', async (req, res) => {
     //     detalle_diagnostico, 
     //     id_historial_de_estudio } = req.body;
 
-    const { id_empleado, detalle_diagnostico } = req.body;
+    const { ID_EMP, ID_PAC, ID_MED, ID_TIP_EST, ID_DIA_PRESU, DETALLE} = req.body;
     let nuevoEstudio
-
-    //convertir
-    // await User.findById(id_empleado)
-    //         .then(async (empleado) => {
-    //             empleado._id // Si no existe empleado, explota y va por catch
-    //             nuevoEstudio = new Estudio({detalleDelDiagnostico : detalle_diagnostico, empleado : empleado });
-    //             await nuevoEstudio.save();
-    //             return res.status(200).json(nuevoEstudio);
-    //         })
-    //         .catch((err) => {
-    //             return res.status(401).send("El empleado no existe");
-    //         });
-
-    
-
+  
     //Estos ID deberían entrar por req
-    ID_EMP            = '613ff8d10b3b007855b65373'
-    ID_PAC            = '619014e2e1950ff9a5607adb'
-    ID_MED            = '616cb0403b41f033cbf7cfa5'
-    ID_TIP_EST        = "6192464445af8808379e359a"
-    ID_DIA_PRESU      = "6192516ac64271a8da78dfd5"
-    DETALLE           = "El paciente tiene acidez al comer ensaladas"
+    // ID_EMP            = '613ff8d10b3b007855b65373'
+    // ID_PAC            = '619014e2e1950ff9a5607adb'
+    // ID_MED            = '616cb0403b41f033cbf7cfa5'
+    // ID_TIP_EST        = "6192464445af8808379e359a"
+    // ID_DIA_PRESU      = "6192516ac64271a8da78dfd5"
+    // DETALLE           = "El paciente tiene acidez al comer ensaladas"
 
     // Preparo promesas
     const empleado    = User.findById(ID_EMP)

@@ -36,7 +36,7 @@ export class ListarEstudiosComponent implements OnInit {
 
   }
   addEstudio = () => {
-    this.router.navigate(['/alta-medico-derivante']);
+    this.router.navigate(['/alta-estudio']);
   }
   editMedicoDerivante = (event:any, item:any) => {
     this.router.navigate([`/editar-medico-derivante/${item._id}`]);

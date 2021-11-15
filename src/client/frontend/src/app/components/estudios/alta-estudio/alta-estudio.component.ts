@@ -93,7 +93,7 @@ export class AltaEstudioComponent implements OnInit {
     this.estudioService.createEstudio(formEstudio.value).subscribe(()=>this.backNavigate())
   }
   backNavigate = () => {
-    this.router.navigate(['/']);
+    this.router.navigate(['/listar-estudios']);
   }
   ngOnInit(): void {
     this.getTipos()

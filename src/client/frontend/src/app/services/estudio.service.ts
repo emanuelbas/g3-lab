@@ -41,6 +41,9 @@ export class EstudioService {
     return this.http.post<any>(this.URL + '/alta-estudio', estudio)
   }
 
+  getEstudios(){
+    return this.http.get<any>(this.URL + '/obtener-estudios')
+  }
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

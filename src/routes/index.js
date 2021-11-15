@@ -46,6 +46,15 @@ router.get('/obtener-diagnosticos-presuntivos', async (req, res) => {
     let diagnosticos = await DiagnosticoPresuntivo.find()
     res.status(200).json(diagnosticos)
 })
+router.get('/obtener-estudios', async (req, res) => {
+    let estudios = await Estudio.find()
+        .populate('empleado')
+        .populate('paciente')
+        .populate('medicoDerivante')
+        .populate('tipoDeEstudio')
+        .populate('diagnosticoPresuntivo')
+    res.status(200).json(estudios)
+})
 // GETTERS //
 
 

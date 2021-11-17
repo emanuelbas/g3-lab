@@ -59,7 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'tareas-privadas',
-    component: TareasPrivadasComponent,
+    component: PaginaPrincipalComponent,
     canActivate: [AuthGuard]
   },
   {

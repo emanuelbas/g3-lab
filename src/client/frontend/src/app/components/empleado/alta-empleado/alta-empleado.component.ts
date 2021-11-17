@@ -35,14 +35,18 @@ export class AltaEmpleadoComponent implements OnInit {
   }
 
   onSubmit( formEmpleado: NgForm ){
+    console.log("Entre al submit")
     console.log("Entry",this.editMode)
+    console.log("ES VALIDO?: " + formEmpleado.invalid)
     if(!formEmpleado.invalid){
       !this.editMode ?
         this.empleadoService.createEmpleado(formEmpleado.value).subscribe(res =>{
+          console.log("Me fui al create")
           this.backNavigate()
         })
         : this.empleadoService.updateEmpleado({...formEmpleado.value, '_id':this.user._id}).subscribe(res =>{
-            this.backNavigate()
+          console.log("Me fui al update")
+          this.backNavigate()
           })
 
     }else{

@@ -11,10 +11,7 @@
 
           <!-- Botones de ADMIN -->
           <li class="nav-item" *ngIf="authService.loggedAsAdmin()">
-            <a class="nav-link " aria-current="page" routerLink="/alta-medico-derivante" routerLinkActive="active">Ejemplo-Boton-Admin</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.loggedAsAdmin()">
-            <a class="nav-link " aria-current="page" routerLink="/alta-empleado" routerLinkActive="active">Gestionar Empleados</a>
+            <a class="nav-link " aria-current="page" routerLink="/alta-empleado" routerLinkActive="active">Crear Empleado</a>
           </li>
 
           <!-- Botones de CONFIGURADOR -->
@@ -40,9 +37,6 @@
         <!-- Botones de perfil -->
         <ul class="navbar-nav mr-auto">
           <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
-            <li class="nav-item">
-              <a class="nav-link " aria-current="page" routerLink="/registrar" routerLinkActive="active">Registrarme</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link " aria-current="page" routerLink="/ingresar" routerLinkActive="active">Ingresar</a>
             </li>

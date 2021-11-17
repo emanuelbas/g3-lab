@@ -43,5 +43,8 @@ export class DetallesDeEstudioComponent implements OnInit {
       }
     });
   }
+  backNavigate = () => {
+    this.router.navigate(['/listar-estudios']);
+  }
 
 }

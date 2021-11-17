@@ -37,7 +37,6 @@ export class EstudioService {
   }
 
   createEstudio(estudio: any){
-    console.log(estudio)
     return this.http.post<any>(this.URL + '/alta-estudio', estudio)
   }
 

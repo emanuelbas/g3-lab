@@ -13,7 +13,6 @@ export class EmpleadoService {
 
 
   createEmpleado(empleado: any){
-    console.log("empleado", empleado)
     return this.http.post<any>(this.URL + '/alta-empleado', empleado)
   }
 

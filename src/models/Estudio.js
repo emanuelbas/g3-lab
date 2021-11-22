@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+console.log("SE EJECUTA ESTUDIO")
 const estudioSchema = new Schema({
     detalleDelDiagnostico: String,
     empleado: {
@@ -10,7 +11,6 @@ const estudioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-//    ctrl k y ctrl u, control c
     medicoDerivante: {
         type: Schema.Types.ObjectId,
         ref: 'MedicoDerivante'
@@ -22,8 +22,19 @@ const estudioSchema = new Schema({
     diagnosticoPresuntivo: {
         type: Schema.Types.ObjectId,
         ref: 'DiagnosticoPresuntivo'
-    }
-    // CAMPO ID ESTADO ACTUAL
+    },
+    estado: {
+        type: Schema.Types.ObjectId,
+        ref: 'Estado'
+    },
+    obraSocial: {
+        type: Schema.Types.ObjectId,
+        ref: 'ObraSocial'
+    },
+    historialDeEstudio: [{
+        type: Schema.Types.ObjectId,
+        ref: 'HistorialDeEstudio'
+    }]
 }, {
     timestamps: true
 });

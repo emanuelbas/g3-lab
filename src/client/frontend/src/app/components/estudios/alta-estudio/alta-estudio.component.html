@@ -16,7 +16,7 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">Paciente</label>
         <div class="col-8">
-            <select name="PACIENTE" [(ngModel)]="pacienteSeleccionado">
+            <select name="PACIENTE" [(ngModel)]="pacienteSeleccionado" (ngModelChange)="getOS(paciente)">
             <option [value]="paciente._id" *ngFor="let paciente of pacientes">{{paciente.nombre}}</option>
             </select>
         </div>  

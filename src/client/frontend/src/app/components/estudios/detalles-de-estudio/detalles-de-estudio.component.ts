@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EstudioService } from '../../../services/estudio.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
+import { Estudio } from '../../../models/estudio'
 @Component({
   selector: 'app-detalles-de-estudio',
   templateUrl: './detalles-de-estudio.component.html',
@@ -19,6 +19,7 @@ export class DetallesDeEstudioComponent implements OnInit {
     estado_actual: '',
     historial: ''
   }
+  estudioConEstado: Estudio = new Estudio();
 
 
   constructor(
@@ -30,7 +31,11 @@ export class DetallesDeEstudioComponent implements OnInit {
 
   getEstudioById = (id: string) => {
     this.estudioService.getEstudioById(id)
-      .subscribe((resp) => {this.estudio = resp;console.log(this.estudio)} )
+      .subscribe((resp) => {
+        this.estudio = resp;
+        console.log(this.estudio)
+        this.estudioConEstado = new Estudio(this.estudio.estado_actual)
+      })
   }
 
 

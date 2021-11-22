@@ -6,5 +6,6 @@ router.get('/', estudioControllers.pruebaHola);
 router.get('/obtener-estudios', estudioControllers.getEstudios)
 router.post('/alta-estudio', estudioControllers.altaEstudio)
 router.get('/obtener-estudio', estudioControllers.getEstudio)
+router.post('/cambiar-estado', estudioControllers.changeEstado)
 
 module.exports = router

@@ -40,6 +40,15 @@ export class EstudioService {
     return this.http.post<any>(this.URL + '/alta-estudio', estudio)
   }
 
+  setEstado(estudioId:any, nombreEstado:string){
+    let data = {
+      estudio: estudioId,
+      estado: nombreEstado
+    }
+    console.log(data)
+    return this.http.post<any>(this.URL + '/cambiar-estado', data)
+  }
+
   getEstudios(){
     return this.http.get<any>(this.URL + '/obtener-estudios')
   }

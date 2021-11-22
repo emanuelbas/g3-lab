@@ -110,10 +110,15 @@ const getEstudio = async (req, res) => {
     })
     .catch((err)=>{console.log(err)})
 }
-
+const changeEstado = async (req, res) => {
+    let { estudio, estado } = req.body;
+    console.log(estudio)
+    console.log(estado)
+}
 module.exports = {
     pruebaHola,
     getEstudios,
     altaEstudio,
-    getEstudio
+    getEstudio,
+    changeEstado
 }

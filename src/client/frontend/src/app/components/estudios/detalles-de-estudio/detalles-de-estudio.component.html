@@ -43,8 +43,8 @@
                     <div class="assign-team mt-4">
                         <h5 class="m-b-5">Opciones para estado actual</h5>
                         <div>
-                            <button class="btn btn-info">Descargar presupuesto</button>
-                            <button class="btn btn-info ml-2">Descargar consentimiento informado</button>
+                            <button *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info">Descargar presupuesto</button>
+                            <button *ngIf="estudioConEstado.verBotonBajarCI()" class="btn btn-info ml-2">Descargar consentimiento informado</button>
                         </div>
                     </div>
                     <div class="attached-files mt-4">

@@ -11,7 +11,7 @@
                     <h4 class="m-b-20">Información general del estudio</h4>
                     <p class="text-muted">{{estudio.detalleDelDiagnostico}}</p>
                     <p class="text-muted">En este texto se podría ir incluyendo detalles relvantes junto con URLS que permitan recuperar datos de los estados anteriores</p>
-                    
+
                     <ul class="list-inline task-dates m-b-0 mt-5">
                         <li>
                             <h5 class="m-b-5">Fecha de Creación</h5>
@@ -39,7 +39,7 @@
                         </li>
 
                     </ul>
-                   
+
                     <div class="assign-team mt-4">
                         <h5 class="m-b-5">Opciones para estado actual</h5>
                         <div>
@@ -54,29 +54,66 @@
                         </div>
 
                     </div>
-                    
+
                 </div>
                 <button class="btn btn-primary" (click)="backNavigate()">
                     Volver
                   </button>
             </div>
             <!-- end col -->
-            <div class="col-lg-4">
+            <div class="col-12 col-md-12">
+              <h4 class="header-title m-b-30">Historial del Estudio</h4>
                 <div class="card-box">
                     <h4 class="header-title m-b-30">Historial del Estudio</h4>
                     <div>
                         <p> Completó el estado "nombre de algún estado"
-                            10/11/2021 - 10/12/2021 
+                            10/11/2021 - 10/12/2021
                             Usuario: "ddsadsa@gmail.com"
                         </p>
                     </div>
                     <div>
                         <p> Completó el estado "nombre de algún estado"
-                            10/11/2021 - 10/12/2021 
+                            10/11/2021 - 10/12/2021
                             Usuario: "ddsadsa@gmail.com"
                         </p>
                     </div>
                 </div>
+              <table style="width: 60%;">
+                <thead>
+                  <tr>
+                    <th>
+                      <strong>Completó el Estado:</strong>
+                    </th>
+                    <th>
+                      <strong>fecha inicio:</strong>
+                    </th>
+                    <th>
+                      <strong>fecha fin:</strong>
+                    </th>
+                    <th>
+                      <strong>Usuario:</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>
+                      <a></a>
+                    </td>
+                    <td>
+                      <a>{{estudio.createdAt}}</a>
+                    </td>
+                    <td>
+                      <a></a>
+                    </td>
+                    <td>
+                      <a>{{estudio.paciente.nombre}}</a>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+
             </div>
             <!-- end col -->
         </div>

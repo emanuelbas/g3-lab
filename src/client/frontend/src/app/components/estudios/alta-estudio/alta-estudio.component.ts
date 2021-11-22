@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EstudioService } from 'src/app/services/estudio.service';
-import { Empleado } from './Empleado'
+import { Empleado, Paciente } from './Empleado'
 
 @Component({
   selector: 'app-alta-estudio',
@@ -16,13 +16,14 @@ export class AltaEstudioComponent implements OnInit {
     ID_MED: '',
     ID_TIP_EST: '',
     ID_DIA_PRESU: '',
-    DETALLE: ''
+    DETALLE: '',
+    OS: ''
   }
   seleccionado = (new Empleado("", ""));
   empleado = (new Empleado("", ""))
 
   pacienteSeleccionado = (new Empleado("", ""));
-  paciente = (new Empleado("", ""))
+  paciente = (new Paciente("", "", ""))
 
   medicoSeleccionado = (new Empleado("", ""));
   medico = (new Empleado("", ""))
@@ -33,6 +34,7 @@ export class AltaEstudioComponent implements OnInit {
   diagnosticoSeleccionado = (new Empleado("", ""));
   diagnostico = (new Empleado("", ""))
 
+  os : any;
   empleados: Empleado[] = []
   pacientes: Empleado[] = []
   medicos: Empleado[] = []
@@ -86,7 +88,13 @@ export class AltaEstudioComponent implements OnInit {
       })
   }
 
-
+  getOS = (paciente:Paciente) => {
+    // this.estudioService.getOS()
+    //   .subscribe((os) => {
+    //     this.os = os
+    //   })
+    this.os = paciente.os
+  }
 
   onSubmit(formEstudio: NgForm) {
     //console.log(formEstudio.value)

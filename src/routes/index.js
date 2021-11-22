@@ -10,19 +10,6 @@ const TipoDeEstudio = require('../models/TipoDeEstudio');
 const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
 const Empleado = require('../models/Empleado');
 
-router.post('/registrar', async (req, res) => {
-    const { email, password, rol } = req.body;
-    console.log(email, password)
-    const nuevoUsuario = new User({ email, password, rol });
-    await nuevoUsuario.save();
-
-    const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
-    res.status(200).json({ token })
-
-})
-
-
-
 
 // GETTERS
 
@@ -46,15 +33,7 @@ router.get('/obtener-diagnosticos-presuntivos', async (req, res) => {
     let diagnosticos = await DiagnosticoPresuntivo.find()
     res.status(200).json(diagnosticos)
 })
-router.get('/obtener-estudios', async (req, res) => {
-    let estudios = await Estudio.find()
-        .populate('empleado')
-        .populate('paciente')
-        .populate('medicoDerivante')
-        .populate('tipoDeEstudio')
-        .populate('diagnosticoPresuntivo')
-    res.status(200).json(estudios)
-})
+
 // GETTERS //
 
 
@@ -158,20 +137,6 @@ router.post('/ingresar-admin', async (req, res) => {
     return res.status(200).json({ token });
 })
 
-
-// Shift + Alt + A
-/* router.post('/ingresar', async (req, res) => {
-
-    const { email, password } = req.body;
-    const user = await User.findOne({email})
-
-    if (!user) return res.status(401).send("El correo no existe");
-    if (user.password !== password) return res.status(401).send('Password incorrecta');
-
-    const token = jwt.sign({_id: user._id}, 'secretKey');
-    return res.status(200).json({token});
-}) */
-
 router.post('/ingresar', async (req, res) => {
 
     const { email, password } = req.body;
@@ -194,160 +159,20 @@ router.post('/ingresar', async (req, res) => {
 
 
 
-router.get('/tareas', (re, res) => {
-    res.json([
-        {
-            _id: 1,
-            name: 'tarea 1',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-        {
-            _id: 2,
-            name: 'tarea 2',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-        {
-            _id: 3,
-            name: 'tarea 3',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-    ]);
-
-
-});
-
-router.get('/tareas-privadas', verifyToken, (re, res) => {
-    res.json([
-        {
-            _id: 1,
-            name: 'tarea 1',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-        {
-            _id: 2,
-            name: 'tarea 2',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-        {
-            _id: 3,
-            name: 'tarea 3',
-            descripcion: 'lorem imsum',
-            date: '2021-09-12T08:20:00.043+00:00'
-        },
-    ]);
-});
-
 // R22 - I
 //verifyToken
-router.post('/alta-estudio', async (req, res) => {
- 
-    // obtener datos
-    // const { id_empleado, 
-    //     id_medico_derivante, 
-    //     id_tipo_de_estudio, 
-    //     id_diagnostico_presuntivo, 
-    //     detalle_diagnostico, 
-    //     id_historial_de_estudio } = req.body;
-    console.log("Entre a express, voy a imprimir el req.body")
 
-    console.log(req.body)
-    let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE} = req.body;
-    let nuevoEstudio
-  
-    //Estos ID deberían entrar por req
-    // EMPLEADO            = '6189c3d15c81902c73092d3c'
-    // PACIENTE            = '619014e2e1950ff9a5607adb'
-    // MEDICO            = '616cb0403b41f033cbf7cfa5'
-    // TIPO        = "6192464445af8808379e359a"
-    // DIAGNOSTICO      = "6192516ac64271a8da78dfd5"
-    // DETALLE           = "El paciente tiene acidez al comer ensaladas"
 
-    // Preparo promesas
-    const empleado    = User.findById(EMPLEADO)
-    const paciente    = User.findById(PACIENTE)
-    const medico      = MedicoDerivante.findById(MEDICO)
-    const tipoEstudio = TipoDeEstudio.findById(TIPO)
-    const dPresuntivo = DiagnosticoPresuntivo.findById(DIAGNOSTICO)
 
-    // Ejecuto todas a la vez
-    Promise.all([empleado, medico, tipoEstudio, dPresuntivo, paciente])
-            .then(async arr => {
-                nempleado    = arr[0]
-                nmedico      = arr[1]
-                ntipoEstudio = arr[2]
-                ndPresuntivo = arr[3]
-                npaciente    = arr[4]
+// Logica de lotes
+                // Contador es 0?
+                // Si es 0 --> Crear un nuevo lote
+                    // Agregar estudio a lote 
+                // Si no es 0 --> Sumar 1 al contador
+                    // Agregar estudio a lote
+                    // Si contador es 10 --> Reiniciar contador
+                        // Cerrar lote
 
-                nuevoEstudio = new Estudio({
-                    empleado:nempleado,
-                    detalleDelDiagnostico : DETALLE,
-                    medicoDerivante:nmedico,
-                    paciente:npaciente,
-                    tipoDeEstudio:ntipoEstudio,
-                    diagnosticoPresuntivo: ndPresuntivo
-                });
-
-                await nuevoEstudio.save()
-                return res.status(200).json(nuevoEstudio);
-            })
-            .catch(err =>{ 
-                console.log(err)
-                return res.status(401).send("El empleado no existe");
-            })
-    // Tnedria que dar de alta un registro de historial (con el empleado) y del nuevo estudio (con paciente, med, tipo, diag, detalle)
-}
-
-);
-
-// Mock de lista de estudios
-
-router.get('/lista-de-estudios', (req, res) => {
-    res.json([
-        {
-            _id: 1,
-            nombre_paciente: 'jose alberti',
-            nombre_medico_derivante: 'pepito',
-            nombre_tipo_estudio: 'un tipo',
-            diagnostico_presuntivo: 'dasasdasd',
-            detalle_diagnostico: 'un detalle de diagnostico',
-            estado_actual: 'estado',
-            historial: 'aca necesito un array',
-        },
-        {
-            _id: 2,
-            nombre_paciente: 'jose alberti',
-            nombre_medico_derivante: 'pepito',
-            nombre_tipo_estudio: 'un tipo',
-            diagnostico_presuntivo: 'dasasdasd',
-            detalle_diagnostico: 'un detalle de diagnostico',
-            estado_actual: 'estado',
-            historial: 'aca necesito un array',
-        },
-        {
-            _id: 3,
-            nombre_paciente: 'jose alberti',
-            nombre_medico_derivante: 'pepito',
-            nombre_tipo_estudio: 'un tipo',
-            diagnostico_presuntivo: 'dasasdasd',
-            detalle_diagnostico: 'un detalle de diagnostico',
-            estado_actual: 'estado',
-            historial: 'aca necesito un array',
-        },
-        
-    ]);
-})
-
-// router.get('/obtener-medico-por-id', async (req, res) => {
-//     const {id} = req.headers
-//     let medicoDerivantes = await MedicoDerivante.find({'_id': id})
-//     res.status(200).json(medicoDerivantes)
-  
-//   })
 
 // Carga diagnosticos
 router.post('/carga-diagnosticos-presuntivos', async (req, res) => {
@@ -370,37 +195,13 @@ aqui`
     return true
 })
 
-// Carga diagnosticos
-
-router.get('/obtener-estudio', async (req, res) => {
-
-    // _id en postman se manda como body/raw/JSON
-    // en los servicios de angular this.http.get(this.URL + '/detalles-estudio', estudio_id)
-    const {_id} = req.headers;
-    Estudio.findOne({'_id': _id})
-    .populate("paciente")
-    .populate('empleado')
-    .populate('medicoDerivante')
-    .populate('tipoDeEstudio')
-    .populate('diagnosticoPresuntivo')
-    .then((estudio) => {
-        console.log(estudio)
-        res.status(200).json(
-            estudio
-        );
-    })
-    .catch((err)=>{console.log(err)})
-
-})
-
-
 // R22 - F
 
 router.get('/perfil', verifyToken, (req, res) => {
     res.send(req.userId);
 })
 
-router.get('/', (req, res) => res.send('Hola!'))
+
 
 module.exports = router;
 

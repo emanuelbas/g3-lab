@@ -3,13 +3,17 @@ const { Schema, model } = require('mongoose');
 const historialDeEstudioSchema = new Schema({
     fechaInicio: Date,
     fechaFin: Date,
-    Estudio: {
+    estudio: {
         type: Schema.Types.ObjectId,
         ref: 'Estudio'
     },
-    User: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    estado: {
+        type: Schema.Types.ObjectId,
+        ref: 'Estado'
     }
 }, {
     timestamps: true

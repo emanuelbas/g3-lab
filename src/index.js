@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use(cors());
 app.use('/api', require('./routes/index'))
+app.use('/api', require('./routes/estudios.routes'))
 
 // Serve static files
 app.use(express.static(__dirname + '/client/frontend/dist/frontend'));

@@ -4,3 +4,10 @@ export class Empleado {
 
     }
 }
+
+export class Paciente {
+
+    constructor(public _id?:string, public nombre?:string, public os?:string) {
+
+    }
+}

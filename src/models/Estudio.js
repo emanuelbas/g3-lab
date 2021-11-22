@@ -10,7 +10,6 @@ const estudioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-//    ctrl k y ctrl u, control c
     medicoDerivante: {
         type: Schema.Types.ObjectId,
         ref: 'MedicoDerivante'
@@ -22,8 +21,15 @@ const estudioSchema = new Schema({
     diagnosticoPresuntivo: {
         type: Schema.Types.ObjectId,
         ref: 'DiagnosticoPresuntivo'
+    },
+    estado: {
+        type: Schema.Types.ObjectId,
+        ref: 'Estado'
+    },
+    obraSocial: {
+        type: Schema.Types.ObjectId,
+        ref: 'ObraSocial'
     }
-    // CAMPO ID ESTADO ACTUAL
 }, {
     timestamps: true
 });

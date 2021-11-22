@@ -19,4 +19,4 @@ const historialDeEstudioSchema = new Schema({
     timestamps: true
 });
 
-module.exports = model('HistorialDeEstudioSchema', historialDeEstudioSchema);
+module.exports = model('HistorialDeEstudio', historialDeEstudioSchema);

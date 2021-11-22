@@ -9,6 +9,7 @@ const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
 const Empleado = require('../models/Empleado');
 const Estado = require('../models/Estado');
 const ObraSocial = require('../models/ObraSocial');
+const HistorialDeEstudio = require('../models/HistorialDeEstudio');
 
 const pruebaHola = async (req, res) => res.send('Hola!')
 const getEstudios = async (req, res) => {
@@ -98,6 +99,9 @@ const getEstudio = async (req, res) => {
     .populate('diagnosticoPresuntivo')
     .populate('obraSocial')
     .populate('estado')
+    .populate({
+    path: 'historialDeEstudio',
+    populate: {path: 'estado'}})
     .then((estudio) => {
         console.log(estudio)
         res.status(200).json(

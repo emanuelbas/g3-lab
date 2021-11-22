@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+console.log("SE EJECUTA OS")
 const obraSocialSchema = new Schema({
     nombre: String,
     email: String,

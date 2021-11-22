@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+console.log("SE EJECUTA ESTUDIO")
 const estudioSchema = new Schema({
     detalleDelDiagnostico: String,
     empleado: {
@@ -29,7 +30,11 @@ const estudioSchema = new Schema({
     obraSocial: {
         type: Schema.Types.ObjectId,
         ref: 'ObraSocial'
-    }
+    },
+    historialDeEstudio: [{
+        type: Schema.Types.ObjectId,
+        ref: 'HistorialDeEstudio'
+    }]
 }, {
     timestamps: true
 });

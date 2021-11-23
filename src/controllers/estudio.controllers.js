@@ -13,6 +13,7 @@ const HistorialDeEstudio = require('../models/HistorialDeEstudio');
 
 const pruebaHola = async (req, res) => res.send('Hola!')
 const getEstudios = async (req, res) => {
+    console.log("Se llamo a get estudios")
     let estudios = await Estudio.find()
         .populate('empleado')
         .populate('paciente')
@@ -30,9 +31,9 @@ const altaEstudio = async (req, res) => {
     //     id_diagnostico_presuntivo, 
     //     detalle_diagnostico, 
     //     id_historial_de_estudio } = req.body;
-    console.log("Entre a express, voy a imprimir el req.body")
 
-    console.log(req.body)
+
+
     let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE, OS} = req.body;
     let ESTADO = '619a630f3a930bb3c59bb779' // Esperando comprobante de pago
     let nuevoEstudio
@@ -81,7 +82,7 @@ const altaEstudio = async (req, res) => {
                 return res.status(200).json(nuevoEstudio);
             })
             .catch(err =>{ 
-                console.log(err)
+
                 return res.status(401).send(err);
             })
     // Tnedria que dar de alta un registro de historial (con el empleado) y del nuevo estudio (con paciente, med, tipo, diag, detalle)
@@ -103,7 +104,7 @@ const getEstudio = async (req, res) => {
     path: 'historialDeEstudio',
     populate: {path: 'estado'}})
     .then((estudio) => {
-        console.log(estudio)
+
         res.status(200).json(
             estudio
         );
@@ -111,9 +112,26 @@ const getEstudio = async (req, res) => {
     .catch((err)=>{console.log(err)})
 }
 const changeEstado = async (req, res) => {
-    let { estudio, estado } = req.body;
-    console.log(estudio)
-    console.log(estado)
+
+    //let { estudio, estado } = req.body;
+    let { estudio, estado } = req.headers;
+    let regEstado;
+    await Estado.findOne({'nombre': estado})
+    .then(async (est) => {
+        
+
+        await Estudio.findById(estudio)
+        .then((regEstudio) => {
+            console.log(est);
+            regEstudio.estado = est;
+            regEstudio
+                .save()
+                .then(() => {
+                    console.log(regEstudio)
+                    return res.status(200).json(regEstudio);
+                })
+        })
+    })
 }
 module.exports = {
     pruebaHola,

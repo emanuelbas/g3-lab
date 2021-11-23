@@ -42,11 +42,12 @@ export class EstudioService {
 
   setEstado(estudioId:any, nombreEstado:string){
     let data = {
-      estudio: estudioId,
-      estado: nombreEstado
+      "estudio": estudioId,
+      "estado": nombreEstado
     }
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado});
     console.log(data)
-    return this.http.post<any>(this.URL + '/cambiar-estado', data)
+    return this.http.get<any>(this.URL + '/cambiar-estado', { headers: cpHeaders})
   }
 
   getEstudios(){

@@ -7,6 +7,7 @@ interface State {
     verBotonAlgoMas() : any;
     verBotonBajarCI() : boolean;
     siguiente(idEstudio:string, servicio:EstudioService) : any;
+    reiniciarEstado(idEstudio:string, servicio:EstudioService) : any;
 }
 
 class Estudio {
@@ -56,9 +57,13 @@ class Estudio {
     public verBotonBajarCI(){
         return this.currentState.verBotonBajarCI()
     }
+    public reiniciarEstado(idEstudio:string, servicio:EstudioService){
+        this.currentState.reiniciarEstado(idEstudio,servicio)
+    }
 
 }
 class State{
+
 }
 
 class EsperandoPresupuestoState implements State {
@@ -69,20 +74,26 @@ class EsperandoPresupuestoState implements State {
     verBotonBajarCI() : boolean{return false}
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         console.log('SERVICIO.Cambiar a estado ComprobanteDePago')
-        servicio.setEstado(idEstudio,'Esperando comprobante de pago')
+        servicio.setEstado(idEstudio,'Esperando comprobante de pago').toPromise().then(()=>window.location.reload())
+    }
+    reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
+        servicio.setEstado(idEstudio,'Esperando presupuesto').toPromise().then(()=>window.location.reload())
     }
 }
 
 class EsperandoComprobanteDePagoState implements State {
 
-    verBotonBajarPresupuesto(): boolean{return true}
-    verBotonSubirRecibo(): boolean{return true}
+    verBotonBajarPresupuesto(): boolean{return false}
+    verBotonSubirRecibo(): boolean{return false}
     verBotonLotes(): boolean{return false}
     verBotonAlgoMas(): boolean{return false}
     verBotonBajarCI() : boolean{return false}
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         console.log('SERVICIO.Cambiar a estado EnviarCI')
-        servicio.setEstado(idEstudio,'Esperando consentiminto informado')
+        servicio.setEstado(idEstudio,'Esperando consentiminto informado').toPromise().then(()=>window.location.reload())
+    }
+    reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
+        servicio.setEstado(idEstudio,'Esperando presupuesto').toPromise().then(()=>window.location.reload())
     }
 }
 

@@ -39,7 +39,6 @@ export class DetallesDeEstudioComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.get('id')){
         let id:string = params.get('id') ? params.get('id')! : ''
@@ -50,5 +49,4 @@ export class DetallesDeEstudioComponent implements OnInit {
   backNavigate = () => {
     this.router.navigate(['/listar-estudios']);
   }
-
 }

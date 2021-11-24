@@ -1,6 +1,6 @@
-# init-express-mongo-cloud
+# G3-LAB
 
-Probando express con mongoose y una BD Cloud de Mongo, Angular y Heroku
+Proyecto desarrollado con el stack MEAN, cuenta en la carpeta principal con el servidor de Node con Express. Mientras que en la carpeta src/clint/frontend su frontend en Angular. Se utilizó MongoCloud para base de datos y Heroku como host.
 
 # Pre-requisitos
 
@@ -13,4 +13,13 @@ Probando express con mongoose y una BD Cloud de Mongo, Angular y Heroku
 
 # Uso
 
-Correr el comando "npm run dev"
+1. Levantar backend
+npm run dev
+
+2. Levantar frontend
+Posicionarse en la carpeta: src/client/frontend 
+Ejecutar: ng serve --proxy-config proxy.config.json --open
+
+Opción Windows
+El proyecto cuenta con archivo lanzador que ejecuta los comandos anteriores:
+windows-levanta-todo.cmd

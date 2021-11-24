@@ -102,6 +102,9 @@ const getEstudio = async (req, res) => {
     .populate({
     path: 'historialDeEstudio',
     populate: {path: 'estado'}})
+    .populate({
+        path: 'historialDeEstudio',
+        populate: {path: 'user'}})
     .then((estudio) => {
         console.log(estudio)
         res.status(200).json(
@@ -110,10 +113,34 @@ const getEstudio = async (req, res) => {
     })
     .catch((err)=>{console.log(err)})
 }
+const changeEstado = async (req, res) => {
+ 
+    //let { estudio, estado } = req.body;
+    let { estudio, estado } = req.headers;
+    let regEstado;
+    await Estado.findOne({'nombre': estado})
+    .then(async (est) => {
+        
+ 
+        await Estudio.findById(estudio)
+        .then((regEstudio) => {
+            console.log(est);
+            regEstudio.estado = est;
+            regEstudio
+                .save()
+                .then(() => {
+                    console.log(regEstudio)
+                    return res.status(200).json(regEstudio);
+                })
+        })
+    })
+}
 
 module.exports = {
     pruebaHola,
     getEstudios,
     altaEstudio,
-    getEstudio
+    getEstudio,
+    changeEstado
+    
 }

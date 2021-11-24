@@ -28,7 +28,7 @@ export class DetallesDeEstudioComponent implements OnInit {
 
 
   constructor(
-    private estudioService: EstudioService,
+    public estudioService: EstudioService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -40,7 +40,7 @@ export class DetallesDeEstudioComponent implements OnInit {
         this.estudio = resp;
         this.listas = resp?.historialDeEstudio;//?para no romper la aplicacion
         console.log(this.estudio)
-        this.estudioConEstado = new Estudio(this.estudio.estado_actual)
+        this.estudioConEstado = new Estudio(this.estudio.estado.nombre)
 
 
 

@@ -6,7 +6,7 @@
                 <div class="card-box task-detail">
                     <div class="media mt-0 m-b-30">
                         <div class="media-body">
-                            <h5 class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">Esperando consentimiento informado firmado</span></div>
+                            <h5 class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">{{estudio.estado.nombre}}</span></div>
                     </div>
                     <h4 class="m-b-20">Información general del estudio</h4>
                     <p class="text-muted">{{estudio.detalleDelDiagnostico}}</p>
@@ -41,18 +41,24 @@
                     </ul>
 
                     <div class="assign-team mt-4">
-                        <h5 class="m-b-5">Opciones para estado actual</h5>
+                        <h5 class="m-b-5">Acciones</h5>
                         <div>
-                            <button class="btn btn-info">Descargar presupuesto</button>
-                            <button class="btn btn-info ml-2">Descargar consentimiento informado</button>
-                        </div>
-                    </div>
-                    <div class="attached-files mt-4">
-                        <h5 class="m-b-5">Opciones para estado actual</h5>
-                        <div>
-                            <button class="btn btn-success">Subir consentimiento informado firmado</button>
-                        </div>
+                            <button *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info">Descargar presupuesto</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button>
+                            <button *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info ml-2">Bajar comprobante de pago</button>
 
+                            <button *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Enviar consentimiento informado a paciente</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirCIF()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir consentimiento informado firmado</button>
+                            <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
+                            <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
+                            <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Muestra retirada</button>
+                            <button *ngIf="estudioConEstado.verBotonInciarProcesamiento()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento ya que se retiraron 10 muestras <small class="text-muted">(test)</small></button>
+                            <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir resultado del lote</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir interpretación de resultado</button>
+                            <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Los resultados fueron envidos al Medico Derivante</button>
+
+                            <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-primary">Reiniciar estado <small class="text-muted">(test)</small></button>
+                        </div>
                     </div>
 
                 </div>
@@ -91,7 +97,7 @@
                       <a>{{historia.fechaFin}}</a>
                     </td>
                     <td>
-                      <a>{{historia.user}}</a>
+                      <a>{{historia.user.email}}</a>
                     </td>
                   </tr>
                 </tbody>

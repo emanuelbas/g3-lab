@@ -16,10 +16,12 @@ interface State {
     verBotonMuestraRealizada() : boolean;
     verContadorDeMuestras() : boolean;
     verBotonMuestraProcesada() : boolean;
+    verBotonInciarProcesamiento() : boolean;
     verBotonSubirInterpretacion() : boolean;
     verBotonDescargarInterpretacion() : boolean;
     verBotonEntregado() : boolean;
-    
+    verBotonSubirResultado() : boolean;
+
     siguiente(idEstudio:string, servicio:EstudioService) : any;
     reiniciarEstado(idEstudio:string, servicio:EstudioService) : any;
 
@@ -50,28 +52,41 @@ class Estudio {
               break;
               case "Esperando carga de consentimiento informado FIRMADO":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoCIFState()
               break;
-              case "Esperando comprobante de pago":
+              case "Esperando seleccion de turno":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoSeleccionDeTurnotate()
               break;
-              case "Esperando comprobante de pago":
+              case "Esperando toma de muestra":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoTomaDeMuestraState()
               break;
-              case "Esperando comprobante de pago":
+              case "Esperando retiro de muestra desde el sector de extracciones":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoRertiroDeMuestraState()
               break;
-              case "Esperando comprobante de pago":
+              case "Esperando iniciar procesamiento biotecnologico":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoProcesamientoState()
               break;
-              case "Esperando comprobante de pago":
+              case "Esperando resultado de lote":
                 console.log("Se crea un estudio con estado Esperando comprobante de pago")
-                this.currentState = new EsperandoComprobanteDePagoState()
+                this.currentState = new EsperandoResultadoState()
               break;
+              case "Esperando interpretacion de resultado e informe":
+                console.log("Se crea un estudio con estado Esperando comprobante de pago")
+                this.currentState = new EsperandoInterpretacionState()
+              break;
+              case "Esperando ser entregado a medico derivante":
+                console.log("Se crea un estudio con estado Esperando comprobante de pago")
+                this.currentState = new EsperandoEnvioAMedicoState()
+              break;
+              case "Entregado":
+                console.log("Se crea un estudio con estado Esperando comprobante de pago")
+                this.currentState = new EntregadoState()
+              break;
+              
             default:
               // code block
           } 
@@ -143,8 +158,17 @@ class Estudio {
     public verBotonEntregado(){
         return this.currentState.verBotonEntregado()
     }
+    public verBotonMuestraRetirada(){
+        return this.currentState.verBotonMuestraRetirada()
+    }
+    public verBotonSubirResultado(){
+        return this.currentState.verBotonSubirResultado()
+    }
     public reiniciarEstado(idEstudio:string, servicio:EstudioService){
         this.currentState.reiniciarEstado(idEstudio,servicio)
+    }
+    public verBotonInciarProcesamiento(){
+        return this.currentState.verBotonInciarProcesamiento()
     }
 
 }
@@ -167,6 +191,9 @@ class State implements State{
     verBotonSubirInterpretacion() :boolean{return false}
     verBotonDescargarInterpretacion():boolean{return false}
     verBotonEntregado():boolean{return false}
+    verBotonMuestraRetirada():boolean{return false}
+    verBotonSubirResultado():boolean{return false}
+    verBotonInciarProcesamiento ():boolean{return false}
 
     siguiente(idEstudio:string, servicio:EstudioService) :boolean{return false}
     reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
@@ -217,6 +244,7 @@ class EsperandoCIFState extends State {
         let estado = 'Esperando seleccion de turno'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonSubirCIF() : boolean{return true}
 }
 
 class EsperandoSeleccionDeTurnotate extends State {
@@ -224,6 +252,7 @@ class EsperandoSeleccionDeTurnotate extends State {
         let estado = 'Esperando toma de muestra'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonSeleccionarTurno() : boolean{return true}
 }
 
 class EsperandoTomaDeMuestraState extends State {
@@ -231,18 +260,23 @@ class EsperandoTomaDeMuestraState extends State {
         let estado = 'Esperando retiro de muestra desde el sector de extracciones'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonMuestraTomada() : boolean{return true}
 }
 class EsperandoRertiroDeMuestraState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         let estado = 'Esperando iniciar procesamiento biotecnologico'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonMuestraRetirada() : boolean{return true}
 }
 class EsperandoProcesamientoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         let estado = 'Esperando resultado de lote'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verFormExtraccionMuestra() : boolean{return true}
+    verBotonMuestraProcesada() : boolean{return true}
+    verBotonInciarProcesamiento() : boolean{return true}
 }
 
 class EsperandoResultadoState extends State {
@@ -250,6 +284,7 @@ class EsperandoResultadoState extends State {
         let estado = 'Esperando interpretacion de resultado e informe'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonSubirResultado() : boolean{return true}
 }
 
 class EsperandoInterpretacionState extends State {
@@ -257,6 +292,7 @@ class EsperandoInterpretacionState extends State {
         let estado = 'Esperando ser entregado a medico derivante'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonSubirInterpretacion() : boolean{return true}
 }
 
 class EsperandoEnvioAMedicoState extends State {
@@ -264,6 +300,7 @@ class EsperandoEnvioAMedicoState extends State {
         let estado = 'Entregado'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonEntregado() : boolean{return true}
 }
 class EntregadoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{

@@ -56,33 +56,17 @@
                     </div>
 
                 </div>
-                <button class="btn btn-primary" (click)="backNavigate()">
-                    Volver
-                  </button>
+
             </div>
             <!-- end col -->
             <div class="col-12 col-md-12">
               <h4 class="header-title m-b-30">Historial del Estudio</h4>
-                <div class="card-box">
-                    <h4 class="header-title m-b-30">Historial del Estudio</h4>
-                    <div>
-                        <p> Completó el estado "nombre de algún estado"
-                            10/11/2021 - 10/12/2021
-                            Usuario: "ddsadsa@gmail.com"
-                        </p>
-                    </div>
-                    <div>
-                        <p> Completó el estado "nombre de algún estado"
-                            10/11/2021 - 10/12/2021
-                            Usuario: "ddsadsa@gmail.com"
-                        </p>
-                    </div>
-                </div>
-              <table style="width: 60%;">
+
+              <table style="width: 100%;" >
                 <thead>
                   <tr>
                     <th>
-                      <strong>Completó el Estado:</strong>
+                      <strong> Estado Acctual:</strong>
                     </th>
                     <th>
                       <strong>fecha inicio:</strong>
@@ -96,23 +80,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
+                  <tr *ngFor="let historia of listas">
                     <td>
-                      <a></a>
+                      <a>{{historia.estado.nombre}}</a>
                     </td>
                     <td>
-                      <a>{{estudio.createdAt}}</a>
+                      <a>{{historia.fechaInicio}}</a>
                     </td>
                     <td>
-                      <a></a>
+                      <a>{{historia.fechaFin}}</a>
                     </td>
                     <td>
-                      <a>{{estudio.paciente.nombre}}</a>
+                      <a>{{historia.user}}</a>
                     </td>
                   </tr>
                 </tbody>
 
               </table>
+              <button class="btn btn-primary" (click)="backNavigate()">
+                Volver
+              </button>
 
             </div>
             <!-- end col -->

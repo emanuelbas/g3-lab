@@ -131,3 +131,8 @@ p {
     margin: 3px 1px;
     border-radius: 3px;
 }
+
+.tbody {
+  height: 80em;
+  overflow: scroll;
+}

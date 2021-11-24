@@ -17,9 +17,14 @@ export class DetallesDeEstudioComponent implements OnInit {
     diagnostico_presuntivo: '',
     detalle_diagnostico: '',
     estado_actual: '',
-    historial: ''
+    historial: '',
+
   }
   estudioConEstado: Estudio = new Estudio();
+ // lista =[]
+  listas:any[]= []
+  //historial:any[] = [];
+  //lista:string[]=["hola","que","tal","estas"];
 
 
   constructor(
@@ -33,14 +38,18 @@ export class DetallesDeEstudioComponent implements OnInit {
     this.estudioService.getEstudioById(id)
       .subscribe((resp) => {
         this.estudio = resp;
+        this.listas = resp?.historialDeEstudio;//?para no romper la aplicacion
         console.log(this.estudio)
         this.estudioConEstado = new Estudio(this.estudio.estado_actual)
+
+
+
       })
   }
 
 
   ngOnInit(): void {
-    
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.get('id')){
         let id:string = params.get('id') ? params.get('id')! : ''

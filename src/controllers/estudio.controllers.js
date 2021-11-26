@@ -33,7 +33,7 @@ const altaEstudio = async (req, res) => {
     console.log("Entre a express, voy a imprimir el req.body")
 
     console.log(req.body)
-    let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE, OS} = req.body;
+    let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE, OS, PRECIO} = req.body;
     let ESTADO = '619a630f3a930bb3c59bb779' // Esperando comprobante de pago
     let nuevoEstudio
   
@@ -73,7 +73,8 @@ const altaEstudio = async (req, res) => {
                     tipoDeEstudio:ntipoEstudio,
                     diagnosticoPresuntivo: ndPresuntivo,
                     estado: nestado,
-                    obraSocial:nos
+                    obraSocial:nos,
+                    precio : PRECIO,
                 });
 
                 await nuevoEstudio.save()
@@ -136,11 +137,48 @@ const changeEstado = async (req, res) => {
     })
 }
 
+const downloadPresupuesto = async (req, res) => {
+ 
+    //let { estudio, estado } = req.body;
+    let _id = req.params._id;
+    await Estudio.findById(_id)
+    .populate("empleado")
+    .populate("paciente")
+    .populate('medicoDerivante')
+    .populate('tipoDeEstudio')
+    .populate('diagnosticoPresuntivo')
+    .populate('obraSocial')
+    .then((estudio) => {
+        console.log(estudio)
+        let filename = "Presupuesto_" + estudio.paciente.email + ".txt"
+        let cabecera  = "PRESUPUESTO PARA ESTUDIO. LABORATORIO G3LAB"
+        let cuerpo    = 
+        "Estudio solicitado por " + estudio.medicoDerivante.email + " de tipo " + estudio.tipoDeEstudio.nombre
+        let precio    = "Precio: " + estudio.precio
+        let backline  = '\n'
+        let codigo    = "Realizar depósito en cuenta alias G3.LAB.2021"
+
+        let documento = cabecera + backline + backline + cuerpo + backline + precio + backline + backline + codigo
+        console.log(filename)
+        res.set({
+        'Content-Disposition': 'attachment; filename=' + filename ,
+        'Content-type': 'text/csv'}); 
+        res.send(documento);
+        //var text={"hello.txt":"Hello World!","bye.txt":"Goodbye Cruel World!"};
+
+        //res.set({'Content-Disposition': 'attachment; filename=\"2015.csv\"','Content-type': 'text/csv'});
+        //res.send(text["hello.txt"]);
+
+    })
+
+}
+
 module.exports = {
     pruebaHola,
     getEstudios,
     altaEstudio,
     getEstudio,
-    changeEstado
+    changeEstado,
+    downloadPresupuesto
     
 }

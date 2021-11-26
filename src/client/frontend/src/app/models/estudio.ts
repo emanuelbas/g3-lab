@@ -93,6 +93,11 @@ class Estudio {
     }
 
     public siguiente(idEstudio:string, servicio:EstudioService){
+        // Crear nuevo historial con servicio
+        //                              Definir datos
+        // servicio.agregarAHistorial(idEstudio,-,-,-)
+        //      llama a servicio angular
+        //      llama a endpoint express
         this.currentState.siguiente(idEstudio,servicio)
     }
     public setState(state: State){
@@ -170,6 +175,12 @@ class Estudio {
     public verBotonInciarProcesamiento(){
         return this.currentState.verBotonInciarProcesamiento()
     }
+    public agregarAlHistorial(){
+
+    }
+    public verBotonBajarPresupuestoLegado() {
+        return this.currentState.verBotonBajarPresupuestoLegado()
+    }
 
 }
 class State implements State{
@@ -194,6 +205,7 @@ class State implements State{
     verBotonMuestraRetirada():boolean{return false}
     verBotonSubirResultado():boolean{return false}
     verBotonInciarProcesamiento ():boolean{return false}
+    verBotonBajarPresupuestoLegado(): boolean{return false}
 
     siguiente(idEstudio:string, servicio:EstudioService) :boolean{return false}
     reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
@@ -227,6 +239,7 @@ class EsperandoComprobanteDePagoState extends State {
         servicio.setEstado(idEstudio,'Esperando presupuesto').toPromise().then(()=>window.location.reload())
     }
     verBotonSubirComprobanteDePago() :boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 
 }
 

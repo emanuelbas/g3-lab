@@ -71,13 +71,38 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Precio</label>
+        <div class="col-8">
+  
+          <input class="form-control"
+                 #PRECIO="ngModel"
+                 [ngModel]="estudio.PRECIO"
+                 [class.is-invalid]="PRECIO.invalid && PRECIO.touched"
+                 name="PRECIO"
+                 type="number" 
+                 min="0.00" 
+                 max="1000000.00" 
+                 step="0.01"
+                 placeholder="Precio"
+                 required
+                 minlength="2"
+                 >
+          <small
+            *ngIf="(PRECIO.invalid && PRECIO.touched)"
+            class="form-text text-danger">
+              El precio es obligatorio
+          </small>
+        </div>
+      </div>
+
 
   <div class="form-group row">
     <div class="input-group col-md-10 mt-2 d-flex justify-content-end">
       <button class="btn btn-danger  col-3 mr-2" (click)="backNavigate()">
         Cancelar
       </button>
-      <button type="submit" class="btn btn-outline-primary  col-3 mt-0">
+      <button *ngIf="(formMedicoDerivante.valid && PRECIO.dirty && DETALLE.dirty )" type="submit" class="btn btn-outline-primary  col-3 mt-0">
         Guardar
       </button>
 

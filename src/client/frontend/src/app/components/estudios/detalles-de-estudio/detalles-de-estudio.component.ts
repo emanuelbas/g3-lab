@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EstudioService } from '../../../services/estudio.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Estudio } from '../../../models/estudio'
+
 @Component({
   selector: 'app-detalles-de-estudio',
   templateUrl: './detalles-de-estudio.component.html',

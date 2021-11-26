@@ -17,8 +17,12 @@ export class AltaEstudioComponent implements OnInit {
     ID_TIP_EST: '',
     ID_DIA_PRESU: '',
     DETALLE: '',
-    OS: ''
+    OS: '',
+    PRECIO: 0
   }
+
+  
+
   seleccionado = (new Empleado("", ""));
   empleado = (new Empleado("", ""))
 
@@ -40,6 +44,7 @@ export class AltaEstudioComponent implements OnInit {
   medicos: Empleado[] = []
   tipos: Empleado[] = []
   diagnosticos: Empleado[] = []
+
 
   constructor(private estudioService: EstudioService,
     private router: Router,

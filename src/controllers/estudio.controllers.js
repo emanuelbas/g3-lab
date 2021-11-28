@@ -10,6 +10,7 @@ const Empleado = require('../models/Empleado');
 const Estado = require('../models/Estado');
 const ObraSocial = require('../models/ObraSocial');
 const HistorialDeEstudio = require('../models/HistorialDeEstudio');
+//const multer = require('multer');
 
 const pruebaHola = async (req, res) => res.send('Hola!')
 const getEstudios = async (req, res) => {
@@ -168,8 +169,23 @@ const downloadPresupuesto = async (req, res) => {
 
         //res.set({'Content-Disposition': 'attachment; filename=\"2015.csv\"','Content-type': 'text/csv'});
         //res.send(text["hello.txt"]);
-
     })
+}
+
+// var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, '../public/comprobantes')
+//     },
+//     filename: (req, file, cb) => {
+//         console.log(file)
+//         var filetype = ''
+//         if (file.mimetype === 'image/gif' )
+//     }
+// })
+// Subir comprobante
+const subirComprobante = async (req, res) => {
+
+    
 
 }
 
@@ -179,6 +195,7 @@ module.exports = {
     altaEstudio,
     getEstudio,
     changeEstado,
-    downloadPresupuesto
+    downloadPresupuesto,
+    subirComprobante
     
 }

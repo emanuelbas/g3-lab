@@ -35,7 +35,11 @@ const estudioSchema = new Schema({
     historialDeEstudio: [{
         type: Schema.Types.ObjectId,
         ref: 'HistorialDeEstudio'
-    }]
+    }],
+    comprobantePago: {
+        data: Buffer,
+        contentType: String
+    }
 }, {
     timestamps: true
 });

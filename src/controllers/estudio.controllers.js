@@ -173,12 +173,31 @@ const downloadPresupuesto = async (req, res) => {
 
 }
 
+const getAll=(req, res) =>{
+
+    let estudioName = new RegExp(`..*${req.query.searchBy || ''}.*`)
+    Estudio.find({empleado:estudioName})
+        .populate('detalleDelDiagnostico')
+        .exec()//
+        .then( (estudio) => res.end(estudio))
+        .catch(
+            (error) =>{
+                res.status(500).send({
+                    message:error.mesage
+                })
+            }
+        )
+
+}
+
 module.exports = {
     pruebaHola,
     getEstudios,
     altaEstudio,
     getEstudio,
     changeEstado,
-    downloadPresupuesto
+    downloadPresupuesto,
+    getAll
+    
     
 }

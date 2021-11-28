@@ -44,6 +44,7 @@
                         <h5 class="m-b-5">Acciones</h5>
                         <div>
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Descargar presupuesto</a>
+
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-info m-2" download>Descargar presupuesto</a>
 
                             <button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button>
@@ -95,10 +96,10 @@
                       <a>{{historia.estado.nombre}}</a>
                     </td>
                     <td>
-                      <a>{{historia.fechaInicio }}</a>
+                      <a>{{historia.fechaInicio |date:'dd/MM/yyyy' }}</a>
                     </td>
                     <td>
-                      <a>{{historia.fechaFin}}</a>
+                      <a>{{historia.fechaFin |date:'dd/MM/yyyy'}}</a>
                     </td>
                     <td>
                       <a>{{historia.user.email}}</a>

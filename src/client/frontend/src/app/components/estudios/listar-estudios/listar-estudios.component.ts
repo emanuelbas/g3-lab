@@ -1,3 +1,4 @@
+import { Paciente } from './../alta-estudio/Empleado';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
@@ -15,6 +16,9 @@ export class ListarEstudiosComponent implements OnInit {
   fromItem:number=0;
   toItem:number=5;
   estudios:any[] = [];
+  estudios2:any;
+  search: String='';
+  estudiosOriginal:any[] = [];
 
   changePage(e:PageEvent){
     this.fromItem = e.pageIndex * e.pageSize;
@@ -23,7 +27,8 @@ export class ListarEstudiosComponent implements OnInit {
   constructor(
     private medicoDerivanteService: MedicoDerivanteService,
     private router: Router,
-    private estudioService: EstudioService
+    private estudioService: EstudioService,
+
   ) { }
 
   getEstudios = () => {
@@ -44,6 +49,7 @@ export class ListarEstudiosComponent implements OnInit {
           }
           this.estudios.push(est)
         }
+        this.estudiosOriginal=this.estudios
       })
     console.log("Se va a devolver un array de estudios")
     return true
@@ -64,7 +70,45 @@ export class ListarEstudiosComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getEstudios()
+    this.buscarEstudio()
+
+  }
+
+  buscarEstudio(){
+    let tamano= this.search.length
+    const filter = (typeof this.search == 'string' && this.search.length > 0 ) ? `?searchBy=${this.search}` : ''
+    // this.estudioService.getAll(filter).subscribe(
+    //   (estudios)=>{
+    //     for (var i = 0; i < estudios.length; i++) {
+    //       console.log(estudios[i])
+    //     let est = {arch
+    //       "id" : estudios[i]._id,
+    //       "paciente" : estudios[i].paciente.email,
+    //       "medico" : estudios[i].medicoDerivante.email,
+    //       "tipo" : estudios[i].tipoDeEstudio.nombre,
+    //       "tipoDiagnostico" : estudios[i].diagnosticoPresuntivo.nombre,
+    //       "detalleDiagnostico" : estudios[i].detalleDelDiagnostico,
+    //       "estado" : "falta implementar",
+    //     }
+    //     this.estudios.push(est)
+    //   }
+    //   },
+    //   (error) =>{
+    //     console.error('Error ->', error)
+    //   }
+
+    //)
+    console.log( 'se escribio una letra: ' + this.search )
+    this.estudios=
+    this.estudiosOriginal.filter(est =>{
+      est.paciente
+      return est.paciente.slice(0,tamano) == this.search
+
+    })
+
   }
 
 
 }
+
+

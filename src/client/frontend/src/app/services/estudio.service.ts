@@ -42,7 +42,7 @@ export class EstudioService {
 
   descargarPresupuesto(idEstudio:any){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
-    console.log(cpHeaders) 
+    console.log(cpHeaders)
     return this.http.get<any>(this.URL + '/descargar-presupuesto/' + idEstudio, { headers: cpHeaders })
   }
 
@@ -58,6 +58,10 @@ export class EstudioService {
 
   getEstudios(){
     return this.http.get<any>(this.URL + '/obtener-estudios')
+  }
+
+  getAll(filter: string){
+    return this.http.get(`${this.URL}/estudio-getAll${filter}`)
   }
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')

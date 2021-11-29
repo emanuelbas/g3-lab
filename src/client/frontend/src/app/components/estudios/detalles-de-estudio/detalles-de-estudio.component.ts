@@ -55,13 +55,14 @@ uploadedFiles: Array < File > = [];
       this.uploadedFiles = element.target.files;
     }
 
-  upload() {
+  upload(idEstudio:any) {
     let formData = new FormData();
     for (var i = 0; i < this.uploadedFiles.length; i++) {
         formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
     }
     this.estudioService.subirComprobante(formData).subscribe((response) => {
       console.log('response received is ', response);
+      this.estudioConEstado.siguiente(idEstudio,this.estudioService)
     })
     
 

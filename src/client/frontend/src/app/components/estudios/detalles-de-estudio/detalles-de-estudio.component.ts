@@ -49,6 +49,27 @@ export class DetallesDeEstudioComponent implements OnInit {
   }
 
 
+//fileupload
+uploadedFiles: Array < File > = [];
+    fileChange(element:any) {
+      this.uploadedFiles = element.target.files;
+    }
+
+  upload() {
+    let formData = new FormData();
+    for (var i = 0; i < this.uploadedFiles.length; i++) {
+        formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+    }
+    this.estudioService.subirComprobante(formData).subscribe((response) => {
+      console.log('response received is ', response);
+    })
+    
+
+}
+
+
+//file upload
+
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((params: ParamMap) => {

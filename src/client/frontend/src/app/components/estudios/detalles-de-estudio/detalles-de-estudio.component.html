@@ -63,7 +63,30 @@
                             <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-primary">Reiniciar estado <small class="text-muted">(test)</small></button>
 
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download><small class="text-muted">(test)</small></a>
-                        </div>
+                        
+                            <!--
+
+                              PROBANDO EL UPLOAD
+                              
+                            -->
+                            <div class="input-group" *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()">
+                              
+                              <div class="input-group-prepend">
+                                <span  class="input-group-text upload"  (click)="upload()"  id="btnUpload">Subir comprobante de pago</span>
+                              </div>
+
+                              <div class="custom-file">
+                                  <form action="/api/upload" method="post" enctype="multipart/form-data">
+                                    <input  (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                                  </form>
+
+                                  <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                              </div>
+
+                            </div>
+                           
+                        
+                          </div>
                     </div>
 
                 </div>

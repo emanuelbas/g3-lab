@@ -10,6 +10,9 @@ const TipoDeEstudio = require('../models/TipoDeEstudio');
 const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
 const Empleado = require('../models/Empleado');
 
+// Subir comprobante
+
+// subir comprobante fin
 
 // GETTERS
 

@@ -63,6 +63,9 @@ export class EstudioService {
   getAll(filter: string){
     return this.http.get(`${this.URL}/estudio-getAll${filter}`)
   }
+  subirComprobante(formData: any){
+    return this.http.post('/api/upload', formData)
+  }
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

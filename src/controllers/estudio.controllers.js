@@ -12,6 +12,7 @@ const ObraSocial = require('../models/ObraSocial');
 const HistorialDeEstudio = require('../models/HistorialDeEstudio');
 //const multer = require('multer');
 
+
 const pruebaHola = async (req, res) => res.send('Hola!')
 const getEstudios = async (req, res) => {
     let estudios = await Estudio.find()
@@ -155,7 +156,7 @@ const downloadPresupuesto = async (req, res) => {
         let cabecera  = "PRESUPUESTO PARA ESTUDIO. LABORATORIO G3LAB"
         let cuerpo    = 
         "Estudio solicitado por " + estudio.medicoDerivante.email + " de tipo " + estudio.tipoDeEstudio.nombre
-        let precio    = "Precio: " + estudio.precio
+        let precio    = "Precio: $" + estudio.precio
         let backline  = '\n'
         let codigo    = "Realizar depósito en cuenta alias G3.LAB.2021"
 
@@ -182,12 +183,7 @@ const downloadPresupuesto = async (req, res) => {
 //         if (file.mimetype === 'image/gif' )
 //     }
 // })
-// Subir comprobante
-const subirComprobante = async (req, res) => {
 
-    
-
-}
 
 const getAll=(req, res) =>{
 
@@ -213,7 +209,6 @@ module.exports = {
     getEstudio,
     changeEstado,
     downloadPresupuesto,
-    subirComprobante,
     getAll
     
     

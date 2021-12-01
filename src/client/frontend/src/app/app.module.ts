@@ -13,6 +13,8 @@ import { TareasComponent } from './components/tareas/tareas.component';
 import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-privadas.component';
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component';
 import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
+import { PacienteComponent } from './components/paciente/paciente.component';
+
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -26,6 +28,7 @@ import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
+import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-paciente.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-es
     EmpleadoComponent,
     ListarEstudiosComponent,
     DetallesDeEstudioComponent,
-    AltaEstudioComponent
+    AltaEstudioComponent,
+    PacienteComponent,
+    AltaPacienteComponent
 
   ],
   imports: [

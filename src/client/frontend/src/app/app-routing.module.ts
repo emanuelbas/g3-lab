@@ -18,6 +18,8 @@ import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-p
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
+import { PacienteComponent } from './components/paciente/paciente.component';
+import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-paciente.component'
 
 
 import { AuthGuard } from './auth.guard';
@@ -97,7 +99,18 @@ const routes: Routes = [
     path: 'alta-estudio',
     component: AltaEstudioComponent,
     canActivate: []
+  },
+  {
+    path: 'alta-paciente',
+    component: AltaPacienteComponent,
+    canActivate: []
+  },
+  {
+    path: 'listar-pacientes',
+    component: PacienteComponent,
+    canActivate: []
   }
+
 
 ];
 

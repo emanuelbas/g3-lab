@@ -26,6 +26,7 @@ import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-es
     EmpleadoComponent,
     ListarEstudiosComponent,
     DetallesDeEstudioComponent,
-    AltaEstudioComponent
+    AltaEstudioComponent,
+    ReportesComponent
 
   ],
   imports: [

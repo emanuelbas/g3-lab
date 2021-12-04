@@ -18,7 +18,7 @@ import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-p
 import { ListarEstudiosComponent } from './components/estudios/listar-estudios/listar-estudios.component';
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
-
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -97,8 +97,12 @@ const routes: Routes = [
     path: 'alta-estudio',
     component: AltaEstudioComponent,
     canActivate: []
+  }, 
+  {
+    path: 'reportes',
+    component: ReportesComponent,
+    canActivate: [AuthGuard]
   }
-
 ];
 
 @NgModule({

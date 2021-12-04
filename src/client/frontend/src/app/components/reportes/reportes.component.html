@@ -1,1 +1,19 @@
-<p>reportes works!</p>
+
+<table>
+    <tr>
+        <td>
+            <ngx-charts-bar-vertical [results]="estudiosPorEstado"></ngx-charts-bar-vertical>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ngx-charts-bar-horizontal [results]="productSales"></ngx-charts-bar-horizontal>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            
+            <ngx-charts-area-chart-stacked [results]="productSalesMulti"></ngx-charts-area-chart-stacked>
+        </td>
+    </tr>
+</table>

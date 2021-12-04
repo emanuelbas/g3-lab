@@ -1,4 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { productSales, productSalesMulti} from './products'
+
+var estudiosPorEstado = [
+
+  {
+    "name": "Estado 1",
+    "value": 5001
+  }, {
+    "name": "Estado 2",
+    "value": 7322
+  }
+]
 
 @Component({
   selector: 'app-reportes',
@@ -7,9 +19,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportesComponent implements OnInit {
 
-  constructor() { }
+  productSales : any[] = []
+  productSalesMulti : any[] = []
+  estudiosPorEstado : any[] = []
+
+  constructor() {
+    Object.assign(this ,  {estudiosPorEstado, productSales, productSalesMulti})
+   }
+
+   getEstudiosPorEstado = () =>{
+
+   }
 
   ngOnInit(): void {
+
   }
 
 }

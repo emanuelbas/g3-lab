@@ -28,6 +28,8 @@ import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-es
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +59,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxChartsModule
   ],
   providers: [
     AuthGuard,

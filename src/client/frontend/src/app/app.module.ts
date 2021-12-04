@@ -13,6 +13,8 @@ import { TareasComponent } from './components/tareas/tareas.component';
 import { TareasPrivadasComponent } from './components/tareas-privadas/tareas-privadas.component';
 import { AltaMedicoDerivanteComponent } from './components/medico-derivante/alta-medico-derivante/alta-medico-derivante.component';
 import { MedicoDerivanteComponent } from './components/medico-derivante/medico-derivante.component';
+import { PacienteComponent } from './components/paciente/paciente.component';
+
 
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -29,6 +31,7 @@ import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-es
 import { ReportesComponent } from './components/reportes/reportes.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts'
+import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-paciente.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
     ListarEstudiosComponent,
     DetallesDeEstudioComponent,
     AltaEstudioComponent,
-    ReportesComponent
+    ReportesComponent,
+    PacienteComponent,
+    AltaPacienteComponent
 
   ],
   imports: [

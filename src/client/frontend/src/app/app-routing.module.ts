@@ -19,6 +19,9 @@ import { ListarEstudiosComponent } from './components/estudios/listar-estudios/l
 import { DetallesDeEstudioComponent } from './components/estudios/detalles-de-estudio/detalles-de-estudio.component';
 import { AltaEstudioComponent } from './components/estudios/alta-estudio/alta-estudio.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { PacienteComponent } from './components/paciente/paciente.component';
+import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-paciente.component'
+
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -102,7 +105,19 @@ const routes: Routes = [
     path: 'reportes',
     component: ReportesComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'alta-paciente',
+    component: AltaPacienteComponent,
+    canActivate: []
+  },
+  {
+    path: 'listar-pacientes',
+    component: PacienteComponent,
+    canActivate: []
   }
+
+
 ];
 
 @NgModule({

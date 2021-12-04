@@ -32,9 +32,7 @@ const altaEstudio = async (req, res) => {
     //     id_diagnostico_presuntivo, 
     //     detalle_diagnostico, 
     //     id_historial_de_estudio } = req.body;
-    console.log("Entre a express, voy a imprimir el req.body")
 
-    console.log(req.body)
     let { EMPLEADO, PACIENTE, MEDICO, TIPO, DIAGNOSTICO, DETALLE, OS, PRECIO} = req.body;
     let ESTADO = '619a630f3a930bb3c59bb779' // Esperando comprobante de pago
     let nuevoEstudio
@@ -109,7 +107,6 @@ const getEstudio = async (req, res) => {
         path: 'historialDeEstudio',
         populate: {path: 'user'}})
     .then((estudio) => {
-        console.log(estudio)
         res.status(200).json(
             estudio
         );
@@ -127,12 +124,10 @@ const changeEstado = async (req, res) => {
  
         await Estudio.findById(estudio)
         .then((regEstudio) => {
-            console.log(est);
             regEstudio.estado = est;
             regEstudio
                 .save()
                 .then(() => {
-                    console.log(regEstudio)
                     return res.status(200).json(regEstudio);
                 })
         })
@@ -151,7 +146,6 @@ const downloadPresupuesto = async (req, res) => {
     .populate('diagnosticoPresuntivo')
     .populate('obraSocial')
     .then((estudio) => {
-        console.log(estudio)
         let filename = "Presupuesto_" + estudio.paciente.email + ".txt"
         let cabecera  = "PRESUPUESTO PARA ESTUDIO. LABORATORIO G3LAB"
         let cuerpo    = 
@@ -161,7 +155,6 @@ const downloadPresupuesto = async (req, res) => {
         let codigo    = "Realizar depósito en cuenta alias G3.LAB.2021"
 
         let documento = cabecera + backline + backline + cuerpo + backline + precio + backline + backline + codigo
-        console.log(filename)
         res.set({
         'Content-Disposition': 'attachment; filename=' + filename ,
         'Content-type': 'text/csv'}); 
@@ -202,6 +195,69 @@ const getAll=(req, res) =>{
 
 }
 
+const estudiosPorEstado = async (req, res) => {
+
+
+
+    // Contadores
+    contadores = []
+
+    // Inicializar contadores
+    await Estado.find().then((estado)=>{
+        for (var i = 0; i < estado.length; i++) {
+            contadores.push({
+                "name" :estado[i].nombre,
+                "value" : 0
+            })
+         }
+         console.log("Se inicializa joya el contador")
+         console.log(contadores)
+
+
+         Estudio.find().populate('estado').then((est) => {
+            console.log("Se leen "+est.length+" estudios..")
+            for (var i = 0; i < est.length; i++) {
+                nombreEstadoActual = est[i].estado.nombre
+                console.log("El estudio "+ i + " está en estado: "+nombreEstadoActual)
+                agregado = 0
+                let j = 0
+                while (!(agregado)) {
+                    if (contadores[j].name === nombreEstadoActual) {
+                        console.log("Se actualiza el contador")
+                        contadores[j].value++
+                        console.log(contadores)
+                        agregado = 1
+                    }
+                    j++
+                }
+             }
+             res.status(200).send(contadores)
+        })
+    })
+
+
+    // ESTO SE MANDA Y SE MUESTRA!!
+    var productSales = [
+        {
+          "name": "Estado A",
+          "value": 5001
+        }, {
+          "name": "Estado B",
+          "value": 7322
+        }, {
+          "name": "Estado C",
+          "value": 1726
+        }, {
+          "name": "Estado D",
+          "value": 2599
+        }, {
+          "name": "Estado E",
+          "value": 705
+        }
+      ];
+    
+}
+
 module.exports = {
     pruebaHola,
     getEstudios,
@@ -209,7 +265,8 @@ module.exports = {
     getEstudio,
     changeEstado,
     downloadPresupuesto,
-    getAll
+    getAll,
+    estudiosPorEstado
     
     
 }

@@ -9,6 +9,7 @@ router.get('/obtener-estudio', estudioControllers.getEstudio)
 router.get('/cambiar-estado', estudioControllers.changeEstado)
 router.get('/descargar-presupuesto/:_id', estudioControllers.downloadPresupuesto)
 router.get('/estudio-getAll', estudioControllers.getAll)
+router.get('/obtener-estudios-por-estado', estudioControllers.estudiosPorEstado)
 
 
 module.exports = router

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { productSales, productSalesMulti} from './products'
+import { EstudioService } from '../../services/estudio.service'
 
 var estudiosPorEstado = [
 
@@ -22,9 +23,11 @@ export class ReportesComponent implements OnInit {
   productSales : any[] = []
   productSalesMulti : any[] = []
   estudiosPorEstado : any[] = []
+  xAxisLabels : string = "Estados"
+  xAxis : boolean = true
 
-  constructor() {
-    Object.assign(this ,  {estudiosPorEstado, productSales, productSalesMulti})
+  constructor(private service: EstudioService) {
+    Object.assign(this ,  {estudiosPorEstado, productSalesMulti})
    }
 
    getEstudiosPorEstado = () =>{
@@ -32,7 +35,9 @@ export class ReportesComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.service.getEstudiosPorEstado().subscribe((res)=>{
+      this.productSales = res
+    })
   }
 
 }

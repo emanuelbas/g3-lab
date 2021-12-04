@@ -2,15 +2,27 @@
 <table>
     <tr>
         <td>
-            <ngx-charts-bar-vertical [results]="estudiosPorEstado"></ngx-charts-bar-vertical>
+            <h2> Informe de estudios por estado</h2>
+            <p>El siguiente informe presenta columnas con la <b>cantidad</b> de estudios que actualmente se encuentran en cada uno de los estados</p>
+        </td>
+        <td>
+            <ngx-charts-bar-vertical [results]="productSales" ></ngx-charts-bar-vertical>
         </td>
     </tr>
     <tr>
+        <td>
+            <h2> Informe de estudios otra cosa</h2>
+            <p>Otra descripcion</p>
+        </td>
         <td>
             <ngx-charts-bar-horizontal [results]="productSales"></ngx-charts-bar-horizontal>
         </td>
     </tr>
     <tr>
+        <td>
+            <h2> Informe de estudios otra cosa</h2>
+            <p>Otra descripcion</p>
+        </td>
         <td>
             
             <ngx-charts-area-chart-stacked [results]="productSalesMulti"></ngx-charts-area-chart-stacked>

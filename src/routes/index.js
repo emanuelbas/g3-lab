@@ -9,6 +9,7 @@ const Paciente = require('../models/Paciente');
 const TipoDeEstudio = require('../models/TipoDeEstudio');
 const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
 const Empleado = require('../models/Empleado');
+const ObraSocial = require('../models/ObraSocial');
 
 // Subir comprobante
 
@@ -35,6 +36,11 @@ router.get('/obtener-tipos-de-estudio', async (req, res) => {
 router.get('/obtener-diagnosticos-presuntivos', async (req, res) => {
     let diagnosticos = await DiagnosticoPresuntivo.find()
     res.status(200).json(diagnosticos)
+})
+
+router.get('/obtener-todas-las-os', async (req, res) => {
+    let lista_os = await ObraSocial.find()
+    res.status(200).json(lista_os)
 })
 
 // GETTERS //

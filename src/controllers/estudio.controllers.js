@@ -196,36 +196,27 @@ const getAll=(req, res) =>{
 }
 
 const estudiosPorEstado = async (req, res) => {
-
-
-
-    // Contadores
     contadores = []
 
-    // Inicializar contadores
+    
     await Estado.find().then((estado)=>{
+        // Inicializar contadores
         for (var i = 0; i < estado.length; i++) {
             contadores.push({
                 "name" :estado[i].nombre,
                 "value" : 0
             })
          }
-         console.log("Se inicializa joya el contador")
-         console.log(contadores)
-
-
-         Estudio.find().populate('estado').then((est) => {
-            console.log("Se leen "+est.length+" estudios..")
-            for (var i = 0; i < est.length; i++) {
-                nombreEstadoActual = est[i].estado.nombre
-                console.log("El estudio "+ i + " está en estado: "+nombreEstadoActual)
+         Estudio.find().populate('estado').then((estudios) => {
+            // Se recorren todos los estudios
+            for (var i = 0; i < estudios.length; i++) {
+                nombreEstadoActual = estudios[i].estado.nombre
                 agregado = 0
                 let j = 0
+                // Se incrementa busca el estado que coincida con el del estudio y se incrementa
                 while (!(agregado)) {
                     if (contadores[j].name === nombreEstadoActual) {
-                        console.log("Se actualiza el contador")
                         contadores[j].value++
-                        console.log(contadores)
                         agregado = 1
                     }
                     j++
@@ -258,6 +249,46 @@ const estudiosPorEstado = async (req, res) => {
     
 }
 
+
+const gananciasMensuales = async (req, res) => {
+    Estudio.find().sort([['createdAt', 'ascending']]).then((estudios) => {
+
+        ganancias = []
+        mesActual = String(estudios[0].createdAt.getMonth() + 1).padStart(2, '0')+"/"+estudios[0].createdAt.getFullYear()
+        acum = 0
+        for (var i = 0; i < estudios.length; i++) {
+            createdAt = estudios[i].createdAt
+            mesObtenido = String(createdAt.getMonth() + 1).padStart(2, '0')+"/"+createdAt.getFullYear()
+            gananciaObtenida = estudios[i].precio
+
+            if (mesObtenido == mesActual){
+                acum += gananciaObtenida
+            } else {
+                // Guardo el mes anterior
+                ganancias.push({
+                    "name" : mesActual,
+                    "value" : acum
+                })
+                // Inicio el nuevo mes
+                acum = 0
+                mesActual = mesObtenido
+            }
+        }
+        ganancias.push({
+            "name" : mesActual,
+            "value" : acum
+        })
+
+        respuesta = 
+        [{
+            "name" : "Ingresos",
+            "series" : ganancias
+        }]
+
+        return res.status(200).json(respuesta);
+      });
+}
+
 module.exports = {
     pruebaHola,
     getEstudios,
@@ -266,7 +297,8 @@ module.exports = {
     changeEstado,
     downloadPresupuesto,
     getAll,
-    estudiosPorEstado
+    estudiosPorEstado,
+    gananciasMensuales
     
     
 }

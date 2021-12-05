@@ -4,30 +4,32 @@
 <table>
     <tr>
         <td>
-            <h2> Informe de estudios por estado</h2>
+            <h2> Estudios por estado</h2>
             <p>El siguiente informe presenta columnas con la <b>cantidad</b> de estudios que actualmente se encuentran en cada uno de los estados</p>
         </td>
         <td>
             <ngx-charts-bar-vertical [results]="productSales" ></ngx-charts-bar-vertical>
         </td>
     </tr>
+    <br>
     <tr>
         <td>
-            <h2> Informe de estudios realizados por fecha</h2>
-            <p>Otra descripcion</p>
+            <h2>Ingresos por mes</h2>
+            <p>El siguiente informe presenta los <b>ingresos por mes</b>, contando el valor acumulado de los estudios iniciados durante los días del mes</p>
         </td>
         <td>
-            <ngx-charts-bar-horizontal [results]="productSales"></ngx-charts-bar-horizontal>
+            <ngx-charts-line-chart [results]="multi"></ngx-charts-line-chart>
         </td>
     </tr>
+    <br>
     <tr>
         <td>
-            <h2> Informe de estudios otra cosa</h2>
-            <p>Otra descripcion</p>
+            <h2>Duración de estudios</h2>
+            <p>El siguiente diagrama presenta la <b>duración</b> de los estudios, desde que se crean hasta que se entregan. Es un <b>promedio anual</b>.</p>
         </td>
         <td>
             
-            <ngx-charts-area-chart-stacked [results]="productSalesMulti"></ngx-charts-area-chart-stacked>
+            <ngx-charts-bar-vertical [results]="productSalesMulti"></ngx-charts-bar-vertical>
         </td>
     </tr>
 </table>

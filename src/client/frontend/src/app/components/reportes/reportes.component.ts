@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { productSales, productSalesMulti} from './products'
+import { productSales, productSalesMulti, multi} from './products'
 import { EstudioService } from '../../services/estudio.service'
 
 var estudiosPorEstado = [
@@ -21,6 +21,7 @@ var estudiosPorEstado = [
 export class ReportesComponent implements OnInit {
 
   productSales : any[] = []
+  multi : any[] = []
   productSalesMulti : any[] = []
   estudiosPorEstado : any[] = []
   xAxisLabels : string = "Estados"
@@ -37,6 +38,9 @@ export class ReportesComponent implements OnInit {
   ngOnInit(): void {
     this.service.getEstudiosPorEstado().subscribe((res)=>{
       this.productSales = res
+    })
+    this.service.getGanancias().subscribe((res)=>{
+      this.multi = res
     })
   }
 

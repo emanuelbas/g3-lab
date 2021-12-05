@@ -47,7 +47,44 @@ export var productSales = [
     }
   ];
   
+  export var multi = [
+    {
+      "name": "Ingresos",
+      "series": [
+        {
+          "name": "Entero",
+          "value": 62000000
+        },
+        {
+          "name": "Febrero",
+          "value": 73000000
+        },
+        {
+          "name": "Marzo",
+          "value": 89400000
+        },
+        {
+          "name": "Abril",
+          "value": 49400000
+        },
+        {
+          "name": "Mayo",
+          "value": 89400000
+        },
+        {
+          "name": "Junio",
+          "value": 59400000
+        },
+        {
+          "name": "Julio",
+          "value": 39400000
+        }
+      ]
+    }
+
+  ];
   
+
   export var productSalesMulti = [
     {
       "name": "book",

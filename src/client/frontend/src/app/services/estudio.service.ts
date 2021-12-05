@@ -64,6 +64,9 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/obtener-estudios-por-estado')
   }
 
+  getGanancias(){
+    return this.http.get<any>(this.URL + '/obtener-ganancias-mensuales')
+  }
   getAll(filter: string){
     return this.http.get(`${this.URL}/estudio-getAll${filter}`)
   }

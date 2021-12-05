@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-console.log("SE EJECUTA ESTUDIO")
 const estudioSchema = new Schema({
     detalleDelDiagnostico: String,
     precio: Number,

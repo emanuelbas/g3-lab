@@ -229,75 +229,142 @@ const estudiosPorEstado = async (req, res) => {
 
 const promedioDuracionEstudioPorAño = async (req, res) => {
 
-
+    // Seleccionar solo finalizados
     Estudio.find().sort([['createdAt', 'ascending']]).then((estudios) => {
-    })
 
-    prom19 = [
-        {
-            "name": "enero",
-            "value": 3000
-          }, {
-            "name": "febrero",
-            "value": 2000
-          }, {
-            "name": "marzo",
-            "value": 500
-          }, {
-            "name": "abril",
-            "value": 300
-          }
-      ];
+        ganancias = []
+        anoActual = String(estudios[0].createdAt.getFullYear())
+        mesActual = String(estudios[0].createdAt.getMonth())
+        anoObtenido = anoActual
+        mesObtenido = mesActual
+        acumMes = 0
+        console.log(anoActual)
+        console.log(mesActual)
+        listaDeMeses = []
+        listaDeAnos = []
+
+        for (var i = 0; i < estudios.length; i++) {
+            createdAt = estudios[i].createdAt
+
+            anoObtenido = String(createdAt.getFullYear())
+            mesObtenido = String(createdAt.getMonth())
+console.log("Se lee el mes >> "+ mesObtenido + " y el año >> "+ anoObtenido);
+console.log("En cambio los actuales son " + mesActual + " y " + anoActual);
+console.log(mesObtenido == mesActual && anoActual == anoObtenido);
+            if (mesObtenido == mesActual && anoActual == anoObtenido){
+                console.log("Se acumula ya que no cambio de mes ni de año");
+                acumMes += 10 // Tiempo que llevó el estudio si es que está finalizado
+            } 
+            else {
+                if (anoObtenido != anoActual){
+                    // Cambio de año
+                    console.log("Se pushea el mes y el año");
+                    listaDeMeses.push({
+                        "name" : mesActual,
+                        "value" : acumMes
+                    })
+                    listaDeAnos.push({
+                        "name" : anoActual,
+                        "series" : listaDeMeses
+                    })
+                    console.log("Se termino de pushear, sigo");
+                    listaDeMeses = []
+                    acumMes = 10 // Tiempo que llevo el estudio
+                    anoActual = anoObtenido
+                    mesActual = mesObtenido
+                    console.log("Se actualiza mes actual >>" + mesActual);
+                } else {
+                    // En este caso cambio de mes pero no de año
+                    console.log("Se pushea el mes con el acumulado");
+                    listaDeMeses.push({
+                        "name" : mesActual,
+                        "value" : acumMes
+                    })
+                    acumMes = 10 // Tiempo que llevo el estudio
+                    mesActual = mesObtenido
+                }
+            }
+        } // Fin del for cada estudio
+        // Terminó el for, hay que pushear el ultimo mes/año
+        listaDeMeses.push({
+            "name" : mesActual,
+            "value" : acumMes
+        })
+        listaDeAnos.push({
+            "name" : anoActual,
+            "series" : listaDeMeses
+        })
+
+        return res.status(200).json(listaDeAnos);
+
+    }) // Estudios mongoose
+
+    // prom19 = [
+    //     {
+    //         "name": "enero",
+    //         "value": 3000
+    //       }, {
+    //         "name": "febrero",
+    //         "value": 2000
+    //       }, {
+    //         "name": "marzo",
+    //         "value": 500
+    //       }, {
+    //         "name": "abril",
+    //         "value": 300
+            
+    //       }
+    //   ];
     
-      prom20 = [
-        {
-          "name": "enero",
-          "value": 800
-        }, {
-          "name": "febrero",
-          "value": 500
-        }, {
-          "name": "marzo",
-          "value": 500
-        }, {
-          "name": "abril",
-          "value": 1000
-        }
-      ];
+    //   prom20 = [
+    //     {
+    //       "name": "enero",
+    //       "value": 8000
+    //     }, {
+    //       "name": "febrero",
+    //       "value": 5000
+    //     }, {
+    //       "name": "marzo",
+    //       "value": 500
+    //     }, {
+    //       "name": "abril",
+    //       "value": 1000
+    //     }
+    //   ];
 
 
-      prom21 = [
-        {
-            "name": "enero",
-            "value": 1000
-          }, {
-            "name": "febrero",
-            "value": 2000
-          }, {
-            "name": "marzo",
-            "value": 1500
-          }, {
-            "name": "abril",
-            "value": 300
-          }
-      ];
+    //   prom21 = [
+    //     {
+    //         "name": "enero",
+    //         "value": 1000
+    //       }, {
+    //         "name": "febrero",
+    //         "value": 2000
+    //       }, {
+    //         "name": "marzo",
+    //         "value": 1500
+    //       }, {
+    //         "name": "abril",
+    //         "value": 3000
+    //       }
+    //   ];
       
-    resp = [
-        {
-            "name" : "2019",
-            "series" : prom19
-        },
-        {
-            "name" : "2020",
-            "series" : prom20
-        },
-        {
-            "name" : "2021",
-            "series" : prom21
-        }
-    ]
+    // resp = [
+    //     {
+    //         "name" : "2019",
+    //         "series" : prom19
+    //     },
+    //     {
+    //         "name" : "2020",
+    //         "series" : prom20
+    //     },
+    //     {
+    //         "name" : "2021",
+    //         "series" : prom21
+    //     }
+    // ]
 
-    res.status(200).send(resp)
+    // res.status(200).send(resp)
 }
 
 const gananciasMensuales = async (req, res) => {

@@ -238,27 +238,28 @@ const promedioDuracionEstudioPorAño = async (req, res) => {
         anoObtenido = anoActual
         mesObtenido = mesActual
         acumMes = 0
-        console.log(anoActual)
-        console.log(mesActual)
         listaDeMeses = []
         listaDeAnos = []
+        cantMes = 0
 
         for (var i = 0; i < estudios.length; i++) {
             createdAt = estudios[i].createdAt
 
             anoObtenido = String(createdAt.getFullYear())
             mesObtenido = String(createdAt.getMonth())
-console.log("Se lee el mes >> "+ mesObtenido + " y el año >> "+ anoObtenido);
-console.log("En cambio los actuales son " + mesActual + " y " + anoActual);
-console.log(mesObtenido == mesActual && anoActual == anoObtenido);
+
             if (mesObtenido == mesActual && anoActual == anoObtenido){
-                console.log("Se acumula ya que no cambio de mes ni de año");
-                acumMes += 10 // Tiempo que llevó el estudio si es que está finalizado
+                 // Tiempo que llevó el estudio si es que está finalizado
+                if (estudios[i].precio){
+                    acumMes += estudios[i].precio
+                    cantMes++
+                }
             } 
             else {
                 if (anoObtenido != anoActual){
                     // Cambio de año
-                    console.log("Se pushea el mes y el año");
+
+                    // Pusheo
                     listaDeMeses.push({
                         "name" : mesActual,
                         "value" : acumMes
@@ -267,20 +268,30 @@ console.log(mesObtenido == mesActual && anoActual == anoObtenido);
                         "name" : anoActual,
                         "series" : listaDeMeses
                     })
-                    console.log("Se termino de pushear, sigo");
+
+                    // Inicio variables
                     listaDeMeses = []
-                    acumMes = 10 // Tiempo que llevo el estudio
+                    acumMes = 0 // Tiempo que llevo el estudio
+                    cantMes = 0
+                    if (estudios[i].precio){
+                        acumMes += estudios[i].precio
+                        cantMes++
+                    }
                     anoActual = anoObtenido
                     mesActual = mesObtenido
-                    console.log("Se actualiza mes actual >>" + mesActual);
                 } else {
                     // En este caso cambio de mes pero no de año
-                    console.log("Se pushea el mes con el acumulado");
+
                     listaDeMeses.push({
                         "name" : mesActual,
                         "value" : acumMes
                     })
-                    acumMes = 10 // Tiempo que llevo el estudio
+                    acumMes = 0 // Tiempo que llevo el estudio
+                    cantMes = 0
+                    if (estudios[i].precio){
+                        acumMes += estudios[i].precio
+                        cantMes++
+                    }
                     mesActual = mesObtenido
                 }
             }
@@ -298,73 +309,6 @@ console.log(mesObtenido == mesActual && anoActual == anoObtenido);
         return res.status(200).json(listaDeAnos);
 
     }) // Estudios mongoose
-
-    // prom19 = [
-    //     {
-    //         "name": "enero",
-    //         "value": 3000
-    //       }, {
-    //         "name": "febrero",
-    //         "value": 2000
-    //       }, {
-    //         "name": "marzo",
-    //         "value": 500
-    //       }, {
-    //         "name": "abril",
-    //         "value": 300
-            
-    //       }
-    //   ];
-    
-    //   prom20 = [
-    //     {
-    //       "name": "enero",
-    //       "value": 8000
-    //     }, {
-    //       "name": "febrero",
-    //       "value": 5000
-    //     }, {
-    //       "name": "marzo",
-    //       "value": 500
-    //     }, {
-    //       "name": "abril",
-    //       "value": 1000
-    //     }
-    //   ];
-
-
-    //   prom21 = [
-    //     {
-    //         "name": "enero",
-    //         "value": 1000
-    //       }, {
-    //         "name": "febrero",
-    //         "value": 2000
-    //       }, {
-    //         "name": "marzo",
-    //         "value": 1500
-    //       }, {
-    //         "name": "abril",
-    //         "value": 3000
-    //       }
-    //   ];
-      
-    // resp = [
-    //     {
-    //         "name" : "2019",
-    //         "series" : prom19
-    //     },
-    //     {
-    //         "name" : "2020",
-    //         "series" : prom20
-    //     },
-    //     {
-    //         "name" : "2021",
-    //         "series" : prom21
-    //     }
-    // ]
-
-    // res.status(200).send(resp)
 }
 
 const gananciasMensuales = async (req, res) => {

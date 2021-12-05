@@ -8,7 +8,7 @@
             <p>El siguiente informe presenta columnas con la <b>cantidad</b> de estudios que actualmente se encuentran en cada uno de los estados</p>
         </td>
         <td>
-            <ngx-charts-bar-vertical [results]="productSales" ></ngx-charts-bar-vertical>
+            <ngx-charts-bar-vertical [results]="estados" ></ngx-charts-bar-vertical>
         </td>
     </tr>
     <br>
@@ -18,7 +18,7 @@
             <p>El siguiente informe presenta los <b>ingresos por mes</b>, contando el valor acumulado de los estudios iniciados durante los días del mes</p>
         </td>
         <td>
-            <ngx-charts-line-chart [results]="multi"></ngx-charts-line-chart>
+            <ngx-charts-line-chart [results]="ganancias"></ngx-charts-line-chart>
         </td>
     </tr>
     <br>
@@ -29,7 +29,7 @@
         </td>
         <td>
             
-            <ngx-charts-bar-vertical [results]="productSalesMulti"></ngx-charts-bar-vertical>
+            <ngx-charts-box-chart [results]="duraciones"></ngx-charts-box-chart>
         </td>
     </tr>
 </table>

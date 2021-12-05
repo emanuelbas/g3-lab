@@ -198,7 +198,6 @@ const getAll=(req, res) =>{
 const estudiosPorEstado = async (req, res) => {
     contadores = []
 
-    
     await Estado.find().then((estado)=>{
         // Inicializar contadores
         for (var i = 0; i < estado.length; i++) {
@@ -225,30 +224,81 @@ const estudiosPorEstado = async (req, res) => {
              res.status(200).send(contadores)
         })
     })
-
-
-    // ESTO SE MANDA Y SE MUESTRA!!
-    var productSales = [
-        {
-          "name": "Estado A",
-          "value": 5001
-        }, {
-          "name": "Estado B",
-          "value": 7322
-        }, {
-          "name": "Estado C",
-          "value": 1726
-        }, {
-          "name": "Estado D",
-          "value": 2599
-        }, {
-          "name": "Estado E",
-          "value": 705
-        }
-      ];
     
 }
 
+const promedioDuracionEstudioPorAño = async (req, res) => {
+
+
+    Estudio.find().sort([['createdAt', 'ascending']]).then((estudios) => {
+    })
+
+    prom19 = [
+        {
+            "name": "enero",
+            "value": 3000
+          }, {
+            "name": "febrero",
+            "value": 2000
+          }, {
+            "name": "marzo",
+            "value": 500
+          }, {
+            "name": "abril",
+            "value": 300
+          }
+      ];
+    
+      prom20 = [
+        {
+          "name": "enero",
+          "value": 800
+        }, {
+          "name": "febrero",
+          "value": 500
+        }, {
+          "name": "marzo",
+          "value": 500
+        }, {
+          "name": "abril",
+          "value": 1000
+        }
+      ];
+
+
+      prom21 = [
+        {
+            "name": "enero",
+            "value": 1000
+          }, {
+            "name": "febrero",
+            "value": 2000
+          }, {
+            "name": "marzo",
+            "value": 1500
+          }, {
+            "name": "abril",
+            "value": 300
+          }
+      ];
+      
+    resp = [
+        {
+            "name" : "2019",
+            "series" : prom19
+        },
+        {
+            "name" : "2020",
+            "series" : prom20
+        },
+        {
+            "name" : "2021",
+            "series" : prom21
+        }
+    ]
+
+    res.status(200).send(resp)
+}
 
 const gananciasMensuales = async (req, res) => {
     Estudio.find().sort([['createdAt', 'ascending']]).then((estudios) => {
@@ -298,7 +348,7 @@ module.exports = {
     downloadPresupuesto,
     getAll,
     estudiosPorEstado,
-    gananciasMensuales
-    
+    gananciasMensuales,
+    promedioDuracionEstudioPorAño  
     
 }

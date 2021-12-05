@@ -73,6 +73,9 @@ export class EstudioService {
   subirComprobante(formData: any){
     return this.http.post('/api/upload', formData)
   }
+  getDuracionAnual(){
+    return this.http.get<any>(this.URL + '/obtener-duracion-anual')
+  }
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

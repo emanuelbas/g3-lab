@@ -11,6 +11,7 @@ router.get('/descargar-presupuesto/:_id', estudioControllers.downloadPresupuesto
 router.get('/estudio-getAll', estudioControllers.getAll)
 router.get('/obtener-estudios-por-estado', estudioControllers.estudiosPorEstado)
 router.get('/obtener-ganancias-mensuales', estudioControllers.gananciasMensuales)
+router.get('/obtener-duracion-anual', estudioControllers.promedioDuracionEstudioPorAño)
 
 
 module.exports = router

@@ -52,22 +52,22 @@
                             <!-- a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-info m-2" download>Descargar presupuesto</a -->
 
                             <!-- button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button-->
-                            <button *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info ml-2">Bajar comprobante de pago</button>
 
-                            <button *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Enviar consentimiento informado a paciente</button>
-                            <button *ngIf="estudioConEstado.verBotonSubirCIF()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir consentimiento informado firmado</button>
-                            <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
-                            <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
-                            <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Muestra retirada</button>
+                            <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info m-2" download>Descargar comprobante de pago</a>
+                            <button *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Enviar consentimiento informado a paciente</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirCIF()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir consentimiento informado firmado</button>
+                            <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
+                            <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
+                            <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
                             <button *ngIf="estudioConEstado.verBotonInciarProcesamiento()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento ya que se retiraron 10 muestras <small class="text-muted">(test)</small></button>
-                            <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir resultado del lote</button>
-                            <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir interpretación de resultado</button>
-                            <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Los resultados fueron envidos al Medico Derivante</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir resultado del lote</button>
+                            <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
+                            <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
 
-                            <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-primary">Reiniciar estado <small class="text-muted">(test)</small></button>
+                            <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-info m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
 
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download><small class="text-muted">(test)</small></a>
-                            <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info m-2" download><small class="text-muted">(test)</small>boton</a>
+                            
                             <!--
 
                               PROBANDO EL UPLOAD

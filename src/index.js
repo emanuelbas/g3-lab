@@ -35,11 +35,25 @@ app.post('/api/upload', multipartMiddleware, (req, res) => {
 });
 // upload fin
 
+
+
 app.use(express.json());
 
 app.use(cors());
 app.use('/api', require('./routes/index'))
 app.use('/api', require('./routes/estudios.routes'))
+
+
+app.get('/api/descargar-comprobante/:_id', async function(req, res){
+  let _id = req.params._id;
+  await Estudio.findById(_id)
+  .then((estudio) => {
+    const path = './uploads/';
+    let filename = estudio.comprobanteFileName
+    file = path + filename
+  })
+  res.download(file); // Set disposition and send it.
+});
 
 // Serve static files
 app.use(express.static(__dirname + '/client/frontend/dist/frontend'));

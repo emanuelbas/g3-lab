@@ -26,8 +26,6 @@ export class DetallesDeEstudioComponent implements OnInit {
   listas:any[]= []
   //historial:any[] = [];
   //lista:string[]=["hola","que","tal","estas"];
-
-
   constructor(
     public estudioService: EstudioService,
     private router: Router,
@@ -40,11 +38,7 @@ export class DetallesDeEstudioComponent implements OnInit {
       .subscribe((resp) => {
         this.estudio = resp;
         this.listas = resp?.historialDeEstudio;//?para no romper la aplicacion
-        console.log(this.estudio)
         this.estudioConEstado = new Estudio(this.estudio.estado.nombre)
-
-
-
       })
   }
 
@@ -61,11 +55,8 @@ uploadedFiles: Array < File > = [];
         formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
     }
     this.estudioService.subirComprobante(formData).subscribe((response) => {
-      console.log('response received is ', response);
       this.estudioConEstado.siguiente(idEstudio,this.estudioService)
     })
-    
-
 }
 
 

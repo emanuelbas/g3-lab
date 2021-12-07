@@ -100,15 +100,18 @@ export class AltaEstudioComponent implements OnInit {
     let idpaciente = this.pacienteSeleccionado
     let paciente = this.pacientes.find((p)=>p._id == idpaciente)
     if (paciente && paciente.obraSocial) {
-      this.estudioService.getOs(paciente.obraSocial).subscribe((res)=>{this.nombreOs = res.nombre; this.osid = res._id})
+      this.estudioService.getOs(paciente.obraSocial).subscribe((res)=>{this.nombreOs = res.nombre; this.estudio.OS = res._id})
     } else {
       this.nombreOs = "Sin Obra Social"
-      this.osid = ''
+      this.estudio.OS = ''
     }
   }
 
   onSubmit(formEstudio: NgForm) {
-    //console.log(formEstudio.value)
+    console.log("@@@@@@@ Se leen estos datos @@@@@@@@")
+    formEstudio.value.OS =this.estudio.OS
+    console.log(formEstudio.value)
+    
     this.estudioService.createEstudio(formEstudio.value).subscribe(()=>this.backNavigate())
   }
   backNavigate = () => {

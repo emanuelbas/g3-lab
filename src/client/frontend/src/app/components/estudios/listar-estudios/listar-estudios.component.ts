@@ -37,7 +37,6 @@ export class ListarEstudiosComponent implements OnInit {
     this.estudioService.getEstudios()
       .subscribe((estudios) => {
         for (var i = 0; i < estudios.length; i++) {
-          console.log(estudios[i])
           let est = {
             "id" : estudios[i]._id,
             "paciente" : estudios[i].paciente.email,
@@ -51,7 +50,7 @@ export class ListarEstudiosComponent implements OnInit {
         }
         this.estudiosOriginal=this.estudios
       })
-    console.log("Se va a devolver un array de estudios")
+
     return true
   }
   addEstudio = () => {
@@ -98,7 +97,6 @@ export class ListarEstudiosComponent implements OnInit {
     //   }
 
     //)
-    console.log( 'se escribio una letra: ' + this.search )
     this.estudios=
     this.estudiosOriginal.filter(est =>{
       est.paciente

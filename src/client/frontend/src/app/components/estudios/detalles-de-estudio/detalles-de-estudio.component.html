@@ -37,6 +37,10 @@
                             <h5 class="m-b-5">Detalles del Diagnóstico Presuntivo</h5>
                             <p>{{estudio.detalleDelDiagnostico}}</p>
                         </li>
+                        <li *ngIf="estudio.obraSocial">
+                          <h5 class="m-b-5">Obra Social</h5>
+                          <p>{{estudio.obraSocial.nombre}}</p>
+                      </li>
 
                     </ul>
 

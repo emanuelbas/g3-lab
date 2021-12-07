@@ -70,8 +70,10 @@ export class EstudioService {
   getAll(filter: string){
     return this.http.get(`${this.URL}/estudio-getAll${filter}`)
   }
-  subirComprobante(formData: any){
-    return this.http.post('/api/upload', formData)
+  subirComprobante(formData: any, id: string){
+    formData.id = id
+    let cpHeaders = new HttpHeaders({ 'id':id });
+    return this.http.post('/api/upload', formData, {headers:cpHeaders})
   }
   getDuracionAnual(){
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')

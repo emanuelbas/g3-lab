@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose');
 const estudioSchema = new Schema({
     detalleDelDiagnostico: String,
     precio: Number,
+    comprobanteFileName : String,
     empleado: {
         type: Schema.Types.ObjectId,
         ref: 'User'

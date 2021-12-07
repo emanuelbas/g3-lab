@@ -3,6 +3,9 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 
+// Para el fileupload
+const Estudio = require('./models/Estudio');
+
 require('./database');
 
 // file upload
@@ -13,11 +16,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+// File upload//
+
 
 app.post('/api/upload', multipartMiddleware, (req, res) => {
+
+  id = req.headers.id
+  filename = req.files.uploads[0].path.split('\\')[1]
+  Estudio.findById(id).then((e)=>{
+    e.comprobanteFileName = filename
+    e.save()
+    console.log(e);
     res.json({
-        'message': 'File uploaded successfully'
+      'message': 'File uploaded successfully'
     });
+  })
+
 });
 // upload fin
 

@@ -54,7 +54,7 @@ uploadedFiles: Array < File > = [];
     for (var i = 0; i < this.uploadedFiles.length; i++) {
         formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
     }
-    this.estudioService.subirComprobante(formData).subscribe((response) => {
+    this.estudioService.subirComprobante(formData,idEstudio).subscribe((response) => {
       this.estudioConEstado.siguiente(idEstudio,this.estudioService)
     })
 }

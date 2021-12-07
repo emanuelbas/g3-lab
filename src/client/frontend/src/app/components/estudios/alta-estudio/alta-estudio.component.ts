@@ -38,13 +38,13 @@ export class AltaEstudioComponent implements OnInit {
   diagnosticoSeleccionado = (new Empleado("", ""));
   diagnostico = (new Empleado("", ""))
 
-  os : any;
+  nombreOs : string = '';
   empleados: Empleado[] = []
   pacientes: Empleado[] = []
   medicos: Empleado[] = []
   tipos: Empleado[] = []
   diagnosticos: Empleado[] = []
-
+  osid : string = ''
 
   constructor(private estudioService: EstudioService,
     private router: Router,
@@ -76,9 +76,8 @@ export class AltaEstudioComponent implements OnInit {
       .subscribe((pacientes) => {
 
         for (var i = 0; i < pacientes.length; i++) {
-          this.pacientes.push(new Empleado(pacientes[i]._id, pacientes[i].email))
+          this.pacientes.push(new Empleado(pacientes[i]._id, pacientes[i].email, pacientes[i].paciente.obraSocial))
         }
-
       })
   }
 
@@ -93,12 +92,19 @@ export class AltaEstudioComponent implements OnInit {
       })
   }
 
-  getOS = (paciente:Paciente) => {
+  getOS = () => {
     // this.estudioService.getOS()
     //   .subscribe((os) => {
     //     this.os = os
     //   })
-    this.os = paciente.os
+    let idpaciente = this.pacienteSeleccionado
+    let paciente = this.pacientes.find((p)=>p._id == idpaciente)
+    if (paciente && paciente.obraSocial) {
+      this.estudioService.getOs(paciente.obraSocial).subscribe((res)=>{this.nombreOs = res.nombre; this.osid = res._id})
+    } else {
+      this.nombreOs = "Sin Obra Social"
+      this.osid = ''
+    }
   }
 
   onSubmit(formEstudio: NgForm) {

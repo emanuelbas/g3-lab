@@ -16,11 +16,27 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">Paciente</label>
         <div class="col-8">
-            <select name="PACIENTE" [(ngModel)]="pacienteSeleccionado" (ngModelChange)="getOS(paciente)">
+            <select name="PACIENTE" [(ngModel)]="pacienteSeleccionado" (ngModelChange)="getOS()">
             <option [value]="paciente._id" *ngFor="let paciente of pacientes">{{paciente.nombre}}</option>
             </select>
         </div>  
     </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Obra social</label>
+      <div class="col-8">
+          {{nombreOs}}
+      </div>  
+    </div>
+
+
+      <input type="hidden" class="form-control"
+               #OS="ngModel"
+               [ngModel]="osid"
+               name="OS"
+               disabled
+               >
+
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Médico Derivante</label>

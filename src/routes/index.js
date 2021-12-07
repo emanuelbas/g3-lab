@@ -26,7 +26,8 @@ router.get('/obtener-empleados', async (req, res) => {
     res.status(200).json(empleados)
 })
 router.get('/obtener-pacientes', async (req, res) => {
-    let pacientes = await User.find({'rol': 'Paciente'})
+    let pacientes = await User.find({'rol': 'Paciente'}).populate('paciente')
+    console.log(pacientes)
     res.status(200).json(pacientes)
 })
 router.get('/obtener-tipos-de-estudio', async (req, res) => {
@@ -43,6 +44,11 @@ router.get('/obtener-todas-las-os', async (req, res) => {
     res.status(200).json(lista_os)
 })
 
+router.get('/obtener-os', async (req, res) => {
+    const {id} = req.headers
+    let os = await ObraSocial.findById(id)
+    res.status(200).json(os)
+})
 // GETTERS //
 
 

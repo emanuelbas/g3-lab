@@ -76,6 +76,12 @@ export class EstudioService {
   getDuracionAnual(){
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')
   }
+
+
+  getOs(id : string){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'id':id });
+    return this.http.get<any>(this.URL + '/obtener-os', {headers:cpHeaders})
+  }
   // getMedicoDerivante(){
   //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
   // }

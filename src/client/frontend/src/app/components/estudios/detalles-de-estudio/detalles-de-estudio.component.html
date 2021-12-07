@@ -49,9 +49,9 @@
                         <div>
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Descargar presupuesto</a>
 
-                            <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-info m-2" download>Descargar presupuesto</a>
+                            <!-- a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-info m-2" download>Descargar presupuesto</a -->
 
-                            <button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button>
+                            <!-- button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button-->
                             <button *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info ml-2">Bajar comprobante de pago</button>
 
                             <button *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Enviar consentimiento informado a paciente</button>
@@ -67,7 +67,7 @@
                             <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-primary">Reiniciar estado <small class="text-muted">(test)</small></button>
 
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download><small class="text-muted">(test)</small></a>
-                        
+                            <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info m-2" download><small class="text-muted">(test)</small>boton</a>
                             <!--
 
                               PROBANDO EL UPLOAD

@@ -42,8 +42,12 @@ export class EstudioService {
 
   descargarPresupuesto(idEstudio:any){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
-    console.log(cpHeaders)
     return this.http.get<any>(this.URL + '/descargar-presupuesto/' + idEstudio, { headers: cpHeaders })
+  }
+
+  descargarComprobante(idEstudio:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
+    return this.http.get<any>(this.URL + '/descargar-comprobante/' + idEstudio, { headers: cpHeaders })
   }
 
   setEstado(estudioId:any, nombreEstado:string){

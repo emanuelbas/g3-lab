@@ -12,6 +12,8 @@ const ObraSocial = require('../models/ObraSocial');
 const HistorialDeEstudio = require('../models/HistorialDeEstudio');
 //const multer = require('multer');
 
+const fs = require('fs');
+
 
 const pruebaHola = async (req, res) => res.send('Hola!')
 const getEstudios = async (req, res) => {
@@ -166,17 +168,24 @@ const downloadPresupuesto = async (req, res) => {
     })
 }
 
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, '../public/comprobantes')
-//     },
-//     filename: (req, file, cb) => {
-//         console.log(file)
-//         var filetype = ''
-//         if (file.mimetype === 'image/gif' )
-//     }
-// })
 
+const downloadComprobante = async (req, res) => {
+
+    //let { estudio, estado } = req.body;
+    let _id = req.params._id;
+    await Estudio.findById(_id)
+    .then((estudio) => {
+        let path = '/uploads/'
+        let filename = estudio.comprobanteFilname
+
+        let documento = "Deberia descargar el comprobante de pago con el nombre "+estudio.filename
+        res.set({
+        'Content-Disposition': 'attachment; filename=' + filename ,
+        'Content-type': 'text/csv'}); 
+        res.send(documento);
+
+    })
+}
 
 const getAll=(req, res) =>{
 
@@ -360,6 +369,7 @@ module.exports = {
     getAll,
     estudiosPorEstado,
     gananciasMensuales,
-    promedioDuracionEstudioPorAño  
+    promedioDuracionEstudioPorAño,
+    downloadComprobante
     
 }

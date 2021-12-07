@@ -12,6 +12,7 @@ router.get('/estudio-getAll', estudioControllers.getAll)
 router.get('/obtener-estudios-por-estado', estudioControllers.estudiosPorEstado)
 router.get('/obtener-ganancias-mensuales', estudioControllers.gananciasMensuales)
 router.get('/obtener-duracion-anual', estudioControllers.promedioDuracionEstudioPorAño)
+router.get('/descargar-comprobante/:_id', estudioControllers.downloadComprobante)
 
 
 module.exports = router

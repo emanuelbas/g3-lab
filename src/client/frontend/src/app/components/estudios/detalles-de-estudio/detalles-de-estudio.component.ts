@@ -23,7 +23,8 @@ export class DetallesDeEstudioComponent implements OnInit {
   }
   estudioConEstado: Estudio = new Estudio();
  // lista =[]
-  listas:any[]= []
+  listas:any[]= [];
+
   //historial:any[] = [];
   //lista:string[]=["hola","que","tal","estas"];
   constructor(
@@ -38,6 +39,8 @@ export class DetallesDeEstudioComponent implements OnInit {
       .subscribe((resp) => {
         this.estudio = resp;
         this.listas = resp?.historialDeEstudio;//?para no romper la aplicacion
+        this.listas=this.listas.sort((a, b) =>{let fecha1=new Date(a.fechaInicio).getTime();let fecha2=new Date(b.fechaInicio).getTime();if (fecha1 < fecha2){return -1} else {return 1} })
+        console.log(this.listas)
         this.estudioConEstado = new Estudio(this.estudio.estado.nombre)
       })
   }

@@ -76,8 +76,21 @@ const altaEstudio = async (req, res) => {
                     diagnosticoPresuntivo: ndPresuntivo,
                     estado: nestado,
                     obraSocial:nos,
-                    precio : PRECIO,
+                    precio : PRECIO
                 });
+
+                // Primer historial
+                today = new Date()
+                nuevoHistorial = new HistorialDeEstudio({
+                    fechaInicio: today,
+                    fechaFin : today,
+                    user : EMPLEADO,
+                    estudio: nuevoEstudio._id,
+                    estado: '61b4da5831dbd4a9066afce8' //estado con nombre Creado
+                });
+                await nuevoHistorial.save()
+
+                nuevoEstudio.historialDeEstudio = [nuevoHistorial]
 
                 await nuevoEstudio.save()
 
@@ -125,6 +138,7 @@ const changeEstado = async (req, res) => {
  
         await Estudio.findById(estudio)
         .then((regEstudio) => {
+            estadoAnterior = regEstudio.estado
             regEstudio.estado = est;
             regEstudio
                 .save()
@@ -137,11 +151,24 @@ const changeEstado = async (req, res) => {
                                 fechaFin : today,
                                 user : userid,
                                 estudio: regEstudio._id,
-                                estado: est._id
+                                estado: estadoAnterior._id
                             });
-                            nuevoHistorial.save().then(()=>{
-                                return res.status(200).json(regEstudio);
-                            })
+                            if (regEstudio.historialDeEstudio) {
+                                regEstudio.historialDeEstudio.push(nuevoHistorial)
+                                regEstudio.save().then(() => 
+                                    nuevoHistorial.save().then(()=>{
+                                        return res.status(200).json(regEstudio);
+                                    })
+                                )
+                            } else {
+                                regEstudio.historialDeEstudio = [nuevoHistorial]
+                                regEstudio.save().then(() => 
+                                    nuevoHistorial.save().then(()=>{
+                                        return res.status(200).json(regEstudio);
+                                    })
+                                )
+                            }
+
                         }
                     }).sort('-fechaInicio')
                 })

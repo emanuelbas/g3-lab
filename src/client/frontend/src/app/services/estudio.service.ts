@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { local } from 'd3';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,11 @@ export class EstudioService {
       "estudio": estudioId,
       "estado": nombreEstado
     }
-    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado});
+    console.log("intento imprimer el local storage id");
+    
+    console.log(localStorage.userid);
+    
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado, 'userid' : localStorage.userid});
     console.log(data)
     return this.http.get<any>(this.URL + '/cambiar-estado', { headers: cpHeaders})
   }

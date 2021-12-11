@@ -25,7 +25,7 @@ export class IngresarComponent implements OnInit {
 
   ingresar(){
     this.authService.ingresar(this.usuario).subscribe(res => {
-      console.log(res);
+      localStorage.setItem('userid', res.userid);
       localStorage.setItem('rol', res.rol);
       localStorage.setItem('userEmail', this.usuario.email);
       localStorage.setItem('token', res.token);

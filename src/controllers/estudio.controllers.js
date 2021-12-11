@@ -116,9 +116,8 @@ const getEstudio = async (req, res) => {
     .catch((err)=>{console.log(err)})
 }
 const changeEstado = async (req, res) => {
- 
-    //let { estudio, estado } = req.body;
-    let { estudio, estado } = req.headers;
+
+    let { estudio, estado, userid } = req.headers;
     let regEstado;
     await Estado.findOne({'nombre': estado})
     .then(async (est) => {
@@ -129,8 +128,22 @@ const changeEstado = async (req, res) => {
             regEstudio.estado = est;
             regEstudio
                 .save()
-                .then(() => {
-                    return res.status(200).json(regEstudio);
+                .then(async () => {
+                    let today = new Date();
+                    HistorialDeEstudio.findOne({'estudio':regEstudio},{},{},(err,ultimoHistorial)=>{
+                        if (ultimoHistorial) {
+                            nuevoHistorial = new HistorialDeEstudio({
+                                fechaInicio: ultimoHistorial.fechaFin,
+                                fechaFin : today,
+                                user : userid,
+                                estudio: regEstudio._id,
+                                estado: est._id
+                            });
+                            nuevoHistorial.save().then(()=>{
+                                return res.status(200).json(regEstudio);
+                            })
+                        }
+                    }).sort('-fechaInicio')
                 })
         })
     })

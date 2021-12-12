@@ -41,6 +41,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/api', require('./routes/index'))
 app.use('/api', require('./routes/estudios.routes'))
+app.use('/api', require('./routes/turnos.routes'))
 
 //consentimiento informado
 app.post('/api/upload-cif', multipartMiddleware, (req, res) => {

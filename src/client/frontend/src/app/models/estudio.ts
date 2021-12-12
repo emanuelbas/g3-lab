@@ -269,6 +269,7 @@ class EsperandoSeleccionDeTurnotate extends State {
     }
     verBotonSeleccionarTurno() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 
 class EsperandoTomaDeMuestraState extends State {
@@ -278,6 +279,7 @@ class EsperandoTomaDeMuestraState extends State {
     }
     verBotonMuestraTomada() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 class EsperandoRertiroDeMuestraState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -286,6 +288,7 @@ class EsperandoRertiroDeMuestraState extends State {
     }
     verBotonMuestraRetirada() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 class EsperandoProcesamientoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -296,6 +299,7 @@ class EsperandoProcesamientoState extends State {
     verBotonMuestraProcesada() : boolean{return true}
     verBotonInciarProcesamiento() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 
 class EsperandoResultadoState extends State {
@@ -305,6 +309,7 @@ class EsperandoResultadoState extends State {
     }
     verBotonSubirResultado() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 
 class EsperandoInterpretacionState extends State {
@@ -314,6 +319,7 @@ class EsperandoInterpretacionState extends State {
     }
     verBotonSubirInterpretacion() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 
 class EsperandoEnvioAMedicoState extends State {
@@ -323,12 +329,14 @@ class EsperandoEnvioAMedicoState extends State {
     }
     verBotonEntregado() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarCIF() : boolean{return true}
 }
 class EntregadoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         let estado = 'Entregado'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    verBotonBajarCIF() : boolean{return true}
 }
 
 

@@ -4,6 +4,7 @@ const estudioSchema = new Schema({
     detalleDelDiagnostico: String,
     precio: Number,
     comprobanteFileName : String,
+    cif : String,
     empleado: {
         type: Schema.Types.ObjectId,
         ref: 'User'

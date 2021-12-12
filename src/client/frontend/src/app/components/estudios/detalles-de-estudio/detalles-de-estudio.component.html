@@ -15,7 +15,7 @@
                     <ul class="list-inline task-dates m-b-0 mt-5">
                         <li>
                             <h5 class="m-b-5">Fecha de Creación</h5>
-                            <p>{{estudio.createdAt}} <small class="text-muted">1:00 PM</small></p>
+                            <p>{{estudio.createdAt |date:'dd/MM/yyyy'}} </p>
                         </li>
                         <li>
                             <h5 class="m-b-5">Medico Derivante</h5>
@@ -49,13 +49,15 @@
                         <div>
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Descargar presupuesto</a>
 
+
+                            <!-- BOTONES DE LEGADO -->
+                            <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
+                            <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCIF()" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
                             <!-- a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-info m-2" download>Descargar presupuesto</a -->
 
                             <!-- button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button-->
 
-                            <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-info m-2" download>Descargar comprobante de pago</a>
-                            <button *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Enviar consentimiento informado a paciente</button>
-                            <button *ngIf="estudioConEstado.verBotonSubirCIF()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir consentimiento informado firmado</button>
+
                             <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
                             <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
                             <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
@@ -64,15 +66,16 @@
                             <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
                             <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
 
-                            <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-info m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
+                            <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
 
                             <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download><small class="text-muted">(test)</small></a>
                             
-                            <!--
+                            <!-- CIF    descargar-consentimiento -->
+                            <a href="/api/descargar-consentimiento/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Enviar consentimiento informado a paciente</a>
+                            
+                            <!-- FIN CIF -->
 
-                              PROBANDO EL UPLOAD
-                              
-                            -->
+                            <!-- UPLOAD DE COMPROBANTE DE PAGO-->
                             <div class="input-group" *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()">
                               
                               <div class="input-group-prepend">
@@ -88,7 +91,24 @@
                               </div>
 
                             </div>
-                           
+
+                            <!-- UPLOAD DE CIF-->
+                            <div class="input-group" *ngIf="estudioConEstado.verBotonSubirCIF()">
+                              
+                              <div class="input-group-prepend">
+                                <span  class="input-group-text upload"  (click)="uploadCIF(estudio._id)"  id="btnUpload">Subir consentimiento informado firmado</span>
+                              </div>
+
+                              <div class="custom-file">
+                                  <form action="/api/upload-cif" method="post" enctype="multipart/form-data">
+                                    <input  (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                                  </form>
+
+                                  <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                              </div>
+
+                            </div>
+
                         
                           </div>
                     </div>

@@ -12,7 +12,9 @@ export class PacienteComponent implements OnInit
   pageSize="5";
   fromItem:number=0;
   toItem:number=5;
-  items:any[] = [];
+  // items:any[] = [];
+  pacientes:any[] = [];
+  pacientesOriginal:any[] = [];
   changePage(e:PageEvent){
     this.fromItem = e.pageIndex * e.pageSize;
     this.toItem = this.fromItem + e.pageSize
@@ -22,8 +24,23 @@ export class PacienteComponent implements OnInit
   }
 
   getPaciente = () => {
+    // this.pacienteService.getPaciente()
+    //   .subscribe((resp) => this.items = resp)
     this.pacienteService.getPaciente()
-      .subscribe((resp) => this.items = resp)
+      .subscribe((pacientes) => {
+        for (var i = 0; i < pacientes.length; i++) {
+          let est = {
+            "id" : pacientes[i]._id,
+            "nombre" : pacientes[i].nombre,
+            "apellido" : pacientes[i].apellido,
+            "obraSocial" : pacientes[i].obraSocial,
+          }
+          this.pacientes.push(est)
+        }
+        this.pacientesOriginal=this.pacientes
+      })
+
+    return true
   }
   addPaciente = () => {
     this.router.navigate(['/alta-paciente']);

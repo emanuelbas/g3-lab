@@ -10,9 +10,7 @@
         <input aria-label="Search" type="search" placeholder="Buscar Estudio" class="form-control"
          (keyup)="buscarPaciente()" [(ngModel)]="search" >
       </div> 
-    </div>
-
-    <button type="button" class="btn btn-success" (click)="addPaciente()"><img src="https://icongr.am/fontawesome/plus.svg?size=16&color=ffffff"/></button> -->
+    </div>-->
 </div>
 <table class="table table-hover">
   <thead>
@@ -24,6 +22,20 @@
       <th scope="col">acciones</th>
     </tr>
   </thead>
+  <tbody>
+    <tr *ngFor="let paciente of pacientes | slice: fromItem:toItem ">
+      <td>{{paciente.id}}</td>
+      <td>{{paciente.nombre}}</td>
+      <td>{{paciente.apellido}}</td>
+      <td>{{paciente.obraSocial}}</td>
+      <td>
+        <button type="button" class="btn btn-warning btn-sm mr-1"><img src="https://icongr.am/fontawesome/pencil.svg?size=16&color=ffffff"/></button>
+        <button type="button" class="btn btn-danger btn-sm ml-1"><img src="https://icongr.am/fontawesome/trash.svg?size=16&color=ffffff"/></button>
+        <!-- <button type="button" class="btn btn-warning btn-sm mr-1" (click)="editMedicoDerivante($event,item)"><img src="https://icongr.am/fontawesome/pencil.svg?size=16&color=ffffff"/></button>
+        <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteMedicoDerivante(item._id)"><img src="https://icongr.am/fontawesome/trash.svg?size=16&color=ffffff"/></button> -->
+      </td>
+    </tr>
+  </tbody>
   <!-- <tbody>
       <td>{{paciente.id}}</td>
       <td>{{paciente.nombre}}</td>

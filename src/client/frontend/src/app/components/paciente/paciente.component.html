@@ -23,6 +23,7 @@
     </tr>
   </thead>
   <tbody>
+
     <tr *ngFor="let paciente of pacientes | slice: fromItem:toItem ">
       <td>{{paciente.id}}</td>
       <td>{{paciente.nombre}}</td>

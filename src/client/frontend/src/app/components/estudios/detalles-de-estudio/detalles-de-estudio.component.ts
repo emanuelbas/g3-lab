@@ -62,6 +62,15 @@ uploadedFiles: Array < File > = [];
     })
 }
 
+uploadCIF(idEstudio:any) {
+  let formData = new FormData();
+  for (var i = 0; i < this.uploadedFiles.length; i++) {
+      formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+  }
+  this.estudioService.subirCIF(formData,idEstudio).subscribe((response) => {
+    this.estudioConEstado.siguiente(idEstudio,this.estudioService)
+  })
+}
 
 //file upload
 

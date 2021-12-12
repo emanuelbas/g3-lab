@@ -46,6 +46,11 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/descargar-presupuesto/' + idEstudio, { headers: cpHeaders })
   }
 
+  descargarConsentimiento(idEstudio:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
+    return this.http.get<any>(this.URL + '/descargar-consentimiento/' + idEstudio, { headers: cpHeaders })
+  }
+
   descargarComprobante(idEstudio:any){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
     return this.http.get<any>(this.URL + '/descargar-comprobante/' + idEstudio, { headers: cpHeaders })
@@ -83,6 +88,11 @@ export class EstudioService {
     formData.id = id
     let cpHeaders = new HttpHeaders({ 'id':id });
     return this.http.post('/api/upload', formData, {headers:cpHeaders})
+  }
+  subirCIF(formData: any, id: string){
+    formData.id = id
+    let cpHeaders = new HttpHeaders({ 'id':id });
+    return this.http.post('/api/upload-cif', formData, {headers:cpHeaders})
   }
   getDuracionAnual(){
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')

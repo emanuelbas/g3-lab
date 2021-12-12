@@ -209,6 +209,34 @@ const downloadPresupuesto = async (req, res) => {
 }
 
 
+const downloadConsentimiento = async (req, res) => {
+ 
+    let _id = req.params._id;
+    await Estudio.findById(_id)
+    .populate("empleado")
+    .populate("paciente")
+    .populate('medicoDerivante')
+    .populate('tipoDeEstudio')
+    .populate('diagnosticoPresuntivo')
+    .populate('obraSocial')
+    .then((estudio) => {
+        let filename = "Consentimiento_informado_" + estudio.paciente.email + ".txt"
+        let cabecera  = "CONSENTIMIENTO INFORMADO. LABORATORIO G3LAB          " + new Date().toLocaleString()
+        let cuerpo    = 
+        "Estudio solicitado por " + estudio.medicoDerivante.email + " de tipo " + estudio.tipoDeEstudio.nombre
+        let backline  = '\n'
+        let rayita = "___________________________________________________"
+        let firmayaclaracion = "                         FIRMA Y ACLARACION"
+
+        let documento = cabecera + backline + backline + cuerpo + backline + backline + rayita + backline + firmayaclaracion
+        res.set({
+        'Content-Disposition': 'attachment; filename=' + filename ,
+        'Content-type': 'text/csv'}); 
+        res.send(documento);
+    })
+}
+
+
 const downloadComprobante = async (req, res) => {
 
     //let { estudio, estado } = req.body;
@@ -410,6 +438,7 @@ module.exports = {
     estudiosPorEstado,
     gananciasMensuales,
     promedioDuracionEstudioPorAño,
-    downloadComprobante
+    downloadComprobante,
+    downloadConsentimiento
     
 }

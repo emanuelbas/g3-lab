@@ -56,6 +56,13 @@ export class AuthService {
     return false
   }
 
+  loggedAsPacientePublico(): Boolean {
+    if (localStorage.getItem('rol')) {
+      return localStorage.getItem('rol') == '' ? true : false;
+    }
+    return false
+  }
+
   loggedAsPaciente(): Boolean {
     if (localStorage.getItem('rol')) {
       return localStorage.getItem('rol') == 'Paciente' ? true : false;

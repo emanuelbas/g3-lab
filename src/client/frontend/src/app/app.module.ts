@@ -32,6 +32,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-paciente.component';
+import { PacientePublicoComponent } from './components/paciente-publico/paciente-publico.component';
+import { AltaPacientePublicoComponent } from './components/paciente-publico/alta-paciente-publico/alta-paciente-publico.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { AltaPacienteComponent } from './components/paciente/alta-paciente/alta-
     AltaEstudioComponent,
     ReportesComponent,
     PacienteComponent,
-    AltaPacienteComponent
+    AltaPacienteComponent,
+    PacientePublicoComponent,
+    AltaPacientePublicoComponent
 
   ],
   imports: [

@@ -8,6 +8,8 @@ import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 import {AltaEmpleadoComponent} from './components/empleado/alta-empleado/alta-empleado.component';
 import { EmpleadoComponent } from './components/empleado/empleado.component';//duda
+import { PacientePublicoComponent } from './components/paciente-publico/paciente-publico.component';//duda
+import {AltaPacientePublicoComponent} from './components/paciente-publico/alta-paciente-publico/alta-paciente-publico.component';
 
 
 import { E403AccesoNoPermitidoComponent } from './components/ventanas-error/e403-acceso-no-permitido/e403-acceso-no-permitido.component';
@@ -56,6 +58,16 @@ const routes: Routes = [
     canActivate: [AuthGuard, ConfiguradorGuard]
   },
   {
+    path: 'paciente-publico',
+    component: PacientePublicoComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'alta-paciente-publico',
+    component: AltaPacientePublicoComponent,
+    //canActivate: [AuthGuard, ConfiguradorGuard]
+  },
+  {
     path: 'editar-medico-derivante/:id',
     component: AltaMedicoDerivanteComponent,
     canActivate: [AuthGuard, ConfiguradorGuard]
@@ -100,7 +112,7 @@ const routes: Routes = [
     path: 'alta-estudio',
     component: AltaEstudioComponent,
     canActivate: []
-  }, 
+  },
   {
     path: 'reportes',
     component: ReportesComponent,

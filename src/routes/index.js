@@ -10,6 +10,7 @@ const TipoDeEstudio = require('../models/TipoDeEstudio');
 const DiagnosticoPresuntivo = require('../models/DiagnosticoPresuntivo');
 const Empleado = require('../models/Empleado');
 const ObraSocial = require('../models/ObraSocial');
+const PacientePublico = require('../models/Paciente');
 
 // Subir comprobante
 
@@ -63,6 +64,24 @@ router.post('/alta-empleado', async (req, res) => {
     const nuevoUsuario = new User({ email, "password":"1234", "rol":"Empleado", "empleado":registroEmpleado._id });
 
     await registroEmpleado.save();
+    await nuevoUsuario.save();
+    
+
+    //const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
+    res.status(200).json({})
+
+})
+
+router.post('/alta-paciente-publico', async (req, res) => {
+    const { email, password, name, surname, phone } = req.body;
+
+    //una ves que tenga los datos, crear empleado
+    //crear usuario
+    //relacionar empleado
+    const registroEmpleado = new Empleado({name, surname, phone})
+    const nuevoUsuario = new User({ email, "password":"", "rol":"" });
+
+    await registroPacientePublico.save();
     await nuevoUsuario.save();
     
 

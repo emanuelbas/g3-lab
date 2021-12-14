@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { local } from 'd3';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,11 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/descargar-presupuesto/' + idEstudio, { headers: cpHeaders })
   }
 
+  descargarConsentimiento(idEstudio:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
+    return this.http.get<any>(this.URL + '/descargar-consentimiento/' + idEstudio, { headers: cpHeaders })
+  }
+
   descargarComprobante(idEstudio:any){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', '_id' : idEstudio });
     return this.http.get<any>(this.URL + '/descargar-comprobante/' + idEstudio, { headers: cpHeaders })
@@ -55,7 +61,11 @@ export class EstudioService {
       "estudio": estudioId,
       "estado": nombreEstado
     }
-    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado});
+    console.log("intento imprimer el local storage id");
+    
+    console.log(localStorage.userid);
+    
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado, 'userid' : localStorage.userid});
     console.log(data)
     return this.http.get<any>(this.URL + '/cambiar-estado', { headers: cpHeaders})
   }
@@ -78,6 +88,11 @@ export class EstudioService {
     formData.id = id
     let cpHeaders = new HttpHeaders({ 'id':id });
     return this.http.post('/api/upload', formData, {headers:cpHeaders})
+  }
+  subirCIF(formData: any, id: string){
+    formData.id = id
+    let cpHeaders = new HttpHeaders({ 'id':id });
+    return this.http.post('/api/upload-cif', formData, {headers:cpHeaders})
   }
   getDuracionAnual(){
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')

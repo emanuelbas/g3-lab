@@ -187,7 +187,8 @@ router.post('/ingresar', async (req, res) => {
 
     const token = jwt.sign({ _id: user._id }, 'secretKey');
     const rol = user.rol;
-    return res.status(200).json({ token, rol });
+    const userid = user._id
+    return res.status(200).json({ token, rol, userid });
 })
 // S1R01 - F
 

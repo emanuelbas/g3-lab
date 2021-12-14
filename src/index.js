@@ -36,12 +36,41 @@ app.post('/api/upload', multipartMiddleware, (req, res) => {
 // upload fin
 
 
-
 app.use(express.json());
 
 app.use(cors());
 app.use('/api', require('./routes/index'))
 app.use('/api', require('./routes/estudios.routes'))
+app.use('/api', require('./routes/turnos.routes'))
+
+//consentimiento informado
+app.post('/api/upload-cif', multipartMiddleware, (req, res) => {
+
+  id = req.headers.id
+  filename = req.files.uploads[0].path.split('\\')[1]
+  Estudio.findById(id).then((e)=>{
+    e.cif = filename
+    e.save()
+    console.log(e);
+    res.json({
+      'message': 'File uploaded successfully'
+    });
+  })
+});
+
+app.get('/api/descargar-cif/:_id', async function(req, res){
+  let _id = req.params._id;
+  await Estudio.findById(_id)
+  .then((estudio) => {
+    const path = './uploads/';
+    let filename = estudio.cif
+    file = path + filename
+  })
+  res.download(file); // Set disposition and send it.
+});
+//consentimiento informado
+
+
 
 
 app.get('/api/descargar-comprobante/:_id', async function(req, res){

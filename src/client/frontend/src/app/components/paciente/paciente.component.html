@@ -1,1 +1,46 @@
-<p>paciente works!</p>
+<div class="header headerAndAdd">
+    <h2>Listado de Pacientes</h2>
+    <!-- <button type="button" class="btn btn-success" (click)="addMedicoDerivante()"><img src="https://icongr.am/fontawesome/plus.svg?size=16&color=ffffff"/></button> -->
+    <button type="button" class="btn btn-success" ><img src="https://icongr.am/fontawesome/plus.svg?size=16&color=ffffff"/></button>
+      <!-- <div class="row">
+      <div class="col-3">
+        <p>Buscar Paciente</p>
+      </div>
+       <div class="col-6">
+        <input aria-label="Search" type="search" placeholder="Buscar Estudio" class="form-control"
+         (keyup)="buscarPaciente()" [(ngModel)]="search" >
+      </div> 
+    </div>-->
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">email</th>
+      <th scope="col">nombre</th>
+      <th scope="col">apellido</th>
+      <th scope="col">idObraSocial</th>
+      <th scope="col">acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let paciente of pacientes | slice: fromItem:toItem ">
+      <td>{{paciente.email}}</td>
+      <td>{{paciente.nombre}}</td>
+      <td>{{paciente.apellido}}</td>
+      <td>{{paciente.obraSocial}}</td>
+      <td>
+        <button type="button" class="btn btn-warning btn-sm mr-1"><img src="https://icongr.am/fontawesome/pencil.svg?size=16&color=ffffff"/></button>
+        <button type="button" class="btn btn-danger btn-sm ml-1"><img src="https://icongr.am/fontawesome/trash.svg?size=16&color=ffffff"/></button>
+        <!-- <button type="button" class="btn btn-warning btn-sm mr-1" (click)="editMedicoDerivante($event,item)"><img src="https://icongr.am/fontawesome/pencil.svg?size=16&color=ffffff"/></button>
+        <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteMedicoDerivante(item._id)"><img src="https://icongr.am/fontawesome/trash.svg?size=16&color=ffffff"/></button> -->
+      </td>
+    </tr>
+  </tbody>
+  <!-- <tbody>
+      <td>{{paciente.id}}</td>
+      <td>{{paciente.nombre}}</td>
+      <td>{{paciente.apellido}}</td>
+      <td>{{paciente.obraSocial}}</td>
+  </tbody> -->
+</table>

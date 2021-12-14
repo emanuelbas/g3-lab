@@ -76,8 +76,21 @@ const altaEstudio = async (req, res) => {
                     diagnosticoPresuntivo: ndPresuntivo,
                     estado: nestado,
                     obraSocial:nos,
-                    precio : PRECIO,
+                    precio : PRECIO
                 });
+
+                // Primer historial
+                today = new Date()
+                nuevoHistorial = new HistorialDeEstudio({
+                    fechaInicio: today,
+                    fechaFin : today,
+                    user : EMPLEADO,
+                    estudio: nuevoEstudio._id,
+                    estado: '61b4da5831dbd4a9066afce8' //estado con nombre Creado
+                });
+                await nuevoHistorial.save()
+
+                nuevoEstudio.historialDeEstudio = [nuevoHistorial]
 
                 await nuevoEstudio.save()
 
@@ -116,9 +129,8 @@ const getEstudio = async (req, res) => {
     .catch((err)=>{console.log(err)})
 }
 const changeEstado = async (req, res) => {
- 
-    //let { estudio, estado } = req.body;
-    let { estudio, estado } = req.headers;
+
+    let { estudio, estado, userid } = req.headers;
     let regEstado;
     await Estado.findOne({'nombre': estado})
     .then(async (est) => {
@@ -126,11 +138,39 @@ const changeEstado = async (req, res) => {
  
         await Estudio.findById(estudio)
         .then((regEstudio) => {
+            estadoAnterior = regEstudio.estado
             regEstudio.estado = est;
             regEstudio
                 .save()
-                .then(() => {
-                    return res.status(200).json(regEstudio);
+                .then(async () => {
+                    let today = new Date();
+                    HistorialDeEstudio.findOne({'estudio':regEstudio},{},{},(err,ultimoHistorial)=>{
+                        if (ultimoHistorial) {
+                            nuevoHistorial = new HistorialDeEstudio({
+                                fechaInicio: ultimoHistorial.fechaFin,
+                                fechaFin : today,
+                                user : userid,
+                                estudio: regEstudio._id,
+                                estado: estadoAnterior._id
+                            });
+                            if (regEstudio.historialDeEstudio) {
+                                regEstudio.historialDeEstudio.push(nuevoHistorial)
+                                regEstudio.save().then(() => 
+                                    nuevoHistorial.save().then(()=>{
+                                        return res.status(200).json(regEstudio);
+                                    })
+                                )
+                            } else {
+                                regEstudio.historialDeEstudio = [nuevoHistorial]
+                                regEstudio.save().then(() => 
+                                    nuevoHistorial.save().then(()=>{
+                                        return res.status(200).json(regEstudio);
+                                    })
+                                )
+                            }
+
+                        }
+                    }).sort('-fechaInicio')
                 })
         })
     })
@@ -165,6 +205,34 @@ const downloadPresupuesto = async (req, res) => {
 
         //res.set({'Content-Disposition': 'attachment; filename=\"2015.csv\"','Content-type': 'text/csv'});
         //res.send(text["hello.txt"]);
+    })
+}
+
+
+const downloadConsentimiento = async (req, res) => {
+ 
+    let _id = req.params._id;
+    await Estudio.findById(_id)
+    .populate("empleado")
+    .populate("paciente")
+    .populate('medicoDerivante')
+    .populate('tipoDeEstudio')
+    .populate('diagnosticoPresuntivo')
+    .populate('obraSocial')
+    .then((estudio) => {
+        let filename = "Consentimiento_informado_" + estudio.paciente.email + ".txt"
+        let cabecera  = "CONSENTIMIENTO INFORMADO. LABORATORIO G3LAB          " + new Date().toLocaleString()
+        let cuerpo    = 
+        "Estudio solicitado por " + estudio.medicoDerivante.email + " de tipo " + estudio.tipoDeEstudio.nombre
+        let backline  = '\n'
+        let rayita = "___________________________________________________"
+        let firmayaclaracion = "                         FIRMA Y ACLARACION"
+
+        let documento = cabecera + backline + backline + cuerpo + backline + backline + rayita + backline + firmayaclaracion
+        res.set({
+        'Content-Disposition': 'attachment; filename=' + filename ,
+        'Content-type': 'text/csv'}); 
+        res.send(documento);
     })
 }
 
@@ -370,6 +438,7 @@ module.exports = {
     estudiosPorEstado,
     gananciasMensuales,
     promedioDuracionEstudioPorAño,
-    downloadComprobante
+    downloadComprobante,
+    downloadConsentimiento
     
 }

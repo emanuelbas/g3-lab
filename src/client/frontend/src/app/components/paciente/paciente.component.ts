@@ -24,18 +24,19 @@ export class PacienteComponent implements OnInit
   }
 
   getPaciente = () => {
+    console.log("entre al get");
     // this.pacienteService.getPaciente()
     //   .subscribe((resp) => this.items = resp)
     this.pacienteService.getPaciente()
       .subscribe((pacientes) => {
         for (var i = 0; i < pacientes.length; i++) {
-          let est = {
-            "id" : pacientes[i]._id,
-            "nombre" : pacientes[i].nombre,
-            "apellido" : pacientes[i].apellido,
-            "obraSocial" : pacientes[i].obraSocial,
+          let user = {
+            "email": pacientes[i].email,
+            "nombre" : pacientes[i].paciente.nombre,
+            "apellido" : pacientes[i].paciente.apellido,
+            "obraSocial" : pacientes[i].paciente.obraSocial,
           }
-          this.pacientes.push(est)
+          this.pacientes.push(user)
         }
         this.pacientesOriginal=this.pacientes
       })
@@ -56,6 +57,7 @@ export class PacienteComponent implements OnInit
 
   ngOnInit(): void 
   {
+    this.getPaciente()
   }
 
 }

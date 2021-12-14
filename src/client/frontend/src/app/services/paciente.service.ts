@@ -28,7 +28,8 @@ export class PacienteService {
   }
 
   getPaciente(){
-    return this.http.get<any>(this.URL + '/obtener-paciente')
+    console.log("entro al get 2");
+    return this.http.get<any>(this.URL + '/obtener-pacientes')
   }
   getPacienteById(id: string){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'id' : id });

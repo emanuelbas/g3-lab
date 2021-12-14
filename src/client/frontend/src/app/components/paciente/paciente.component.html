@@ -15,17 +15,17 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">idPaciente</th>
+      <th scope="col">email</th>
       <th scope="col">nombre</th>
       <th scope="col">apellido</th>
-      <th scope="col">obraSocial</th>
+      <th scope="col">idObraSocial</th>
       <th scope="col">acciones</th>
     </tr>
   </thead>
   <tbody>
 
     <tr *ngFor="let paciente of pacientes | slice: fromItem:toItem ">
-      <td>{{paciente.id}}</td>
+      <td>{{paciente.email}}</td>
       <td>{{paciente.nombre}}</td>
       <td>{{paciente.apellido}}</td>
       <td>{{paciente.obraSocial}}</td>

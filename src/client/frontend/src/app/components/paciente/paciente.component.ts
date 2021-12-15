@@ -44,6 +44,7 @@ export class PacienteComponent implements OnInit
     return true
   }
   addPaciente = () => {
+    console.log("entro al addpaciente");
     this.router.navigate(['/alta-paciente']);
   }
   editPaciente = (event:any, item:any) => {

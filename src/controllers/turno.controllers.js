@@ -11,38 +11,56 @@ const Estado = require('../models/Estado');
 const ObraSocial = require('../models/ObraSocial');
 const HistorialDeEstudio = require('../models/HistorialDeEstudio');
 
-//
 const Turno = require('../models/Turno');
 
 const pruebaTurnos = async (req, res) => {console.log("entre");res.send('Hola!')}
 
-const getTurnos = async (req, res) => {
+const getTurnosLibres = async (req, res) => {
     console.log("Se ingresa al controlador");
-    let fecha = req.params.date
 
-    //Obtener los valores a partir del parametro
-    let dd = "12"
-    let mm = "12"
-    let aaaa = "2021"
+    let fechaOrigen = new Date(req.params.date)
+    fechaOrigen.setHours('09')
+    fechaOrigen.setSeconds('00')
+    fechaOrigen.setMinutes('00')
+    let fechaSig = new Date(req.params.date)
+    fechaSig.setHours('09')
+    fechaSig.setSeconds('00')
+    fechaSig.setMinutes('00')
+    fechaSig.setDate(fechaSig.getDate() + 1)
+    console.log("Se definieron las fechas origen y sig");
+    console.log(new Date(fechaOrigen))
 
-    let fechaOrigen = new Date()
-    let fechaSiggte = new Date().setDate(fechaOrigen + 1)
+    // Si el día es sabado o domingo que devuelva una lista vacia
 
-    console.log("Se lee la fecha: "+fecha);
     Turno.find({
         fecha : {
             $gte: fechaOrigen,
-            $lt: fechaSiggte
+            $lt: fechaSig
         }
-    }).then((turnos)=>{
+    }).then((turnosOcupados)=>{
         console.log("@@@ Se leyeron estos turnos @@@")
-        console.log(turnos)
-        res.send(turnos)
+        console.log(turnosOcupados)
+
+        turnosDisponibles = []
+        turnoActual = new Date(fechaOrigen)
+        for (let h = 9; h < 13; h++) {
+            turnoActual.setHours(h)
+            for (let m = 0; m <= 45; m+=15) {
+                turnoActual.setMinutes(m)
+                nuevoTurno = new Date(turnoActual)
+                if (!turnoEstaOcupado(turnosOcupados, nuevoTurno)) {
+                    turnosDisponibles.push(nuevoTurno)
+                }
+            }            
+        }
+        res.send(turnosDisponibles)
     })
-
-    
-
 }
+
+const turnoEstaOcupado = (turnosOcupados, nuevoTurno) => {
+    return (turnosOcupados.find(turno => {turno.getTime() == nuevoTurno.getTime()}) || [] ).length > 0
+}
+
 const tomarTurno = async (req, res) => {
 
 
@@ -53,6 +71,6 @@ const tomarTurno = async (req, res) => {
 
 module.exports ={
     pruebaTurnos,
-    getTurnos,
+    getTurnosLibres,
     tomarTurno
 }

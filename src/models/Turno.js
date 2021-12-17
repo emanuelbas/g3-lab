@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const turnoSchema = new Schema({
-    fecha    :Number,
+    fecha    :Date,
     paciente: {
         type: Schema.Types.ObjectId,
         ref: 'User'

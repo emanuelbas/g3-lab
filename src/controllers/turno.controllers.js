@@ -47,8 +47,10 @@ const getTurnosLibres = async (req, res) => {
             turnoActual.setHours(h)
             for (let m = 0; m <= 45; m+=15) {
                 turnoActual.setMinutes(m)
+                console.log("@@@@ NUEVO TURNO @@@@");
                 nuevoTurno = new Date(turnoActual)
-                if (!turnoEstaOcupado(turnosOcupados, nuevoTurno)) {
+                if (!(turnoEstaOcupado(turnosOcupados, nuevoTurno))) {
+                    console.log("Ya que devolvio false voy a pushearlo a la lista");
                     turnosDisponibles.push(nuevoTurno)
                 }
             }            
@@ -58,18 +60,35 @@ const getTurnosLibres = async (req, res) => {
 }
 
 const turnoEstaOcupado = (turnosOcupados, nuevoTurno) => {
-    return (turnosOcupados.find(turno => {turno.getTime() == nuevoTurno.getTime()}) || [] ).length > 0
+    res = 'buscar'
+    turnosOcupados.forEach(turno => {
+        if (turno.fecha.getTime() == nuevoTurno.getTime()){
+            console.log("Encontre un turno ocupado, devuelvo true");
+            console.log(turno.fecha);
+            res = 'encontre'
+        }
+    });
+    return res == 'encontre'
 }
 
 const tomarTurno = async (req, res) => {
+    
+    var { fecha, paciente, estudio } = req.body;
 
+    console.log(fecha + ' ' + paciente + ' ' + estudio);
+    fecha = new Date(fecha)
+    // Validaciones
 
+    let nuevoTurno = new Turno({ fecha, paciente, estudio });
+    console.log(nuevoTurno)
 
-    res.send('respuesta')
+    await nuevoTurno.save()
+
+    res.send('Turno tomado')
 
 }
 
-module.exports ={
+module.exports = {
     pruebaTurnos,
     getTurnosLibres,
     tomarTurno

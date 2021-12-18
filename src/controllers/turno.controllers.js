@@ -16,7 +16,6 @@ const Turno = require('../models/Turno');
 const pruebaTurnos = async (req, res) => {console.log("entre");res.send('Hola!')}
 
 const getTurnosLibres = async (req, res) => {
-    console.log("Se ingresa al controlador");
 
     let fechaOrigen = new Date(req.params.date)
     fechaOrigen.setHours('09')
@@ -27,8 +26,6 @@ const getTurnosLibres = async (req, res) => {
     fechaSig.setSeconds('00')
     fechaSig.setMinutes('00')
     fechaSig.setDate(fechaSig.getDate() + 1)
-    console.log("Se definieron las fechas origen y sig");
-    console.log(new Date(fechaOrigen))
 
     // Si el día es sabado o domingo que devuelva una lista vacia
 
@@ -38,19 +35,14 @@ const getTurnosLibres = async (req, res) => {
             $lt: fechaSig
         }
     }).then((turnosOcupados)=>{
-        console.log("@@@ Se leyeron estos turnos @@@")
-        console.log(turnosOcupados)
-
         turnosDisponibles = []
         turnoActual = new Date(fechaOrigen)
         for (let h = 9; h < 13; h++) {
             turnoActual.setHours(h)
             for (let m = 0; m <= 45; m+=15) {
                 turnoActual.setMinutes(m)
-                console.log("@@@@ NUEVO TURNO @@@@");
                 nuevoTurno = new Date(turnoActual)
                 if (!(turnoEstaOcupado(turnosOcupados, nuevoTurno))) {
-                    console.log("Ya que devolvio false voy a pushearlo a la lista");
                     turnosDisponibles.push(nuevoTurno)
                 }
             }            
@@ -83,7 +75,6 @@ const tomarTurno = async (req, res) => {
     
     var { fecha, paciente, estudio } = req.headers;
 
-    console.log(fecha + ' ' + paciente + ' ' + estudio);
     fecha = new Date(fecha)
     // Validaciones
 
@@ -92,7 +83,7 @@ const tomarTurno = async (req, res) => {
 
     await nuevoTurno.save()
 
-    res.send('Turno tomado')
+    return res.send(nuevoTurno)
 
 }
 

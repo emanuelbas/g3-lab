@@ -25,11 +25,12 @@ export class TurnoService {
 //     "paciente" : "619014e2e1950ff9a5607adb",
 // "fecha" : "2021-12-12T15:45:00.000Z",
 // "estudio" : "6192a8f4ecadcc5954872bb3"
-    fecha = "2021-12-12T15:45:00.000Z"
-    paciente = '619014e2e1950ff9a5607adb'
-    estudio = "6192a8f4ecadcc5954872bb3"
-    let cpHeaders = new HttpHeaders({ 'Content-Type': 'text', 'fecha' : fecha, 'paciente': paciente, 'estudio': estudio});
-    return this.http.post<any>(this.URL + '/tomar-turno/', cpHeaders)
+    //fecha = "2021-12-12T15:45:00.000Z"
+    //paciente = '619014e2e1950ff9a5607adb'
+    //estudio = "6192a8f4ecadcc5954872bb3"
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'fecha' : fecha, 'paciente': paciente, 'estudio': estudio});
+    return this.http.get<any>(this.URL + '/tomar-turno/', { headers: cpHeaders})
+
   }
 
 }

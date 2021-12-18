@@ -32,6 +32,7 @@ export class DetallesDeEstudioComponent implements OnInit {
   fechaSeleccionada = ''
   turnoSeleccionado: any | undefined
   fechasDisponibles = []
+  estudioId = ''
 
   //historial:any[] = [];
   //lista:string[]=["hola","que","tal","estas"];
@@ -89,21 +90,29 @@ submitFecha(){
   alert("ok el submit")
 }
 guardaFecha(fecha:any){
-  this.fechaSeleccionada = fecha
-  console.log(fecha)
-  console.log(new Date(fecha.value))
-  this.turnoService.obtenerTurnosParaFecha(fecha.value).subscribe((listaDeTurnos)=>{
-    this.fechasDisponibles = listaDeTurnos
-  })
-
+  
+  let dia = new Date(fecha.value).getDay()
+  if (dia == 6 || dia == 5) {
+    this.fechaSeleccionada = ''
+    this.fechasDisponibles = []
+  } else {
+    this.fechaSeleccionada = fecha
+    this.turnoService.obtenerTurnosParaFecha(fecha.value).subscribe((listaDeTurnos)=>{
+      this.fechasDisponibles = listaDeTurnos
+    })
+  }
 }
 seleccionarTurno(turno:any){
-  this.turnoSeleccionado = turno
+  this.turnoSeleccionado = turno.value
   
 }
 registrarTurno(){
-  alert(this.turnoSeleccionado.value)
-
+  let fecha = "2021-12-12T15:45:00.000Z"
+  let paciente = '619014e2e1950ff9a5607adb'
+  let estudio = "6192a8f4ecadcc5954872bb3"
+  this.turnoService.guardarTurno(this.turnoSeleccionado,this.estudio.paciente._id,this.estudioId).subscribe(()=>{
+    this.estudioConEstado.siguiente(this.estudioId,this.estudioService)
+  })
 }
 //file upload
 
@@ -112,6 +121,7 @@ registrarTurno(){
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.get('id')){
         let id:string = params.get('id') ? params.get('id')! : ''
+        this.estudioId = id
         this.getEstudioById(id)
       }
     });

@@ -111,7 +111,7 @@
 
 
                             <!-- Seleccion de turno-->
-                              <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
+                              
                               
                               <!-- 
                                 <form (ngSubmit)="submitTurno(formTurnos)" #formTurnos="ngForm">
@@ -128,7 +128,10 @@
 
 
                               <!-- Prueba form basico -->
-                              <form (ngSubmit)="registrarTurno()">
+                              <!-- <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button> -->
+                              <form *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (ngSubmit)="registrarTurno()">
+                                
+                                <label for="">Selección de turno</label><br>
                                 <input 
                                 (change)="guardaFecha($event.target)"
                                 type="date" id="datepicker" name="trip-start"
@@ -140,7 +143,7 @@
                                   <option [value]="fechaDisponible" *ngFor="let fechaDisponible of fechasDisponibles" value="una fecha"> {{ fechaDisponible | date:'hh:mm'}}</option>
                                 </select>
 
-                                <button type="submit">Seleccionar turno</button>
+                                <button *ngIf="turnoSeleccionado" type="submit">Seleccionar turno</button>
 
 
                               </form>

@@ -59,6 +59,7 @@ const getTurnosLibres = async (req, res) => {
     })
 }
 
+
 const turnoEstaOcupado = (turnosOcupados, nuevoTurno) => {
     res = 'buscar'
     turnosOcupados.forEach(turno => {
@@ -71,6 +72,13 @@ const turnoEstaOcupado = (turnosOcupados, nuevoTurno) => {
     return res == 'encontre'
 }
 
+/* Body de ejemplo
+{
+"paciente" : "619014e2e1950ff9a5607adb",
+"fecha" : "2021-12-12T15:45:00.000Z",
+"estudio" : "6192a8f4ecadcc5954872bb3"
+}
+*/
 const tomarTurno = async (req, res) => {
     
     var { fecha, paciente, estudio } = req.body;

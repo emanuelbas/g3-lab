@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EstudioService } from '../../../services/estudio.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Estudio } from '../../../models/estudio'
+//import { FormGroup, FormControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-detalles-de-estudio',
@@ -10,6 +12,7 @@ import { Estudio } from '../../../models/estudio'
 })
 export class DetallesDeEstudioComponent implements OnInit {
 
+  //formTurnos: FormGroup;
   estudio:any = {
     _id: '',
     nombre_paciente: '',
@@ -24,6 +27,10 @@ export class DetallesDeEstudioComponent implements OnInit {
   estudioConEstado: Estudio = new Estudio();
  // lista =[]
   listas:any[]= [];
+  minDate : String = new Date().toISOString().split('T')[0]
+  fechaSeleccionada = ''
+  turnoSeleccionado: any | undefined
+  fechasDisponibles = [new Date(), new Date(), new Date(), new Date()]
 
   //historial:any[] = [];
   //lista:string[]=["hola","que","tal","estas"];
@@ -31,7 +38,11 @@ export class DetallesDeEstudioComponent implements OnInit {
     public estudioService: EstudioService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) { 
+    // this.formTurnos = new FormGroup({
+    //   turnoSeleccionado: new FormControl('', [])
+    // })
+  }
 
 
   getEstudioById = (id: string) => {
@@ -72,6 +83,18 @@ uploadCIF(idEstudio:any) {
   })
 }
 
+submitFecha(){
+  alert("ok el submit")
+}
+guardaFecha(fecha:any){
+  this.fechaSeleccionada = fecha
+}
+seleccionarTurno(turno:any){
+  this.turnoSeleccionado = turno
+}
+registrarTurno(){
+  alert(this.turnoSeleccionado.value)
+}
 //file upload
 
   ngOnInit(): void {

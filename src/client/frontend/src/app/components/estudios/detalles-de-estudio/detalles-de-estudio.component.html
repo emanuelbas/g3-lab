@@ -58,7 +58,7 @@
                             <!-- button *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info ml-2">Subir comprobante de pago</button-->
 
 
-                            <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
+                            
                             <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
                             <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
                             <button *ngIf="estudioConEstado.verBotonInciarProcesamiento()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento ya que se retiraron 10 muestras <small class="text-muted">(test)</small></button>
@@ -109,6 +109,48 @@
 
                             </div>
 
+
+                            <!-- Seleccion de turno-->
+                              <button *ngIf="estudioConEstado.verBotonSeleccionarTurno()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Seleccion de turno  <small class="text-muted">(test)</small></button>
+                              
+                              <!-- 
+                                <form (ngSubmit)="submitTurno(formTurnos)" #formTurnos="ngForm">
+
+                              <div class="form-group">
+                                  <label for="labelNombre">Turno</label>
+                                  <input formControlName="turnoSeleccionado" type="date" class="form-control" id="inputTurno"
+                                      min="{{minDate}}">
+                                  div *ngIf="alto.invalid && alto.touched">
+                                      <small class="text-danger">Debe ingresar una fecha</small>
+                                  </div>
+                              </div>
+ -->
+
+
+                              <!-- Prueba form basico -->
+                              <form (ngSubmit)="registrarTurno()">
+                                <input 
+                                (change)="guardaFecha($event.target)"
+                                type="date" id="datepicker" name="trip-start"
+                                value="2018-07-22"
+                                min="{{minDate}}">
+
+
+                                <select *ngIf="fechaSeleccionada" name="turnosDisponibles" id="turnosDisponibles" (change)="seleccionarTurno($event.target)">
+                                  <option [value]="fechaDisponible" *ngFor="let fechaDisponible of fechasDisponibles" value="una fecha"> {{ fechaDisponible | date:'hh:mm'}}</option>
+                                </select>
+
+                                <button type="submit">Seleccionar turno</button>
+
+
+                              </form>
+
+
+
+                              <!-- Medio que funciona lo de abajo -->
+
+
+                            <!-- Fin seleccion de turno-->
                         
                           </div>
                     </div>
@@ -166,3 +208,4 @@
     </div>
     <!-- container -->
 </div>
+

@@ -81,7 +81,7 @@ const turnoEstaOcupado = (turnosOcupados, nuevoTurno) => {
 */
 const tomarTurno = async (req, res) => {
     
-    var { fecha, paciente, estudio } = req.body;
+    var { fecha, paciente, estudio } = req.headers;
 
     console.log(fecha + ' ' + paciente + ' ' + estudio);
     fecha = new Date(fecha)

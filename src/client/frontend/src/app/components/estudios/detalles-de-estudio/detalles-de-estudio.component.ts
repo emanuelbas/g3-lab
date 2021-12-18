@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstudioService } from '../../../services/estudio.service';
+import { TurnoService } from '../../../services/turno.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Estudio } from '../../../models/estudio'
 //import { FormGroup, FormControl } from '@angular/forms';
@@ -30,12 +31,13 @@ export class DetallesDeEstudioComponent implements OnInit {
   minDate : String = new Date().toISOString().split('T')[0]
   fechaSeleccionada = ''
   turnoSeleccionado: any | undefined
-  fechasDisponibles = [new Date(), new Date(), new Date(), new Date()]
+  fechasDisponibles = []
 
   //historial:any[] = [];
   //lista:string[]=["hola","que","tal","estas"];
   constructor(
     public estudioService: EstudioService,
+    public turnoService: TurnoService,
     private router: Router,
     private route: ActivatedRoute
   ) { 
@@ -88,12 +90,20 @@ submitFecha(){
 }
 guardaFecha(fecha:any){
   this.fechaSeleccionada = fecha
+  console.log(fecha)
+  console.log(new Date(fecha.value))
+  this.turnoService.obtenerTurnosParaFecha(fecha.value).subscribe((listaDeTurnos)=>{
+    this.fechasDisponibles = listaDeTurnos
+  })
+
 }
 seleccionarTurno(turno:any){
   this.turnoSeleccionado = turno
+  
 }
 registrarTurno(){
   alert(this.turnoSeleccionado.value)
+
 }
 //file upload
 

@@ -1,8 +1,12 @@
 const { Schema, model } = require('mongoose');
 
 const loteSchema = new Schema({
-    id        :String,
-    numero    :Number,
+    estado: String,
+    cantEstudios : Number,
+    estudios: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Estudio'
+    }]
 }, {
     timestamps: true
 });

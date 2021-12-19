@@ -183,6 +183,8 @@
                             <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
                             <p *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios < 10">Se está esperando reunir 10 estudios en el lote para poder iniciar el procesamiento. Por ahora hay {{estudio.lote.cantEstudios}}</p>
                             <button *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios == 10" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento</button>
+                            
+                            
                             <!-- Procesamiento de lote fin -->
                           </div>
                     </div>

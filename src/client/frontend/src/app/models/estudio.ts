@@ -296,7 +296,9 @@ class EsperandoRertiroDeMuestraState extends State {
 class EsperandoProcesamientoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
         let estado = 'Esperando resultado de lote'
-        servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+        servicio.nextEstadoLote(idEstudio).subscribe(()=>{
+            servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+        })
     }
     verFormExtraccionMuestra() : boolean{return true}
     verBotonMuestraProcesada() : boolean{return true}

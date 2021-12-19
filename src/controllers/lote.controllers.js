@@ -33,15 +33,32 @@ const encolarEstudio = async (req,res) => {
                 await estudio.save()
                 return res.status(200).json(l);
             })
-
-            
-            
         }
     })
-
     return 'ok'
 }
 
+const siguienteEstado = async (req,res) => {
+// Los estados pueden ser 'creado' 'en procesamiento' 'procesado'
+    let idestudio = req.headers.idestudio;
+    let estudio = await Estudio.findById(idestudio).populate('lote')
+    let lote = estudio.lote
+    switch (lote.estado) {
+        case 'creado':
+            lote.estado = 'en procesamiento'
+            break;
+        case 'en procesamiento':
+            lote.estado = 'procesado'
+            break;
+        default:
+            break;
+    }
+    await lote.save()
+    return res.status(200).json(lote);
+
+}
+
 module.exports = {
-    encolarEstudio    
+    encolarEstudio,
+    siguienteEstado    
 }

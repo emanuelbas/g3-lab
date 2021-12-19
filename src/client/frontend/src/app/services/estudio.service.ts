@@ -63,6 +63,10 @@ export class EstudioService {
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'idestudio' : idestudio });
     return this.http.get<any>(this.URL + '/encolar-estudio-a-lote', { headers: cpHeaders})
   }
+  nextEstadoLote(idestudio:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'idestudio' : idestudio });
+    return this.http.get<any>(this.URL + '/lote-siguiente-estado', { headers: cpHeaders})
+  }
 
   getEstudios(){
     return this.http.get<any>(this.URL + '/obtener-estudios')

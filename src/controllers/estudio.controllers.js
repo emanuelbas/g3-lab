@@ -388,6 +388,20 @@ const promedioDuracionEstudioPorAño = async (req, res) => {
     }) // Estudios mongoose
 }
 
+const registraTomaMuestra = async (req, res) => {
+    const { idestudio, cantmililitosextraidos, numerofrizer } = req.headers;
+    if (cantmililitosextraidos >= 5 && cantmililitosextraidos <= 12.5 ) {
+        Estudio.findById(idestudio).then(async (estudio)=>{
+            estudio.cantMililitosExtraidos = cantmililitosextraidos
+            estudio.numeroFrizer = numerofrizer
+            await estudio.save()
+            return res.status(200).json(estudio);
+        })
+    } else {
+        return res.status(400).json({});
+    }
+}
+
 const gananciasMensuales = async (req, res) => {
     Estudio.find().sort([['createdAt', 'ascending']]).then((estudios) => {
 
@@ -439,6 +453,7 @@ module.exports = {
     gananciasMensuales,
     promedioDuracionEstudioPorAño,
     downloadComprobante,
-    downloadConsentimiento
+    downloadConsentimiento,
+    registraTomaMuestra
     
 }

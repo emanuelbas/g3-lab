@@ -8,11 +8,9 @@ import { local } from 'd3';
 })
 export class EstudioService {
 
-
   private URL = '/api'
 
   constructor(private http:HttpClient, private router: Router) { }
-
 
   getEstudioById(id: string){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', '_id' : id });
@@ -57,16 +55,7 @@ export class EstudioService {
   }
 
   setEstado(estudioId:any, nombreEstado:string){
-    let data = {
-      "estudio": estudioId,
-      "estado": nombreEstado
-    }
-    console.log("intento imprimer el local storage id");
-    
-    console.log(localStorage.userid);
-    
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'estudio' : estudioId , 'estado': nombreEstado, 'userid' : localStorage.userid});
-    console.log(data)
     return this.http.get<any>(this.URL + '/cambiar-estado', { headers: cpHeaders})
   }
 
@@ -98,31 +87,13 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')
   }
 
+  registrarTomaDeMuestra(idEstudio: any, cantMililitosExtraidos: any, numeroFrizer: any ){    
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'idEstudio' : idEstudio , 'cantMililitosExtraidos': cantMililitosExtraidos, 'numeroFrizer' : numeroFrizer});
+    return this.http.get<any>(this.URL + '/registrar-toma-de-muestra',  { headers: cpHeaders })
+  }
 
   getOs(id : string){
     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'id':id });
     return this.http.get<any>(this.URL + '/obtener-os', {headers:cpHeaders})
   }
-  // getMedicoDerivante(){
-  //   return this.http.get<any>(this.URL + '/obtener-medico-derivante')
-  // }
-
-  // createMedicoDerivante(medicoDerivante: any){
-  //   console.log("medicoDerivante", medicoDerivante)
-  //   return this.http.post<any>(this.URL + '/alta-medico-derivante', medicoDerivante)
-  // }
-
-  // deleteMedicoDerivante(id: any){
-  //   let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   let options = ({ headers: cpHeaders });
-  //   return this.http.patch(this.URL+'/baja-medico-derivante', id, options)
-  //  /*  return this.http.patch<any>(this.URL + '/baja-medico-derivante', {'id': id}) */
-  // }
-
-  // updateMedicoDerivante(med: any){
-  //   return this.http.patch(this.URL + '/editar-medico-derivante', med)
-  // }
-
-
-
 }

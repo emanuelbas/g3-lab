@@ -59,7 +59,7 @@
 
 
                             
-                            <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
+                            
                             <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
                             <button *ngIf="estudioConEstado.verBotonInciarProcesamiento()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento ya que se retiraron 10 muestras <small class="text-muted">(test)</small></button>
                             <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir resultado del lote</button>
@@ -148,10 +148,27 @@
 
                               </form>
 
+                              <!-- Toma de muestra ini -->
+                              <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
+                              <div *ngIf="estudioConEstado.verBotonMuestraTomada()">
+                              
+                              <label for="">Cantidad de mililitros extraidos</label><br>
+                              <input 
+                              (change)="guardaMililitros($event.target)"
+                              type="number" id="mililitros" name="mililitros"
+                              value="5" step="0.5"
+                              min="5" max="12.5"><br>
+                              <label for="">Numero frizer</label><br>
+                              <input 
+                              (change)="guardaNumeroFrizer($event.target)"
+                              type="number" id="frizer" name="frizer"
+                              value="0"
+                              min="1" max="500">
 
-
-                              <!-- Medio que funciona lo de abajo -->
-
+                              <br>
+                              <button *ngIf="mililitrosExtraidos && numeroFrizer" (click)="guardaTomaDeMuestra()">Cargar datos de muestra</button>
+                            </div>
+                              <!-- Toma de muestra fin -->
 
                             <!-- Fin seleccion de turno-->
                         

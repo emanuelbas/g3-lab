@@ -5,6 +5,11 @@ const estudioSchema = new Schema({
     precio: Number,
     comprobanteFileName : String,
     cif : String,
+    cantMililitosExtraidos : Number,
+    numeroFrizer : Number,
+
+    // Si se pasa de esta fecha sin tomarse la muestra se vuelve a Esperando seleccion de turno
+    fechaTomaMuestra : Date, 
     empleado: {
         type: Schema.Types.ObjectId,
         ref: 'User'

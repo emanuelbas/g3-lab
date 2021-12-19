@@ -92,6 +92,11 @@ export class EstudioService {
     let cpHeaders = new HttpHeaders({ 'id':id });
     return this.http.post('/api/upload-cif', formData, {headers:cpHeaders})
   }
+  subirResultadoLote(formData: any, id: string){
+    formData.id = id
+    let cpHeaders = new HttpHeaders({ 'id':id });
+    return this.http.post('/api/upload-resultado-lote', formData, {headers:cpHeaders})
+  }
   getDuracionAnual(){
     return this.http.get<any>(this.URL + '/obtener-duracion-anual')
   }

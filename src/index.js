@@ -71,7 +71,31 @@ app.get('/api/descargar-cif/:_id', async function(req, res){
 });
 //consentimiento informado
 
+//resultado lote
+app.post('/api/upload-resultado-lote', multipartMiddleware, async (req, res) => {
 
+  id = req.headers.id
+  filename = req.files.uploads[0].path.split('\\')[1]
+  Estudio.findById(id).populate('lote').then(async (e)=>{
+    e.lote.resultadoLoteFN = filename
+    await e.lote.save()
+    res.json({
+      'message': 'File uploaded successfully'
+    });
+  })
+});
+
+app.get('/api/descargar-resultado-lote/:_id', async function(req, res){
+  let _id = req.params._id;
+  await Estudio.findById(_id).populate('lote')
+  .then((estudio) => {
+    const path = './uploads/';
+    let filename = estudio.lote.resultadoLoteFN
+    file = path + filename
+  })
+  res.download(file); // Set disposition and send it.
+});
+//resultado lote
 
 
 app.get('/api/descargar-comprobante/:_id', async function(req, res){

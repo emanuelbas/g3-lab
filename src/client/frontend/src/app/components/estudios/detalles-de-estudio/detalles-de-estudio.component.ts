@@ -88,6 +88,15 @@ export class DetallesDeEstudioComponent implements OnInit {
       this.estudioConEstado.siguiente(idEstudio, this.estudioService)
     })
   }
+  uploadResultadoLote(idEstudio: any){
+    let formData = new FormData();
+    for (var i = 0; i < this.uploadedFiles.length; i++) {
+      formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+    }
+    this.estudioService.subirResultadoLote(formData, idEstudio).subscribe((response) => {
+      this.estudioConEstado.siguiente(idEstudio, this.estudioService)
+    })
+  }
 
   submitFecha() {
     alert("ok el submit")

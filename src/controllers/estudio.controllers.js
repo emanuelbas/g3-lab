@@ -115,6 +115,7 @@ const getEstudio = async (req, res) => {
     .populate('diagnosticoPresuntivo')
     .populate('obraSocial')
     .populate('estado')
+    .populate('lote')
     .populate({
     path: 'historialDeEstudio',
     populate: {path: 'estado'}})

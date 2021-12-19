@@ -29,6 +29,16 @@
                             <h5 class="m-b-5">Tipo de Estudio</h5>
                             <p><span class="badge badge-primary">{{estudio.tipoDeEstudio.nombre}}</span></p>
                         </li>
+                        <li *ngIf="estudio.cantMililitosExtraidos">
+                          <h5 class="m-b-5">Numero de frizer</h5>
+                          <p>Número: {{estudio.numeroFrizer}}</p>
+                          <p>Mililitros extraidos: {{estudio.cantMililitosExtraidos}}</p>
+                        </li>
+                        <li *ngIf="estudio.lote">
+                          <h5 class="m-b-5">Lote</h5>
+                          <p>ID: {{estudio.lote._id}}</p>
+                          <p>En estado {{estudio.lote.estado}}</p>
+                        </li>
                         <li>
                             <h5 class="m-b-5">Diagnóstico Presuntivo</h5>
                             <p><span class="badge badge-secondary">{{estudio.diagnosticoPresuntivo.nombre}}</span></p>
@@ -60,15 +70,12 @@
 
                             
                             
-                            <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
-                            <button *ngIf="estudioConEstado.verBotonInciarProcesamiento()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento ya que se retiraron 10 muestras <small class="text-muted">(test)</small></button>
+                            
                             <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir resultado del lote</button>
                             <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
                             <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
 
                             <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
-
-                            <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download><small class="text-muted">(test)</small></a>
                             
                             <!-- CIF    descargar-consentimiento -->
                             <a href="/api/descargar-consentimiento/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Enviar consentimiento informado a paciente</a>
@@ -149,7 +156,7 @@
                               </form>
 
                               <!-- Toma de muestra ini -->
-                              <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button>
+                              <!-- <button *ngIf="estudioConEstado.verBotonMuestraTomada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Se tomó la muestra  <small class="text-muted">(test)</small></button> -->
                               <div *ngIf="estudioConEstado.verBotonMuestraTomada()">
                               
                               <label for="">Cantidad de mililitros extraidos</label><br>
@@ -171,7 +178,12 @@
                               <!-- Toma de muestra fin -->
 
                             <!-- Fin seleccion de turno-->
-                        
+                            
+                            <!-- Procesamiento de lote ini -->
+                            <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
+                            <p *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios < 10">Se está esperando reunir 10 estudios en el lote para poder iniciar el procesamiento. Por ahora hay {{estudio.lote.cantEstudios}}</p>
+                            <button *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios == 10" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento</button>
+                            <!-- Procesamiento de lote fin -->
                           </div>
                     </div>
 

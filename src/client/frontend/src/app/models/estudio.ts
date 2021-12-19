@@ -283,8 +283,11 @@ class EsperandoTomaDeMuestraState extends State {
 }
 class EsperandoRertiroDeMuestraState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
-        let estado = 'Esperando iniciar procesamiento biotecnologico'
-        servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+        // Actualizar estudio con datos de lote
+        servicio.encolarALote(idEstudio).subscribe(()=>{
+            let estado = 'Esperando iniciar procesamiento biotecnologico'
+            servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+        })
     }
     verBotonMuestraRetirada() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}

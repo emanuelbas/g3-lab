@@ -59,6 +59,11 @@ export class EstudioService {
     return this.http.get<any>(this.URL + '/cambiar-estado', { headers: cpHeaders})
   }
 
+  encolarALote(idestudio:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'idestudio' : idestudio });
+    return this.http.get<any>(this.URL + '/encolar-estudio-a-lote', { headers: cpHeaders})
+  }
+
   getEstudios(){
     return this.http.get<any>(this.URL + '/obtener-estudios')
   }

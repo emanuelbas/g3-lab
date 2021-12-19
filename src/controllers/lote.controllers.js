@@ -5,14 +5,16 @@ const Lote = require('../models/Lote')
 const encolarEstudio = async (req,res) => {
 
     let idestudio = req.headers.idestudio;
-
-    Lote.find().sort([['createdAt', 'ascending']]).then(async (lotes) => {
+    let estudio = await Estudio.findById(idestudio) 
+    Lote.find().sort([['createdAt', 'descending']]).then(async (lotes) => {
         ultimoLote = lotes[0]
         if (ultimoLote && ultimoLote.cantEstudios < 10){
             // Lo agrego al ultimo lote
             ultimoLote.estudios.push(idestudio)
-            ultimoLote.cantEstudios = 1
+            ultimoLote.cantEstudios++
             await ultimoLote.save()
+            estudio.lote = ultimoLote
+            await estudio.save()
             return res.status(200).json(ultimoLote);
 
         } else {
@@ -23,10 +25,12 @@ const encolarEstudio = async (req,res) => {
                 cantEstudios : 1,
                 estado : 'creado'
             })
-            return "hola"
 
-            nuevoLote.save().then((l)=>{
+
+            nuevoLote.save().then(async (l)=>{
                 console.log(l);
+                estudio.lote = ultimoLote
+                await estudio.save()
                 return res.status(200).json(l);
             })
 

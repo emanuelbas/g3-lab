@@ -22,6 +22,8 @@ interface State {
     verBotonEntregado() : boolean;
     verBotonSubirResultado() : boolean;
 
+    verBotonBajarPresupuestoLegado(): boolean
+
     siguiente(idEstudio:string, servicio:EstudioService) : any;
     reiniciarEstado(idEstudio:string, servicio:EstudioService) : any;
 
@@ -251,6 +253,7 @@ class EsperandoEnviarCIState extends State {
     }
     verBotonBajarCI() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoCIFState extends State {
@@ -260,6 +263,7 @@ class EsperandoCIFState extends State {
     }
     verBotonSubirCIF() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoSeleccionDeTurnotate extends State {
@@ -270,6 +274,7 @@ class EsperandoSeleccionDeTurnotate extends State {
     verBotonSeleccionarTurno() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoTomaDeMuestraState extends State {
@@ -280,6 +285,7 @@ class EsperandoTomaDeMuestraState extends State {
     verBotonMuestraTomada() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 class EsperandoRertiroDeMuestraState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -292,6 +298,7 @@ class EsperandoRertiroDeMuestraState extends State {
     verBotonMuestraRetirada() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 class EsperandoProcesamientoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -305,6 +312,7 @@ class EsperandoProcesamientoState extends State {
     verBotonInciarProcesamiento() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoResultadoState extends State {
@@ -315,6 +323,7 @@ class EsperandoResultadoState extends State {
     verBotonSubirResultado() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoInterpretacionState extends State {
@@ -325,6 +334,7 @@ class EsperandoInterpretacionState extends State {
     verBotonSubirInterpretacion() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 class EsperandoEnvioAMedicoState extends State {
@@ -335,6 +345,7 @@ class EsperandoEnvioAMedicoState extends State {
     verBotonEntregado() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 class EntregadoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -342,6 +353,8 @@ class EntregadoState extends State {
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
     verBotonBajarCIF() : boolean{return true}
+    verBotonBajarComprobanteDePago() :boolean{return true}
+    verBotonBajarPresupuestoLegado(): boolean{return true}
 }
 
 

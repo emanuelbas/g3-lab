@@ -61,15 +61,16 @@
 
                     <!-- Ini BOTONES DE LEGADO -->
                     <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Descargar presupuesto</a>
-                    <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
-                    <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCIF()" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
+                    <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-primary m-2" download>Descargar presupuesto</a>
+                    <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudio.comprobanteFileName" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
+                    <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudio.cif" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
                     <a href="/api/descargar-resultado-lote/{{estudio._id}}" *ngIf="estudio.lote.resultadoLoteFN" class="btn btn-primary m-2" download>Descargar resultados del lote</a>
-                    <a href="/api/descargar-interpretacion-muestra/{{estudio._id}}" *ngIf="estudio.lote.interpretacionFN" class="btn btn-primary m-2" download>Descargar interpretacion de muestra</a>
+                    <a href="/api/descargar-interpretacion-muestra/{{estudio._id}}" *ngIf="estudio.interpretacionFN" class="btn btn-primary m-2" download>Descargar interpretacion de muestra</a>
 
                     
                     <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
 
-                    <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
+                    
                     <!-- CIF    descargar-consentimiento -->
                     <a href="/api/descargar-consentimiento/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Enviar consentimiento informado a paciente</a>
                     <!-- FIN CIF -->
@@ -157,7 +158,7 @@
 
 
                     <!-- Ini Subir resultado del lote -->
-                    <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir resultado del lote</button>
+                    <!-- <button *ngIf="estudioConEstado.verBotonSubirResultado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir resultado del lote</button> -->
                     
                     <div class="input-group" *ngIf="estudioConEstado.verBotonSubirResultado()">
                       
@@ -176,7 +177,7 @@
                     <!-- Fin Subir resultado del lote -->
 
                     <!-- Ini Subir interpretacion de muestra -->
-                    <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
+                    <!-- <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button> -->
 
                     
                     <div class="input-group" *ngIf="estudioConEstado.verBotonSubirInterpretacion()">
@@ -194,6 +195,11 @@
                       </div>
                     </div>
                     <!-- Fin Subir interpretacion de muestra -->
+
+
+                    <!-- BOTON PARA REINICIAR ESTADO DE UN LOTE -->
+                    <!-- <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button> -->
+                    <!-- BOTON PARA REINICIAR ESTADO DE UN LOTE FIN -->
                           </div>
                     </div>
 

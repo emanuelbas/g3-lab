@@ -24,8 +24,10 @@ interface State {
 
     verBotonBajarPresupuestoLegado(): boolean
     verBotonBajarResultadosLote(): boolean
+    verBotonBajarComprobanteDePagoSubido(): boolean
 
     verBotonFalloElLote(): boolean
+    verBotonComprobanteInvalido(): boolean
 
     siguiente(idEstudio:string, servicio:EstudioService) : any;
     reiniciarEstado(idEstudio:string, servicio:EstudioService) : any;
@@ -102,6 +104,9 @@ class Estudio {
     }
     public pedirNuevaMuestra(idEstudio:string, servicio:EstudioService){
         this.currentState.pedirNuevaMuestra(idEstudio,servicio)
+    }
+    public pedirNuevoComprobante(idEstudio:string, servicio:EstudioService){
+        this.currentState.pedirNuevoComprobante(idEstudio,servicio)
     }
     public setState(state: State){
         this.currentState = state
@@ -190,7 +195,12 @@ class Estudio {
     public verBotonBajarResultadosLote(){
         return this.currentState.verBotonBajarResultadosLote()
     }
-
+    public verBotonComprobanteInvalido(){
+        return this.currentState.verBotonComprobanteInvalido()
+    }
+    public verBotonBajarComprobanteDePagoSubido(){
+        return this.currentState.verBotonBajarComprobanteDePagoSubido()
+    }
 }
 class State implements State{
 
@@ -217,6 +227,8 @@ class State implements State{
     verBotonBajarPresupuestoLegado(): boolean{return false}
     verBotonFalloElLote(): boolean{return false}
     verBotonBajarResultadosLote() : boolean{return false}
+    verBotonComprobanteInvalido(): boolean{return false}
+    verBotonBajarComprobanteDePagoSubido() : boolean{return false}
 
     siguiente(idEstudio:string, servicio:EstudioService) :boolean{return false}
     reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
@@ -260,9 +272,15 @@ class EsperandoEnviarCIState extends State {
         let estado = 'Esperando carga de consentimiento informado FIRMADO'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    pedirNuevoComprobante(idEstudio : string, servicio : EstudioService) : any {
+        let estado = 'Esperando comprobante de pago'
+        servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+    }
     verBotonBajarCI() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonComprobanteInvalido(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoCIFState extends State {
@@ -270,9 +288,15 @@ class EsperandoCIFState extends State {
         let estado = 'Esperando seleccion de turno'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    pedirNuevoComprobante(idEstudio : string, servicio : EstudioService) : any {
+        let estado = 'Esperando comprobante de pago'
+        servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+    }
     verBotonSubirCIF() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonComprobanteInvalido(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoSeleccionDeTurnotate extends State {
@@ -284,6 +308,7 @@ class EsperandoSeleccionDeTurnotate extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoTomaDeMuestraState extends State {
@@ -295,6 +320,7 @@ class EsperandoTomaDeMuestraState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 class EsperandoRertiroDeMuestraState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -308,6 +334,7 @@ class EsperandoRertiroDeMuestraState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 class EsperandoProcesamientoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -322,6 +349,7 @@ class EsperandoProcesamientoState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoResultadoState extends State {
@@ -333,6 +361,7 @@ class EsperandoResultadoState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoInterpretacionState extends State {
@@ -350,6 +379,7 @@ class EsperandoInterpretacionState extends State {
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
     verBotonBajarResultadosLote() : boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 class EsperandoEnvioAMedicoState extends State {
@@ -362,6 +392,7 @@ class EsperandoEnvioAMedicoState extends State {
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
     verBotonBajarResultadosLote() : boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 class EntregadoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -372,6 +403,7 @@ class EntregadoState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
     verBotonBajarResultadosLote() : boolean{return true}
+    verBotonBajarComprobanteDePagoSubido() : boolean {return true}
 }
 
 

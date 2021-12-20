@@ -63,7 +63,7 @@
                     <!-- Ini Botones acumulativos -->
                     <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuesto()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Descargar presupuesto</a>
                     <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-primary m-2" download>Descargar presupuesto</a>
-                    <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudio.comprobanteFileName" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
+                    <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePagoSubido()" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
                     <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudio.cif" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
                     <a href="/api/descargar-resultado-lote/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarResultadosLote()" class="btn btn-primary m-2" download>Descargar resultados del lote</a>
                     <a href="/api/descargar-interpretacion-muestra/{{estudio._id}}" *ngIf="estudio.interpretacionFN" class="btn btn-primary m-2" download>Descargar interpretacion de muestra</a>
@@ -189,6 +189,10 @@
                     <!-- Ini fallo de lote -->
                     <button *ngIf="estudioConEstado.verBotonFalloElLote()" (click)="estudioConEstado.pedirNuevaMuestra(estudio._id,estudioService)" class="btn btn-danger m-2">Muestra insuficiente</button>
                     <!-- Fin fallo de lote -->
+
+                    <!-- pedirNuevoComprobante -->
+                    <button *ngIf="estudioConEstado.verBotonComprobanteInvalido()" (click)="estudioConEstado.pedirNuevoComprobante(estudio._id,estudioService)" class="btn btn-danger m-2">Comprobante de pago no válido</button>
+                    <!-- pedirNuevoComprobante -->
                     
                     <!-- BOTON PARA REINICIAR ESTADO DE UN LOTE -->
                     <!-- <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button> -->

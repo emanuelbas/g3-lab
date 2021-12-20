@@ -97,6 +97,32 @@ app.get('/api/descargar-resultado-lote/:_id', async function(req, res){
 });
 //resultado lote
 
+//interpretacion de muestra
+app.post('/api/upload-interpretacion-muestra', multipartMiddleware, async (req, res) => {
+
+  id = req.headers.id
+  filename = req.files.uploads[0].path.split('\\')[1]
+  Estudio.findById(id).then(async (e)=>{
+    e.interpretacionFN = filename
+    await e.save()
+    res.json({
+      'message': 'File uploaded successfully'
+    });
+  })
+});
+
+app.get('/api/descargar-interpretacion-muestra/:_id', async function(req, res){
+  let _id = req.params._id;
+  await Estudio.findById(_id)
+  .then((estudio) => {
+    const path = './uploads/';
+    let filename = estudio.interpretacionFN
+    file = path + filename
+  })
+  res.download(file); // Set disposition and send it.
+});
+// interpretacion de muestra
+
 
 app.get('/api/descargar-comprobante/:_id', async function(req, res){
   let _id = req.params._id;

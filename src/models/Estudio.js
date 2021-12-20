@@ -7,6 +7,7 @@ const estudioSchema = new Schema({
     cif : String,
     cantMililitosExtraidos : Number,
     numeroFrizer : Number,
+    interpretacionFN : String,
     // Si se pasa de esta fecha sin tomarse la muestra se vuelve a Esperando seleccion de turno
     fechaTomaMuestra : Date, 
     empleado: {

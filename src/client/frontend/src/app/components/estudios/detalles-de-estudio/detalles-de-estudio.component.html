@@ -64,9 +64,9 @@
                     <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePago()" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
                     <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCIF()" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
                     <a href="/api/descargar-resultado-lote/{{estudio._id}}" *ngIf="estudio.lote.resultadoLoteFN" class="btn btn-primary m-2" download>Descargar resultados del lote</a>
+                    <a href="/api/descargar-interpretacion-muestra/{{estudio._id}}" *ngIf="estudio.lote.interpretacionFN" class="btn btn-primary m-2" download>Descargar interpretacion de muestra</a>
 
                     
-                    <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
                     <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
 
                     <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button>
@@ -174,6 +174,26 @@
                       </div>
                     </div>
                     <!-- Fin Subir resultado del lote -->
+
+                    <!-- Ini Subir interpretacion de muestra -->
+                    <button *ngIf="estudioConEstado.verBotonSubirInterpretacion()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Subir interpretación de resultado</button>
+
+                    
+                    <div class="input-group" *ngIf="estudioConEstado.verBotonSubirInterpretacion()">
+                      
+                      <div class="input-group-prepend">
+                        <span  class="input-group-text upload"  (click)="uploadInterpretacion(estudio._id)"  id="btnUploadResLote">Subir interpretacion de muestra</span>
+                      </div>
+
+                      <div class="custom-file">
+                          <form action="/api/upload-interpretacion-muestra" method="post" enctype="multipart/form-data">
+                            <input (change)="fileChange($event)" type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                          </form>
+
+                          <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                      </div>
+                    </div>
+                    <!-- Fin Subir interpretacion de muestra -->
                           </div>
                     </div>
 

@@ -29,7 +29,7 @@ const encolarEstudio = async (req,res) => {
 
             nuevoLote.save().then(async (l)=>{
                 console.log(l);
-                estudio.lote = ultimoLote
+                estudio.lote = l
                 await estudio.save()
                 return res.status(200).json(l);
             })

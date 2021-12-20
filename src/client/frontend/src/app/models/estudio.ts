@@ -23,6 +23,9 @@ interface State {
     verBotonSubirResultado() : boolean;
 
     verBotonBajarPresupuestoLegado(): boolean
+    verBotonBajarResultadosLote(): boolean
+
+    verBotonFalloElLote(): boolean
 
     siguiente(idEstudio:string, servicio:EstudioService) : any;
     reiniciarEstado(idEstudio:string, servicio:EstudioService) : any;
@@ -95,12 +98,10 @@ class Estudio {
     }
 
     public siguiente(idEstudio:string, servicio:EstudioService){
-        // Crear nuevo historial con servicio
-        //                              Definir datos
-        // servicio.agregarAHistorial(idEstudio,-,-,-)
-        //      llama a servicio angular
-        //      llama a endpoint express
         this.currentState.siguiente(idEstudio,servicio)
+    }
+    public pedirNuevaMuestra(idEstudio:string, servicio:EstudioService){
+        this.currentState.pedirNuevaMuestra(idEstudio,servicio)
     }
     public setState(state: State){
         this.currentState = state
@@ -183,6 +184,12 @@ class Estudio {
     public verBotonBajarPresupuestoLegado() {
         return this.currentState.verBotonBajarPresupuestoLegado()
     }
+    public verBotonFalloElLote(){
+        return this.currentState.verBotonFalloElLote()
+    }
+    public verBotonBajarResultadosLote(){
+        return this.currentState.verBotonBajarResultadosLote()
+    }
 
 }
 class State implements State{
@@ -208,6 +215,8 @@ class State implements State{
     verBotonSubirResultado():boolean{return false}
     verBotonInciarProcesamiento ():boolean{return false}
     verBotonBajarPresupuestoLegado(): boolean{return false}
+    verBotonFalloElLote(): boolean{return false}
+    verBotonBajarResultadosLote() : boolean{return false}
 
     siguiente(idEstudio:string, servicio:EstudioService) :boolean{return false}
     reiniciarEstado(idEstudio:string, servicio:EstudioService):any{
@@ -331,10 +340,16 @@ class EsperandoInterpretacionState extends State {
         let estado = 'Esperando ser entregado a medico derivante'
         servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
     }
+    pedirNuevaMuestra(idEstudio : string, servicio : EstudioService) : any {
+        let estado = 'Esperando seleccion de turno'
+        servicio.setEstado(idEstudio,estado).toPromise().then(()=>window.location.reload())
+    }
+    verBotonFalloElLote(): boolean{return true}
     verBotonSubirInterpretacion() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarResultadosLote() : boolean{return true}
 }
 
 class EsperandoEnvioAMedicoState extends State {
@@ -346,6 +361,7 @@ class EsperandoEnvioAMedicoState extends State {
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarResultadosLote() : boolean{return true}
 }
 class EntregadoState extends State {
     siguiente(idEstudio:string, servicio: EstudioService) : any{
@@ -355,6 +371,7 @@ class EntregadoState extends State {
     verBotonBajarCIF() : boolean{return true}
     verBotonBajarComprobanteDePago() :boolean{return true}
     verBotonBajarPresupuestoLegado(): boolean{return true}
+    verBotonBajarResultadosLote() : boolean{return true}
 }
 
 

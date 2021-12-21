@@ -30,6 +30,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { EmpleadoGuard } from './guards/empleado.guard';
 import { ConfiguradorGuard } from './guards/configurador.guard';
 import { PacienteGuard } from './guards/paciente.guard';
+import { GrillaEstudiosComponent } from './components/paciente/grilla-estudios/grilla-estudios.component';
 
 
 const routes: Routes = [
@@ -127,6 +128,10 @@ const routes: Routes = [
     path: 'listar-pacientes',
     component: PacienteComponent,
     canActivate: []
+  },
+  {    
+    path: 'mis-estudios',
+    component: GrillaEstudiosComponent
   }
 
 

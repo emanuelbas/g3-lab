@@ -14,5 +14,6 @@ router.get('/obtener-ganancias-mensuales', estudioControllers.gananciasMensuales
 router.get('/obtener-duracion-anual', estudioControllers.promedioDuracionEstudioPorAño)
 router.get('/descargar-consentimiento/:_id', estudioControllers.downloadConsentimiento)
 router.get('/registrar-toma-de-muestra', estudioControllers.registraTomaMuestra)
+router.get('/estudios-de-paciente', estudioControllers.getEstudiosUser)
 
 module.exports = router

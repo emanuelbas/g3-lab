@@ -25,6 +25,16 @@ const getEstudios = async (req, res) => {
         .populate('diagnosticoPresuntivo')
     res.status(200).json(estudios)
 }
+const getEstudiosUser = async (req, res) => {
+    let userid = req.headers.userid;
+    let estudios = await Estudio.find({'paciente':userid})
+    .select('detalleDelDiagnostico precio comprobanteFileName cif interpretacionFN fechaTomaMuestra paciente medicoDerivante tipoDeEstudio diagnosticoPresuntivo obraSocial')
+    .populate('paciente')
+    .populate('medicoDerivante')
+    .populate('tipoDeEstudio')
+    .populate('diagnosticoPresuntivo')
+    res.status(200).json(estudios)
+}
 const altaEstudio = async (req, res) => {
  
     // obtener datos
@@ -455,6 +465,7 @@ module.exports = {
     promedioDuracionEstudioPorAño,
     downloadComprobante,
     downloadConsentimiento,
-    registraTomaMuestra
+    registraTomaMuestra,
+    getEstudiosUser
     
 }

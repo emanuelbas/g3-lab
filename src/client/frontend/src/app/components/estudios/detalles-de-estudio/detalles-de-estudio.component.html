@@ -5,9 +5,16 @@
             <div class="col-lg-8">
                 <div class="card-box task-detail">
                     <div class="media mt-0 m-b-30">
-                        <div class="media-body">
-                            <h5 class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">{{estudio.estado.nombre}}</span></div>
-                    </div>
+                        <div *ngIf="rol == 'Paciente' && estudio.estado.nombrePublico; else estadoNormal">
+                          <h5 class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">{{estudio.estado.nombrePublico}}</span>
+                        </div>
+                        <ng-template #estadoNormal>
+                          <div class="media-body">
+                              <h5  class="media-heading mb-0 mt-0">Detalles de Estudio</h5><span class="badge badge-danger">{{estudio.estado.nombre}}</span>
+                          </div>
+                        </ng-template>
+
+                      </div>
                     <h4 class="m-b-20">Información general del estudio</h4>
                     <p class="text-muted">{{estudio.detalleDelDiagnostico}}</p>
                     <p class="text-muted">En este texto se podría ir incluyendo detalles relvantes junto con URLS que permitan recuperar datos de los estados anteriores</p>
@@ -29,12 +36,12 @@
                             <h5 class="m-b-5">Tipo de Estudio</h5>
                             <p><span class="badge badge-primary">{{estudio.tipoDeEstudio.nombre}}</span></p>
                         </li>
-                        <li *ngIf="estudio.cantMililitosExtraidos">
+                        <li *ngIf="estudio.cantMililitosExtraidos && rol == 'Empleado'">
                           <h5 class="m-b-5">Numero de frizer</h5>
                           <p>Número: {{estudio.numeroFrizer}}</p>
                           <p>Mililitros extraidos: {{estudio.cantMililitosExtraidos}}</p>
                         </li>
-                        <li *ngIf="estudio.lote">
+                        <li *ngIf="estudio.lote && rol == 'Empleado'">
                           <h5 class="m-b-5">Lote</h5>
                           <p>ID: {{estudio.lote._id}}</p>
                           <p>En estado {{estudio.lote.estado}}</p>
@@ -65,12 +72,87 @@
                     <a href="/api/descargar-presupuesto/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarPresupuestoLegado()" class="btn btn-primary m-2" download>Descargar presupuesto</a>
                     <a href="/api/descargar-comprobante/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarComprobanteDePagoSubido()" class="btn btn-primary m-2" download>Descargar comprobante de pago</a>
                     <a href="/api/descargar-cif/{{estudio._id}}" *ngIf="estudio.cif" class="btn btn-primary m-2" download>Descargar consentimiento informado firmado</a>
-                    <a href="/api/descargar-resultado-lote/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarResultadosLote()" class="btn btn-primary m-2" download>Descargar resultados del lote</a>
                     <a href="/api/descargar-interpretacion-muestra/{{estudio._id}}" *ngIf="estudio.interpretacionFN" class="btn btn-primary m-2" download>Descargar interpretacion de muestra</a>
-                    <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
-                    <a href="/api/descargar-consentimiento/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Enviar consentimiento informado a paciente</a>
                     <!-- FinBotones acumulativos  -->
 
+                    <!-- INI - BOTONES SOLO DEL EMPLEADO -->
+                    <div *ngIf="rol == 'Empleado'">
+                    <!-- Toma de muestra ini -->
+                    <a href="/api/descargar-consentimiento/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarCI()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2" download>Enviar consentimiento informado a paciente</a>
+                    <a href="/api/descargar-resultado-lote/{{estudio._id}}" *ngIf="estudioConEstado.verBotonBajarResultadosLote()" class="btn btn-primary m-2" download>Descargar resultados del lote</a>
+                    <button *ngIf="estudioConEstado.verBotonEntregado()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Los resultados fueron envidos al Medico Derivante</button>
+                    <div *ngIf="estudioConEstado.verBotonMuestraTomada()">
+                      
+                      <label for="">Cantidad de mililitros extraidos</label><br>
+                      <input 
+                      (change)="guardaMililitros($event.target)"
+                      type="number" id="mililitros" name="mililitros"
+                      value="5" step="0.5"
+                      min="5" max="12.5"><br>
+                      <label for="">Numero frizer</label><br>
+                      <input 
+                      (change)="guardaNumeroFrizer($event.target)"
+                      type="number" id="frizer" name="frizer"
+                      value="0"
+                      min="1" max="500">
+
+                      <br>
+                      <button *ngIf="mililitrosExtraidos && numeroFrizer" (click)="guardaTomaDeMuestra()">Cargar datos de muestra</button>
+                    </div>
+                    <!-- Toma de muestra fin -->
+
+                    <!-- Procesamiento de lote ini -->
+                    <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
+                    <p *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios < 10">Se está esperando reunir 10 estudios en el lote para poder iniciar el procesamiento. Por ahora hay {{estudio.lote.cantEstudios}}</p>
+                    <button *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios == 10" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento</button>
+                    <!-- Procesamiento de lote fin -->
+
+                    <!-- Ini Subir resultado del lote -->
+                    <div class="input-group" *ngIf="estudioConEstado.verBotonSubirResultado()">
+                      
+                      <div class="input-group-prepend">
+                        <span  class="input-group-text upload"  (click)="uploadResultadoLote(estudio._id)"  id="btnUploadResLote">Subir resultado del lote</span>
+                      </div>
+
+                      <div class="custom-file">
+                          <form action="/api/upload-resultado-lote" method="post" enctype="multipart/form-data">
+                            <input (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                          </form>
+
+                          <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                      </div>
+                    </div>
+                    <!-- Fin Subir resultado del lote -->
+
+                    <!-- Ini Subir interpretacion de muestra --> 
+                    <div class="input-group" *ngIf="estudioConEstado.verBotonSubirInterpretacion()">
+                      
+                      <div class="input-group-prepend">
+                        <span  class="input-group-text upload"  (click)="uploadInterpretacion(estudio._id)"  id="btnUploadResLote">Subir interpretacion de muestra</span>
+                      </div>
+
+                      <div class="custom-file">
+                          <form action="/api/upload-interpretacion-muestra" method="post" enctype="multipart/form-data">
+                            <input (change)="fileChange($event)" type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                          </form>
+
+                          <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                      </div>
+                    </div>
+                    <!-- Fin Subir interpretacion de muestra -->
+
+                    <!-- Ini fallo de lote -->
+                    <button *ngIf="estudioConEstado.verBotonFalloElLote()" (click)="estudioConEstado.pedirNuevaMuestra(estudio._id,estudioService)" class="btn btn-danger m-2">Muestra insuficiente</button>
+                    <!-- Fin fallo de lote -->
+
+                    <!-- pedirNuevoComprobante -->
+                    <button *ngIf="estudioConEstado.verBotonComprobanteInvalido()" (click)="estudioConEstado.pedirNuevoComprobante(estudio._id,estudioService)" class="btn btn-danger m-2">Comprobante de pago no válido</button>
+                    <!-- pedirNuevoComprobante -->
+                    </div>
+                    <!-- FIN - BOTONES SOLO DEL EMPLEADO -->
+
+
+                    <!-- BOTONES PUBLICOS -->
                     <!-- Ini Comprobante de pago-->
                     <div class="input-group" *ngIf="estudioConEstado.verBotonSubirComprobanteDePago()">
                       
@@ -124,75 +206,7 @@
                     </form>
                     <!-- Fin seleccion de turno-->
 
-                    <!-- Toma de muestra ini -->
-                    <div *ngIf="estudioConEstado.verBotonMuestraTomada()">
-              
-                      <label for="">Cantidad de mililitros extraidos</label><br>
-                      <input 
-                      (change)="guardaMililitros($event.target)"
-                      type="number" id="mililitros" name="mililitros"
-                      value="5" step="0.5"
-                      min="5" max="12.5"><br>
-                      <label for="">Numero frizer</label><br>
-                      <input 
-                      (change)="guardaNumeroFrizer($event.target)"
-                      type="number" id="frizer" name="frizer"
-                      value="0"
-                      min="1" max="500">
 
-                      <br>
-                      <button *ngIf="mililitrosExtraidos && numeroFrizer" (click)="guardaTomaDeMuestra()">Cargar datos de muestra</button>
-                    </div>
-                    <!-- Toma de muestra fin -->
-
-                    <!-- Procesamiento de lote ini -->
-                    <button *ngIf="estudioConEstado.verBotonMuestraRetirada()" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Muestra retirada</button>
-                    <p *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios < 10">Se está esperando reunir 10 estudios en el lote para poder iniciar el procesamiento. Por ahora hay {{estudio.lote.cantEstudios}}</p>
-                    <button *ngIf="estudioConEstado.verBotonInciarProcesamiento() && estudio.lote && estudio.lote.cantEstudios == 10" (click)="estudioConEstado.siguiente(estudio._id,estudioService)" class="btn btn-info m-2">Iniciar procesamiento</button>
-                    <!-- Procesamiento de lote fin -->
-
-
-                    <!-- Ini Subir resultado del lote -->
-                    <div class="input-group" *ngIf="estudioConEstado.verBotonSubirResultado()">
-                      
-                      <div class="input-group-prepend">
-                        <span  class="input-group-text upload"  (click)="uploadResultadoLote(estudio._id)"  id="btnUploadResLote">Subir resultado del lote</span>
-                      </div>
-
-                      <div class="custom-file">
-                          <form action="/api/upload-resultado-lote" method="post" enctype="multipart/form-data">
-                            <input (change)="fileChange($event)"  type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
-                          </form>
-
-                          <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
-                      </div>
-                    </div>
-                    <!-- Fin Subir resultado del lote -->
-
-                    <!-- Ini Subir interpretacion de muestra --> 
-                    <div class="input-group" *ngIf="estudioConEstado.verBotonSubirInterpretacion()">
-                      
-                      <div class="input-group-prepend">
-                        <span  class="input-group-text upload"  (click)="uploadInterpretacion(estudio._id)"  id="btnUploadResLote">Subir interpretacion de muestra</span>
-                      </div>
-
-                      <div class="custom-file">
-                          <form action="/api/upload-interpretacion-muestra" method="post" enctype="multipart/form-data">
-                            <input (change)="fileChange($event)" type="file"  class="custom-file-input"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
-                          </form>
-
-                          <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
-                      </div>
-                    </div>
-                    <!-- Fin Subir interpretacion de muestra -->
-
-                    <!-- Ini fallo de lote -->
-                    <button *ngIf="estudioConEstado.verBotonFalloElLote()" (click)="estudioConEstado.pedirNuevaMuestra(estudio._id,estudioService)" class="btn btn-danger m-2">Muestra insuficiente</button>
-                    <!-- Fin fallo de lote -->
-
-                    <!-- pedirNuevoComprobante -->
-                    <button *ngIf="estudioConEstado.verBotonComprobanteInvalido()" (click)="estudioConEstado.pedirNuevoComprobante(estudio._id,estudioService)" class="btn btn-danger m-2">Comprobante de pago no válido</button>
-                    <!-- pedirNuevoComprobante -->
                     
                     <!-- BOTON PARA REINICIAR ESTADO DE UN LOTE -->
                     <!-- <button (click)="estudioConEstado.reiniciarEstado(estudio._id,estudioService)" class="btn btn-danger m-2">Reiniciar estado <small class="text-muted">(test)</small></button> -->

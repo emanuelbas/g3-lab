@@ -14,6 +14,7 @@ import { thresholdSturges } from 'd3';
 })
 export class DetallesDeEstudioComponent implements OnInit {
 
+  rol = localStorage.getItem('rol')
   //formTurnos: FormGroup;
   estudio: any = {
     _id: '',
@@ -168,7 +169,7 @@ export class DetallesDeEstudioComponent implements OnInit {
   //file upload
 
   ngOnInit(): void {
-
+    this.rol = localStorage.getItem("rol")
     this.route.paramMap.subscribe((params: ParamMap) => {
       if (params.get('id')) {
         let id: string = params.get('id') ? params.get('id')! : ''
@@ -178,7 +179,12 @@ export class DetallesDeEstudioComponent implements OnInit {
     });
   }
   backNavigate = () => {
-    this.router.navigate(['/listar-estudios']);
+    if (this.rol == 'Empleado') {
+      this.router.navigate(['/listar-estudios']);
+    } else {
+      this.router.navigate(['/mis-estudios']);
+    }
+    
   }
 
 }

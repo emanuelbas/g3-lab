@@ -71,6 +71,10 @@ export class EstudioService {
   getEstudios(){
     return this.http.get<any>(this.URL + '/obtener-estudios')
   }
+  getEstudiosPaciente(userid:any){
+    let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'userid' : userid });
+    return this.http.get<any>(this.URL + '/estudios-de-paciente', { headers: cpHeaders})
+  }
 
   getEstudiosPorEstado(){
     return this.http.get<any>(this.URL + '/obtener-estudios-por-estado')

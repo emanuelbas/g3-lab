@@ -12,11 +12,19 @@ import { FormsModule }   from '@angular/forms';
   styleUrls: ['./alta-paciente-publico.component.css']
 })
 export class AltaPacientePublicoComponent implements OnInit {
+  edad: any;
   editMode = false;
   user:any = {
     nombre:'',
     apellido:'',
-    fecha_nacimiento:''
+    fecha_nacimiento:'',
+    dni:'',
+    password1:'',
+    password2:'',
+    tutorName:'',
+    tutorSurname:'',
+    tutorDireccion:'',
+    tutorEmail:''
   }
   constructor(
     private pacienteService: PacienteService,
@@ -32,11 +40,15 @@ export class AltaPacientePublicoComponent implements OnInit {
   backNavigate = () => {
     this.router.navigate(['/']);
   }
-
+  calcularEdad = (fecha:any) => {
+    let fechaNac = new Date(fecha.value)
+    var timeDiff = Math.abs(Date.now() - new Date(fechaNac).getTime());
+    this.edad = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+  }
   onSubmit( formPaciente: NgForm ){
-    console.log("Entre al submit")
-    console.log("Entry",this.editMode)
-    console.log("ES VALIDO?: " + formPaciente.invalid)
+// en formPaciente.value.algo tengo los datos
+    console.log(formPaciente.value)
+    return
     if(!formPaciente.invalid){
       !this.editMode ?
         this.pacienteService.createPaciente(formPaciente.value).subscribe(res =>{

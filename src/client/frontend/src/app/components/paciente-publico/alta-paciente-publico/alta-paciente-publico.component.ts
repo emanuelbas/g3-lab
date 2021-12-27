@@ -48,7 +48,35 @@ export class AltaPacientePublicoComponent implements OnInit {
   onSubmit( formPaciente: NgForm ){
 // en formPaciente.value.algo tengo los datos
     console.log(formPaciente.value)
-    return
+    if (!formPaciente.value.name || !formPaciente.value.surname || !formPaciente.value.dni || !formPaciente.value.password1 || !formPaciente.value.password2 || !formPaciente.value.fecha){
+      alert("Falta completar datos")
+      return true
+    }
+    if (this.edad <= 0){
+      alert("Seleccione una edad válida");
+      return true
+    }
+    if (formPaciente.value.password1 != formPaciente.value.password2){
+      alert("Las contraseñas no coinciden")
+      return true
+    }
+    if (this.edad < 18){
+      if (!formPaciente.value.tutorName ||!formPaciente.value.tutorSurname ||!formPaciente.value.tutorDireccion ||!formPaciente.value.tutorEmail){
+        alert("Falta completar datos")
+        return true
+      }
+    } else {
+      if (!formPaciente.value.telefono ||!formPaciente.value.direccion ||!formPaciente.value.email){
+        alert("Falta completar datos")
+        return true
+      }
+    }
+    this.pacienteService.autoregistro(formPaciente.value).subscribe((res)=>{
+      console.log(res);
+      
+      this.router.navigate(['/']);
+    })
+    return true
     if(!formPaciente.invalid){
       !this.editMode ?
         this.pacienteService.createPaciente(formPaciente.value).subscribe(res =>{

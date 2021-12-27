@@ -17,20 +17,19 @@ export class PacienteService {
   }
 
   autoregistro(formPaciente: any) {
-
     let data = {
-      "fechanac": "2021-09-12T08:20:00.043Z",
-      "dni": "342423423",
-      "password": "1234",
-      "name": "Juan",
-      "surname": "Perez",
-      "phone": "234243234",
-      "direccion": "Calle 13 e 5 y 6",
-      "email": "asdadsdas@gmasd.com",
-      "nombretutor": "Tuturcio",
-      "apellidotutor": "Tutorea",
-      "direcciontutor": "Calle 13 e 5 y 6",
-      "emailtutor": "unmai@gmail.com"
+      "fechanac": formPaciente.fecha,
+      "dni": formPaciente.dni,
+      "password": formPaciente.password1,
+      "name": formPaciente.name,
+      "surname": formPaciente.surname,
+      "phone": formPaciente.telefono,
+      "direccion": formPaciente.direccion,
+      "email": formPaciente.email,
+      "nombretutor": formPaciente.tutorName,
+      "apellidotutor": formPaciente.tutorSurname,
+      "direcciontutor": formPaciente.tutorDireccion,
+      "emailtutor": formPaciente.tutorEmail
     }
     return this.http.post<any>(this.URL + '/autoregistro-paciente', data)
   }

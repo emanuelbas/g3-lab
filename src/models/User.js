@@ -15,6 +15,10 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Paciente'
     },
+    tutor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Tutor'
+    },
     rol: String //Puede ser: Admin, Empleado, Configurador, Paciente
 }, {
     timestamps: true

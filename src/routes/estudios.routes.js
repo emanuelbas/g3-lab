@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const estudioControllers = require('../controllers/estudio.controllers');
+const pacienteControllers = require('../controllers/paciente.controllers');
 
 router.get('/', estudioControllers.pruebaHola);
 router.get('/obtener-estudios', estudioControllers.getEstudios)
@@ -15,5 +16,9 @@ router.get('/obtener-duracion-anual', estudioControllers.promedioDuracionEstudio
 router.get('/descargar-consentimiento/:_id', estudioControllers.downloadConsentimiento)
 router.get('/registrar-toma-de-muestra', estudioControllers.registraTomaMuestra)
 router.get('/estudios-de-paciente', estudioControllers.getEstudiosUser)
+
+router.get('/obtener-pacientes', pacienteControllers.getPacientes)
+router.post('/autoregistro-paciente', pacienteControllers.autoregistro)
+
 
 module.exports = router

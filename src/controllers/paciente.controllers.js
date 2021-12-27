@@ -46,16 +46,22 @@ const autoregistro = async (req, res) => {
     const { fechanac, dni, password, name, surname, phone, direccion, email, nombretutor, apellidotutor, direcciontutor, emailtutor } = req.body;
     console.log("Se imprimen todos los datos que entraron");
     console.log(fechanac, dni, password, name, surname, phone, direccion, email, nombretutor, apellidotutor, direcciontutor, emailtutor)
-    return res.status(200).json({})
+    
+    existeDNI = await User.findOne({"email":dni})
+    if (existeDNI){
+        return res.status(400).json({"error":"ya existe el dni"})
+    }
 
+    nuevoTutor = false
     if (nombretutor) {
-        let nuevoTutor = new Tutor({
+        nuevoTutor = new Tutor({
             "nombre" : nombretutor,
             "apellido": apellidotutor,
             "direccion" : direcciontutor,
             "email" : emailtutor,
         })
     }
+
     let nuevoPaciente = new Paciente({
         nombre: name,
         apellido: surname,
@@ -69,7 +75,6 @@ const autoregistro = async (req, res) => {
         nuevoPaciente.email = email
     }
 
-    let registroEmpleado = new Empleado({name, surname, phone})
     let nuevoUsuario = new User({ 
         "email": dni,
         "password":password, 
@@ -79,19 +84,14 @@ const autoregistro = async (req, res) => {
     if (nuevoTutor){
         nuevoUsuario.tutor = nuevoTutor
     }
-    nuevoUsuario.empleado = nuevoPaciente
+    nuevoUsuario.paciente = nuevoPaciente
 
-    console.log("Ahora se deberian guardar estos registros");
-    console.log(nuevoPaciente);
-    console.log(nuevoUsuario);
-    console.log(nuevoTutor);
-    // await nuevoPaciente.save();
-    // await nuevoUsuario.save();
-    // await nuevoTutor.save();
-    
-
-    //const token = jwt.sign({ _id: nuevoUsuario._id }, 'secretKey')
-    res.status(200).json({})
+    await nuevoPaciente.save();
+    await nuevoUsuario.save();
+    if (nuevoTutor){
+        await nuevoTutor.save();
+    }
+    res.status(200).json(nuevoUsuario)
 }
 
 module.exports = {
